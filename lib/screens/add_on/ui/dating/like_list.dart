@@ -6,7 +6,7 @@ import 'package:foap/screens/profile/other_user_profile.dart';
 import 'package:intl/intl.dart';
 
 class LikeList extends StatefulWidget {
-  const LikeList({Key? key}) : super(key: key);
+  const LikeList({super.key}) ;
 
   @override
   State<LikeList> createState() => LikeListState();

@@ -33,11 +33,11 @@ class SMIconTabBar extends StatelessWidget {
   final int selectedTab;
 
   const SMIconTabBar(
-      {Key? key,
+      {super.key,
       required this.tabs,
       this.controller,
       required this.selectedTab})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -62,12 +62,12 @@ class SMIconAndTextTabBar extends StatelessWidget {
   final int selectedTab;
 
   const SMIconAndTextTabBar(
-      {Key? key,
+      {super.key,
       required this.icons,
       required this.texts,
       this.controller,
       required this.selectedTab})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +80,8 @@ class SMIconAndTextTabBar extends StatelessWidget {
             height: 2,
             color: AppColorConstants.dividerColor,
           ).round(5)),
-      getIconAndTexTabBar(icons: icons, texts: texts, selectedTab: selectedTab)
+      getIconAndTexTabBar(
+          icons: icons, texts: texts, selectedTab: selectedTab)
     ]);
   }
 }
@@ -94,9 +95,12 @@ TabBar getTextTabBar(
     padding: EdgeInsets.zero,
     controller: controller,
     isScrollable: canScroll,
+    tabAlignment: canScroll == true ? TabAlignment.start : null,
     dividerHeight: hideDivider ? 0 : 1,
     indicator: UnderlineTabIndicator(
-      borderSide: BorderSide(width: 3.0, color: AppColorConstants.themeColor),
+
+      borderSide:
+          BorderSide(width: 3.0, color: AppColorConstants.themeColor),
       insets: const EdgeInsets.symmetric(horizontal: 16.0),
     ),
     onTap: (status) {
@@ -123,7 +127,8 @@ TabBar getIconTabBar(
   return TabBar(
     controller: controller,
     indicator: UnderlineTabIndicator(
-      borderSide: BorderSide(width: 3.0, color: AppColorConstants.themeColor),
+      borderSide:
+          BorderSide(width: 3.0, color: AppColorConstants.themeColor),
       insets: const EdgeInsets.symmetric(horizontal: 16.0),
     ),
     labelColor: AppColorConstants.themeColor,
@@ -150,7 +155,8 @@ TabBar getIconAndTexTabBar(
   return TabBar(
     controller: controller,
     indicator: UnderlineTabIndicator(
-      borderSide: BorderSide(width: 3.0, color: AppColorConstants.themeColor),
+      borderSide:
+          BorderSide(width: 3.0, color: AppColorConstants.themeColor),
       insets: const EdgeInsets.symmetric(horizontal: 16.0),
     ),
     labelColor: AppColorConstants.themeColor,

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:foap/components/search_bar.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/manager/player_manager.dart';
 import 'package:foap/segmentAndMenu/horizontal_menu.dart';

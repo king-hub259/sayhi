@@ -1,4 +1,3 @@
-import 'package:foap/helper/imports/club_imports.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/models.dart';
 
@@ -33,7 +32,7 @@ class _ClubPostTileState extends State<ClubPostTile> {
         //       right: 20,
         //       bottom: 20,
         //       child: Container(
-        //         color: AppColorConstants.backgroundColor.withOpacity(0.8),
+        //         color: AppColorConstants.backgroundColor.withValues(alpha: 0.8),
         //         child: BodyLargeText(joinString.tr).p8,
         //       ).round(10).ripple((() {
         //         Get.to(() => ClubDetail(

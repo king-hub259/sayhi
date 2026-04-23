@@ -5,7 +5,7 @@ import 'package:foap/model/job_model.dart';
 class ApplyJob extends StatefulWidget {
   final JobModel job;
 
-  const ApplyJob(this.job, {Key? key}) : super(key: key);
+  const ApplyJob(this.job, {super.key}) ;
 
   @override
   State<ApplyJob> createState() => ApplyJobState();

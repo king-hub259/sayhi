@@ -1,0 +1,1 @@
+/Users/kanwarpalsingh/Downloads/sayhi_complete_v1_5/sayhi/SayHi_mobile/build/app/intermediates/cxx/RelWithDebInfo/634pl5y2/obj/arm64-v8a

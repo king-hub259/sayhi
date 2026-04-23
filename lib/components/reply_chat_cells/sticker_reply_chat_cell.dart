@@ -7,11 +7,11 @@ class ReplyStickerChatTile extends StatelessWidget {
   final Function(ChatMessageModel) messageTapHandler;
 
   const ReplyStickerChatTile(
-      {Key? key,
+      {super.key,
         required this.message,
         required this.replyMessageTapHandler,
         required this.messageTapHandler})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class ReplyStickerChatTile extends StatelessWidget {
             height: 70,
             color: message.isMineMessage
                 ? AppColorConstants.disabledColor
-                : AppColorConstants.themeColor.withOpacity(0.2),
+                : AppColorConstants.themeColor.withValues(alpha: 0.2),
             child: ReplyOriginalMessageTile(
                 message: message.repliedOnMessage,
                 replyMessageTapHandler: replyMessageTapHandler))

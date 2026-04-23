@@ -4,7 +4,7 @@ import '../../helper/imports/common_import.dart';
 class JobCard extends StatelessWidget {
   final JobModel job;
 
-  const JobCard({Key? key, required this.job}) : super(key: key);
+  const JobCard({super.key, required this.job}) ;
 
   @override
   Widget build(BuildContext context) {

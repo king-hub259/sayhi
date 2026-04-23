@@ -6,7 +6,7 @@ import '../../helper/imports/common_import.dart';
 class AboutOffer extends StatelessWidget {
   final OfferModel offer;
 
-  const AboutOffer({Key? key, required this.offer}) : super(key: key);
+  const AboutOffer({super.key, required this.offer});
 
   @override
   Widget build(BuildContext context) {

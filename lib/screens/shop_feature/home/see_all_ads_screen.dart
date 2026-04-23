@@ -1,4 +1,3 @@
-import 'package:foap/components/search_bar.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../model/shop_model/advertisement.dart';

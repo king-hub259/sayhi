@@ -18,7 +18,7 @@ class TvDashboardController extends GetxController {
 }
 
 class TvDashboardScreen extends StatefulWidget {
-  const TvDashboardScreen({Key? key}) : super(key: key);
+  const TvDashboardScreen({super.key}) ;
 
   @override
   TvDashboardScreenState createState() => TvDashboardScreenState();

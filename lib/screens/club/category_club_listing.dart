@@ -10,8 +10,8 @@ import '../../segmentAndMenu/horizontal_menu.dart';
 class CategoryClubsListing extends StatefulWidget {
   final CategoryModel category;
 
-  const CategoryClubsListing({Key? key, required this.category})
-      : super(key: key);
+  const CategoryClubsListing({super.key, required this.category})
+      ;
 
   @override
   CategoryClubsListingState createState() => CategoryClubsListingState();

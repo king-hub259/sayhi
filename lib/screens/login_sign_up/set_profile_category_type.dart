@@ -6,8 +6,8 @@ import '../../model/category_model.dart';
 class SetProfileCategoryType extends StatefulWidget {
   final bool isFromSignup;
 
-  const SetProfileCategoryType({Key? key, required this.isFromSignup})
-      : super(key: key);
+  const SetProfileCategoryType({super.key, required this.isFromSignup})
+      ;
 
   @override
   State<SetProfileCategoryType> createState() => _SetProfileCategoryTypeState();

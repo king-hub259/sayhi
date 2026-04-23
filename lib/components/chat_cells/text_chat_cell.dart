@@ -9,7 +9,7 @@ import '../link_preview.dart';
 class TextChatTile extends StatelessWidget {
   final ChatMessageModel message;
 
-  const TextChatTile({Key? key, required this.message}) : super(key: key);
+  const TextChatTile({super.key, required this.message}) ;
 
   @override
   Widget build(BuildContext context) {

@@ -4,8 +4,8 @@ import '../settings_menu/packages_screen.dart';
 class EarnCoinForContestPopup extends StatefulWidget {
   final int needCoins;
 
-  const EarnCoinForContestPopup({Key? key, required this.needCoins})
-      : super(key: key);
+  const EarnCoinForContestPopup({super.key, required this.needCoins})
+      ;
 
   @override
   State<EarnCoinForContestPopup> createState() =>

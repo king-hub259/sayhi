@@ -16,7 +16,7 @@ class AskGalleryPermission extends StatelessWidget {
           Container(
             height: 200,
             width: 200,
-            color: AppColorConstants.themeColor.withOpacity(0.1),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.1),
             child: ThemeIconWidget(
               ThemeIcon.gallery,
               size: 100,
@@ -37,7 +37,7 @@ class AskGalleryPermission extends StatelessWidget {
           AppThemeButton(
               text: nextString.tr,
               onPress: () async {
-                var status = await Permission.photos.request();
+                await Permission.photos.request();
                 Get.to(()=> AskMicPermission());
               }),
         ],

@@ -1,11 +1,12 @@
 import 'dart:math';
 import 'package:foap/components/post_card/post_card.dart';
 import 'package:foap/components/sm_tab_bar.dart';
-import 'package:foap/components/static_map_widget.dart';
 import 'package:foap/helper/imports/event_imports.dart';
+import 'package:foap/helper/imports/profile_imports.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../post/add_post_screen.dart';
 
 class EventDetail extends StatefulWidget {
@@ -23,8 +24,8 @@ class EventDetail extends StatefulWidget {
 }
 
 class EventDetailState extends State<EventDetail> {
-  final EventDetailController _eventDetailController = EventDetailController();
-  final UserProfileManager _userProfileManager = Get.find();
+  final EventDetailController _eventDetailController =
+      EventDetailController();
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   List<String> tabs = [aboutString.tr, postsString.tr];
@@ -60,6 +61,7 @@ class EventDetailState extends State<EventDetail> {
                         fit: BoxFit.cover,
                       )),
                   appBar(),
+                  actionButtons()
                 ],
               ),
               SMTabBar(tabs: tabs, canScroll: false),
@@ -86,9 +88,38 @@ class EventDetailState extends State<EventDetail> {
                 weight: TextWeight.semiBold,
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               attendingUsersList(),
+              const SizedBox(
+                height: 10,
+              ),
+              if (widget.event.shareLink != null)
+                IntrinsicHeight(
+                  child: IntrinsicWidth(
+                    child: Container(
+                      color: AppColorConstants.themeColor,
+                      child: Row(
+                        children: [
+                          ThemeIconWidget(
+                            ThemeIcon.share,
+                            color: Colors.white,
+                            size: 15,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          BodySmallText(
+                            shareEventString.tr,
+                            color: Colors.white,
+                          )
+                        ],
+                      ).p8,
+                    ).circular,
+                  ),
+                ).ripple(() {
+                  Share.share(widget.event.shareLink!);
+                }),
               divider().vp(20),
               eventInfo(),
               divider().vp(20),
@@ -112,8 +143,10 @@ class EventDetailState extends State<EventDetail> {
               ? Container()
               : _eventDetailController.event.value?.isCompleted == true
                   ? eventClosedWidget()
-                  : _eventDetailController.event.value?.ticketsAdded == true
-                      ? _eventDetailController.event.value?.isSoldOut == true
+                  : _eventDetailController.event.value?.ticketsAdded ==
+                          true
+                      ? _eventDetailController.event.value?.isSoldOut ==
+                              true
                           ? soldOutWidget()
                           : buyTicketWidget()
                       : ticketNotAddedWidget())
@@ -128,7 +161,8 @@ class EventDetailState extends State<EventDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                    color: AppColorConstants.themeColor.withOpacity(0.2),
+                    color: AppColorConstants.themeColor
+                        .withValues(alpha: 0.2),
                     child: ThemeIconWidget(ThemeIcon.calendar,
                             color: AppColorConstants.themeColor)
                         .p8)
@@ -157,7 +191,8 @@ class EventDetailState extends State<EventDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                    color: AppColorConstants.themeColor.withOpacity(0.2),
+                    color: AppColorConstants.themeColor
+                        .withValues(alpha: 0.2),
                     child: ThemeIconWidget(ThemeIcon.location,
                             color: AppColorConstants.themeColor)
                         .p8)
@@ -169,7 +204,8 @@ class EventDetailState extends State<EventDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BodyLargeText(locationString.tr, weight: TextWeight.medium),
+                  BodyLargeText(locationString.tr,
+                      weight: TextWeight.medium),
                   const SizedBox(
                     height: 5,
                   ),
@@ -181,12 +217,13 @@ class EventDetailState extends State<EventDetail> {
             )
           ],
         ),
-        if (!widget.event.isFree)
+        if (!widget.event.isFree && widget.event.minTicketPrice != null)
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                      color: AppColorConstants.themeColor.withOpacity(0.2),
+                      color: AppColorConstants.themeColor
+                          .withValues(alpha: 0.2),
                       child: ThemeIconWidget(ThemeIcon.calendar,
                               color: AppColorConstants.themeColor)
                           .p8)
@@ -202,7 +239,7 @@ class EventDetailState extends State<EventDetail> {
                     height: 5,
                   ),
                   BodySmallText(
-                      '\$${_eventDetailController.minTicketPrice} - \$${_eventDetailController.maxTicketPrice} ',
+                      '\$${widget.event.minTicketPrice} - \$${widget.event.maxTicketPrice} ',
                       weight: TextWeight.regular)
                 ],
               )
@@ -253,17 +290,49 @@ class EventDetailState extends State<EventDetail> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Obx(() {
-          return _eventDetailController.event.value?.organizers.isNotEmpty ==
+          return _eventDetailController
+                      .event.value?.organizers.isNotEmpty ==
                   true
-              ? Column(
-                  children: [
-                    for (EventOrganizer sponsor
-                        in _eventDetailController.event.value?.organizers ?? [])
-                      Row(
+              ? Container(
+                  color: AppColorConstants.cardColor,
+                  child: Column(
+                    children: [
+                      for (EventOrganizer sponsor in _eventDetailController
+                              .event.value?.organizers ??
+                          [])
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AvatarView(
+                              name: sponsor.name,
+                              size: 30,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BodyLargeText(sponsor.name,
+                                    weight: TextWeight.regular),
+                                BodySmallText(organizerString.tr,
+                                    weight: TextWeight.regular),
+                              ],
+                            )
+                          ],
+                        ).bP16,
+                    ],
+                  ).p16,
+                ).round(20)
+              : _eventDetailController.event.value?.createdByUser != null
+                  ? Container(
+                      color: AppColorConstants.cardColor,
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           UserAvatarView(
-                            user: _userProfileManager.user.value!,
+                            user: _eventDetailController
+                                .event.value!.createdByUser,
                             size: 30,
                             hideLiveIndicator: true,
                             hideOnlineIndicator: true,
@@ -274,17 +343,22 @@ class EventDetailState extends State<EventDetail> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              BodyLargeText(sponsor.name,
+                              BodyLargeText(
+                                  _eventDetailController
+                                      .event.value!.createdByUser.userName,
                                   weight: TextWeight.regular),
                               BodySmallText(organizerString.tr,
                                   weight: TextWeight.regular),
                             ],
                           )
                         ],
-                      ).bP16,
-                  ],
-                )
-              : Container();
+                      ).p16,
+                    ).round(20).ripple(() {
+                      Get.to(() => OtherUserProfile(
+                          userId: _eventDetailController
+                              .event.value!.createdByUser.id));
+                    })
+                  : Container();
         }),
         const SizedBox(
           height: 25,
@@ -293,7 +367,8 @@ class EventDetailState extends State<EventDetail> {
         const SizedBox(
           height: 10,
         ),
-        BodyLargeText(widget.event.description, weight: TextWeight.regular),
+        BodyLargeText(widget.event.description,
+            weight: TextWeight.regular),
         const SizedBox(
           height: 40,
         ),
@@ -314,6 +389,7 @@ class EventDetailState extends State<EventDetail> {
           longitude: double.parse(widget.event.longitude),
           height: 250,
           width: Get.width.toInt(),
+          apiKey: AppConfigConstants.googleMapApiKey,
         ).ripple(() {
           openDirections();
         }),
@@ -383,33 +459,9 @@ class EventDetailState extends State<EventDetail> {
   }
 
   Widget attendingUsersList() {
-    return Row(
-      children: [
-        // SizedBox(
-        //   height: 20,
-        //   width: min(widget.event.gallery.length, 5) * 17,
-        //   child: ListView.builder(
-        //     scrollDirection: Axis.horizontal,
-        //     itemBuilder: (ctx, index) {
-        //       return Align(
-        //         widthFactor: 0.6,
-        //         child: CachedNetworkImage(
-        //           imageUrl: widget.event.gallery[index],
-        //           width: 20,
-        //           height: 20,
-        //           fit: BoxFit.cover,
-        //         ).borderWithRadius( value: 1, radius: 10),
-        //       );
-        //     },
-        //     itemCount: min(widget.event.gallery.length, 5),
-        //   ),
-        // ),
-        BodySmallText(
-            '${widget.event.totalMembers} ${goingString.tr.toLowerCase()}',
-            weight: TextWeight.regular),
-        const Spacer()
-      ],
-    );
+    return BodyLargeText(
+        '${widget.event.totalMembers} ${goingString.tr.toLowerCase()}',
+        weight: TextWeight.regular);
   }
 
   Widget ticketNotAddedWidget() {
@@ -486,9 +538,10 @@ class EventDetailState extends State<EventDetail> {
               ).hp(DesignConstants.horizontalPadding),
               SizedBox(
                 height: 40,
-                width: Get.width * 0.3,
                 child: AppThemeButton(
-                  text: buyTicketString.tr,
+                  text: _eventDetailController.event.value!.isTicketBooked
+                      ? buyMoreTicketString.tr
+                      : buyTicketString.tr,
                   onPress: () {
                     Get.to(() => BuyTicket(
                           event: _eventDetailController.event.value!,
@@ -507,12 +560,14 @@ class EventDetailState extends State<EventDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Heading6Text(eventGalleryString.tr, weight: TextWeight.medium),
+                Heading6Text(eventGalleryString.tr,
+                    weight: TextWeight.medium),
                 BodyLargeText(
                   seeAllString.tr,
                   color: AppColorConstants.themeColor,
                 ).ripple(() {
-                  Get.to(() => EventGallery(event: widget.event));
+                  Get.to(() =>
+                      EventGallery(eventGallery: widget.event.gallery));
                 }),
               ],
             ),
@@ -586,8 +641,8 @@ class EventDetailState extends State<EventDetail> {
                 end: FractionalOffset.bottomCenter,
                 colors: [
                   Colors.black,
-                  Colors.black.withOpacity(0.5),
-                  Colors.grey.withOpacity(0.0),
+                  Colors.black.withValues(alpha: 0.5),
+                  Colors.grey.withValues(alpha: 0.0),
                 ],
                 stops: const [
                   0.0,
@@ -613,21 +668,89 @@ class EventDetailState extends State<EventDetail> {
                 Future.delayed(
                   Duration.zero,
                   () => showGeneralDialog(
-                      context: context,
-                      pageBuilder: (context, animation, secondaryAnimation) =>
-                          AddPostScreen(
-                            postType: PostType.event,
-                            event: widget.event,
-                            postCompletionHandler: () {
-                              _eventDetailController.refreshPosts(
-                                  id: widget.event.id, callback: () {});
-                            },
-                          )),
+                      context: Get.context!,
+                      pageBuilder:
+                          (context, animation, secondaryAnimation) =>
+                              AddPostScreen(
+                                postType: PostCategory.event,
+                                event: widget.event,
+                                postCompletionHandler: () {
+                                  _eventDetailController.refreshPosts(
+                                      id: widget.event.id,
+                                      callback: () {});
+                                },
+                              )),
                 );
               }),
           ],
         ).hp(DesignConstants.horizontalPadding),
       ),
+    );
+  }
+
+  Widget actionButtons() {
+    return Positioned(
+      bottom: 10,
+      left: DesignConstants.horizontalPadding,
+      right: DesignConstants.horizontalPadding,
+      child: Obx(() => Row(
+            children: [
+              Container(
+                color: AppColorConstants.green,
+                child: Row(
+                  children: [
+                    ThemeIconWidget(ThemeIcon.thumbsUp,
+                        color: Colors.white),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    BodyMediumText(goingString.tr, color: Colors.white),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    _eventDetailController.event.value?.reaction ==
+                            ReactionOnEvent.interested
+                        ? ThemeIconWidget(ThemeIcon.checkMark,
+                            color: Colors.white)
+                        : Container(),
+                  ],
+                ).p8,
+              ).round(10).ripple(() {
+                _eventDetailController.joinEvent();
+              }),
+              const SizedBox(
+                width: 10,
+              ),
+              _eventDetailController.event.value?.isTicketBooked == false
+                  ? Container(
+                      color: AppColorConstants.red,
+                      child: Row(
+                        children: [
+                          ThemeIconWidget(ThemeIcon.thumbsDown,
+                              color: Colors.white),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          BodyMediumText(
+                            notInterestedString.tr,
+                            color: Colors.white,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          _eventDetailController.event.value?.reaction ==
+                                  ReactionOnEvent.notInterested
+                              ? ThemeIconWidget(ThemeIcon.checkMark,
+                                  color: Colors.white)
+                              : Container(),
+                        ],
+                      ).p8,
+                    ).round(10).ripple(() {
+                      _eventDetailController.leaveEvent();
+                    })
+                  : Container()
+            ],
+          )),
     );
   }
 }

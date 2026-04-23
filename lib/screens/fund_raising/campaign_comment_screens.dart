@@ -7,8 +7,8 @@ import '../../components/post_card/comment_card.dart';
 
 class CampaignCommentsScreen extends StatefulWidget {
   const CampaignCommentsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  }) ;
 
   @override
   CampaignCommentsScreenState createState() => CampaignCommentsScreenState();

@@ -11,8 +11,8 @@ class AudioSongPlayer extends StatefulWidget {
   int currentSongIndex;
 
   AudioSongPlayer(
-      {Key? key, this.songsArray, this.show, required this.currentSongIndex})
-      : super(key: key);
+      {super.key, this.songsArray, this.show, required this.currentSongIndex})
+      ;
 
   @override
   State<AudioSongPlayer> createState() => _AudioSongPlayerState();
@@ -82,8 +82,8 @@ class _AudioSongPlayerState extends State<AudioSongPlayer> {
                           end: Alignment.bottomCenter,
                           colors: [
                         Colors.black,
-                        Colors.black.withOpacity(0.3),
-                        Colors.black.withOpacity(0.1),
+                        Colors.black.withValues(alpha: 0.3),
+                        Colors.black.withValues(alpha: 0.1),
                       ])),
                 ),
                 Column(

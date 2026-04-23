@@ -8,7 +8,7 @@ import 'package:foap/helper/imports/common_import.dart';
 class PodcastDetail extends StatefulWidget {
   final PodcastModel podcastModel;
 
-  const PodcastDetail({Key? key, required this.podcastModel}) : super(key: key);
+  const PodcastDetail({super.key, required this.podcastModel}) ;
 
   @override
   State<PodcastDetail> createState() => _PodcastDetailState();

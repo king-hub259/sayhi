@@ -7,7 +7,7 @@ import 'business_detail.dart';
 class BusinessList extends StatelessWidget {
   final NearByOffersController _nearByOffersController = Get.find();
 
-  BusinessList({Key? key}) : super(key: key);
+  BusinessList({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

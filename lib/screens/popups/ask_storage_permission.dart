@@ -1,9 +1,7 @@
 import 'package:foap/helper/imports/common_import.dart';
-import 'package:foap/screens/login_sign_up/ask_to_follow.dart';
 import 'package:foap/util/shared_prefs.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../dashboard/loading.dart';
-import 'ask_image_permission.dart';
 
 class AskStoragePermission extends StatelessWidget {
   const AskStoragePermission({super.key});
@@ -19,7 +17,7 @@ class AskStoragePermission extends StatelessWidget {
           Container(
             height: 200,
             width: 200,
-            color: AppColorConstants.themeColor.withOpacity(0.1),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.1),
             child: ThemeIconWidget(
               ThemeIcon.files,
               size: 100,

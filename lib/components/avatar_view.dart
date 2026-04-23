@@ -8,11 +8,7 @@ class AvatarView extends StatelessWidget {
   final Color? borderColor;
 
   const AvatarView(
-      {super.key,
-      required this.url,
-      this.size = 60,
-      this.borderColor,
-      this.name});
+      {super.key, this.url, this.size = 60, this.borderColor, this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +80,7 @@ class UserAvatarView extends StatelessWidget {
           user.liveCallDetail != null && hideLiveIndicator == false
               ? liveUserWidget(
                   size: size ?? 60,
-                ).ripple(() {
-                  if (onTapHandler != null) {
-                    onTapHandler!();
-                  }
-                })
+                )
               : userPictureView(
                   size: size ?? 60,
                 ),
@@ -107,9 +99,21 @@ class UserAvatarView extends StatelessWidget {
                         : Colors.transparent,
                   ).circular)
               : Container(),
+          user.isVIPUser == true
+              ? Positioned(
+                  right: 0,
+                  top: 0,
+                  child: Image.asset('assets/vip.png',
+                      height: (size ?? 60) * 0.4,
+                      width: (size ?? 60) * 0.4))
+              : Container(),
         ],
       ),
-    );
+    ).ripple(() {
+      if (onTapHandler != null) {
+        onTapHandler!();
+      }
+    });
   }
 
   Widget userPictureView({

@@ -8,8 +8,8 @@ class CategoryAvatarType1 extends StatelessWidget {
   final CategoryModel category;
   final double? size;
 
-  const CategoryAvatarType1({Key? key, required this.category, this.size})
-      : super(key: key);
+  const CategoryAvatarType1({super.key, required this.category, this.size})
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,8 @@ class CategoryAvatarType2 extends StatelessWidget {
   final CategoryModel category;
   final double? size;
 
-  const CategoryAvatarType2({Key? key, required this.category, this.size})
-      : super(key: key);
+  const CategoryAvatarType2({super.key, required this.category, this.size})
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +73,8 @@ class OfferCategoryCard extends StatelessWidget {
   final OffersCategoryModel category;
   final double? size;
 
-  const OfferCategoryCard({Key? key, required this.category, this.size})
-      : super(key: key);
+  const OfferCategoryCard({super.key, required this.category, this.size})
+      ;
 
   @override
   Widget build(BuildContext context) {

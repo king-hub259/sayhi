@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:foap/helper/imports/chat_imports.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/story_imports.dart';
@@ -11,6 +12,7 @@ import '../../controllers/home/home_controller.dart';
 import '../../model/post_model.dart';
 import '../content_creator_view.dart';
 import '../dashboard/dashboard_screen.dart';
+import '../dashboard/map_screen.dart';
 import '../settings_menu/settings_controller.dart';
 
 class HomeFeedScreen extends StatefulWidget {
@@ -87,22 +89,44 @@ class HomeFeedState extends State<HomeFeedScreen> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // menuView(),
             const SizedBox(
               height: 55,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Heading3Text(
+                Heading4Text(
                   AppConfigConstants.appName,
                   weight: TextWeight.semiBold,
                   color: AppColorConstants.themeColor,
                 ),
                 const Spacer(),
+                Obx(() => CupertinoSegmentedControl(
+                    groupValue: _homeController.selectedSegment.value,
+                    children: <int, Widget>{
+                      0: BodySmallText(
+                        allString.tr,
+                        color: _homeController.selectedSegment.value == 0
+                            ? Colors.white
+                            : null,
+                      ).hP4,
+                      1: BodySmallText(followingString.tr,
+                              color:
+                                  _homeController.selectedSegment.value ==
+                                          1
+                                      ? Colors.white
+                                      : null)
+                          .hP4,
+                    },
+                    unselectedColor: AppColorConstants.backgroundColor,
+                    selectedColor: AppColorConstants.themeColor,
+                    onValueChanged: (value) {
+                      _homeController.selectSegment(value! as int);
+                    })),
+                const Spacer(),
                 SizedBox(
-                    height: 35,
-                    width: 35,
+                    height: 30,
+                    width: 30,
                     child: ThemeIconWidget(
                       ThemeIcon.plus,
                       size: 25,
@@ -110,21 +134,30 @@ class HomeFeedState extends State<HomeFeedScreen> {
                   Future.delayed(
                     Duration.zero,
                     () => showGeneralDialog(
-                        context: context,
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            //  AddPostScreen(
-                            //   postType: PostType.basic,
-                            //   postCompletionHandler: () {},
-                            // )
-                            const ContentCreatorView()),
+                        context: Get.context!,
+                        pageBuilder:
+                            (context, animation, secondaryAnimation) =>
+                                const ContentCreatorView()),
                   );
                 }),
                 const SizedBox(
-                  width: 20,
+                  width: 5,
                 ),
+                // SizedBox(
+                //     height: 30,
+                //     width: 30,
+                //     child: ThemeIconWidget(
+                //       ThemeIcon.map,
+                //       size: 25,
+                //     )).ripple(() {
+                //   Get.to(() => MapsUsersScreen());
+                // }),
+                // const SizedBox(
+                //   width: 5,
+                // ),
                 SizedBox(
-                  height: 35,
-                  width: 35,
+                  height: 30,
+                  width: 30,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -134,22 +167,23 @@ class HomeFeedState extends State<HomeFeedScreen> {
                       ).ripple(() {
                         Get.to(() => const ChatHistory());
                       }),
-                      Obx(() => _dashboardController.unreadMsgCount.value == 0
-                          ? Container()
-                          : Positioned(
-                              top: 0,
-                              right: 5,
-                              child: Container(
-                                color: AppColorConstants.red,
-                                height: 10,
-                                width: 10,
-                              ).circular,
-                            ))
+                      Obx(() =>
+                          _dashboardController.unreadMsgCount.value == 0
+                              ? Container()
+                              : Positioned(
+                                  top: 0,
+                                  right: 5,
+                                  child: Container(
+                                    color: AppColorConstants.red,
+                                    height: 10,
+                                    width: 10,
+                                  ).circular,
+                                ))
                     ],
                   ),
                 ),
               ],
-            ).hp(20),
+            ).hp(10),
             const SizedBox(
               height: 20,
             ),
@@ -170,17 +204,21 @@ class HomeFeedState extends State<HomeFeedScreen> {
                 _addPostController.postingMedia.isNotEmpty &&
                         _addPostController.postingMedia.first.mediaType !=
                             GalleryMediaType.gif
-                    ? _addPostController.postingMedia.first.thumbnail != null
+                    ? _addPostController.postingMedia.first.thumbnail !=
+                            null
                         ? Image.memory(
-                            _addPostController.postingMedia.first.thumbnail!,
+                            _addPostController
+                                .postingMedia.first.thumbnail!,
                             fit: BoxFit.cover,
                             width: 40,
                             height: 40,
                           ).round(5)
-                        : _addPostController.postingMedia.first.mediaType ==
+                        : _addPostController
+                                    .postingMedia.first.mediaType ==
                                 GalleryMediaType.photo
                             ? Image.file(
-                                _addPostController.postingMedia.first.file!,
+                                _addPostController
+                                    .postingMedia.first.file!,
                                 fit: BoxFit.cover,
                                 width: 40,
                                 height: 40,
@@ -233,28 +271,35 @@ class HomeFeedState extends State<HomeFeedScreen> {
           builder: (ctx) {
             return StoryUpdatesBar(
               stories: _homeController.stories,
-              liveUsers: _homeController.liveUsers,
+              // liveUsers: _homeController.liveUsers,
               addStoryCallback: () {
                 openStoryUploader();
               },
               viewStoryCallback: (story) {
-                Get.to(() => StoryViewer(
-                      story: story,
-                      storyDeleted: () {
-                        _homeController.getStories();
-                      },
-                    ));
+                if (story.isLive) {
+                  LiveModel live = LiveModel();
+                  live.channelName =
+                      story.user!.liveCallDetail!.channelName;
+                  live.mainHostUserDetail = story.user;
+                  live.token = story.user!.liveCallDetail!.token;
+                  live.id = story.user!.liveCallDetail!.id;
+                  _agoraLiveController.joinAsAudience(
+                    live: live,
+                  );
+                } else {
+                  Get.to(
+                      () => StoryViewer(
+                            story: story,
+                            storyDeleted: () {
+                              _homeController.getStories();
+                            },
+                          ),
+                      fullscreenDialog: true);
+                }
               },
-              joinLiveUserCallback: (user) {
-                LiveModel live = LiveModel();
-                live.channelName = user.liveCallDetail!.channelName;
-                live.mainHostUserDetail = user;
-                live.token = user.liveCallDetail!.token;
-                live.id = user.liveCallDetail!.id;
-                _agoraLiveController.joinAsAudience(
-                  live: live,
-                );
-              },
+              // joinLiveUserCallback: (user) {
+              //
+              // },
             ).hp(DesignConstants.horizontalPadding / 2);
           }),
     );

@@ -46,10 +46,12 @@ class DatingController extends GetxController {
   }
 
   getUserPreference(VoidCallback handler) {
+    Loader.show();
     DatingApi.getUserPreferenceApi(resultCallback: (result) {
       preferenceModel = result;
       update();
       handler();
+      Loader.dismiss();
     });
   }
 

@@ -85,6 +85,8 @@ enum ThemeIcon {
   avatar,
   card,
   thumbsUp,
+  thumbsDown,
+
   mic,
   micOff,
   book,
@@ -146,6 +148,9 @@ enum ThemeIcon {
   textBackground,
   done,
   fundRaisingCampaign,
+  pin,
+  noData,
+  poll
 }
 
 class ThemeIconWidget extends StatelessWidget {
@@ -539,6 +544,12 @@ class ThemeIconWidget extends StatelessWidget {
       case ThemeIcon.thumbsUp:
         return Icon(
           Icons.thumb_up_alt_outlined,
+          size: size ?? 20,
+          color: color ?? AppColorConstants.iconColor,
+        );
+      case ThemeIcon.thumbsDown:
+        return Icon(
+          Icons.thumb_down_alt_outlined,
           size: size ?? 20,
           color: color ?? AppColorConstants.iconColor,
         );
@@ -1034,6 +1045,24 @@ class ThemeIconWidget extends StatelessWidget {
       case ThemeIcon.fundRaisingCampaign:
         return Icon(
           Icons.campaign,
+          size: size ?? 20,
+          color: color ?? AppColorConstants.iconColor,
+        );
+      case ThemeIcon.pin:
+        return Icon(
+          Icons.push_pin,
+          size: size ?? 20,
+          color: color ?? AppColorConstants.iconColor,
+        );
+      case ThemeIcon.noData:
+        return Icon(
+          Icons.search_off,
+          size: size ?? 20,
+          color: color ?? AppColorConstants.iconColor,
+        );
+      case ThemeIcon.poll:
+        return Icon(
+          Icons.poll_outlined,
           size: size ?? 20,
           color: color ?? AppColorConstants.iconColor,
         );

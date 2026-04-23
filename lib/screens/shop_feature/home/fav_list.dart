@@ -5,7 +5,7 @@ import '../components/ad_card.dart';
 import 'ad_detail_screen.dart';
 
 class FavProductsListScreen extends StatefulWidget {
-  const FavProductsListScreen({Key? key}) : super(key: key);
+  const FavProductsListScreen({super.key}) ;
 
   @override
   FavProductsListScreenState createState() => FavProductsListScreenState();

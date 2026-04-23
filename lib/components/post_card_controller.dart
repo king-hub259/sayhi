@@ -54,7 +54,8 @@ class PostCardController extends GetxController {
       likedPosts.remove(post);
     }
     likedPosts.refresh();
-    post.totalLike = post.isLike ? (post.totalLike) + 1 : (post.totalLike) - 1;
+    post.totalLike =
+        post.isLike ? (post.totalLike) + 1 : (post.totalLike) - 1;
 
     PostApi.likeUnlikePost(like: post.isLike, postId: post.id);
   }
@@ -81,7 +82,8 @@ class PostCardController extends GetxController {
     PostApi.addPost(
         sharingPostId: postId,
         allowComments: enableComments,
-        postType: PostType.reshare,
+        isPaidContent: false,
+        postType: PostCategory.reshare,
         postContentType: PostContentType.text,
         gallery: [],
         title: comment,

@@ -1,7 +1,6 @@
 import 'package:foap/helper/imports/common_import.dart';
 import '../../components/category_slider.dart';
 import '../../components/paging_scrollview.dart';
-import '../../components/search_bar.dart';
 import '../../controllers/coupons/near_by_offers.dart';
 import '../../model/category_model.dart';
 import 'offers_list.dart';
@@ -10,8 +9,8 @@ class ExploreOffers extends StatefulWidget {
   final bool addBackBtn;
   final OffersCategoryModel? category;
 
-  const ExploreOffers({Key? key, required this.addBackBtn, this.category})
-      : super(key: key);
+  const ExploreOffers({super.key, required this.addBackBtn, this.category})
+      ;
 
   @override
   State<ExploreOffers> createState() => _ExploreOffersState();

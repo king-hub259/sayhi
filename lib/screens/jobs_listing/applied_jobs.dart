@@ -4,7 +4,7 @@ import 'package:foap/screens/jobs_listing/jobs_list.dart';
 import '../../components/paging_scrollview.dart';
 
 class AppliedJobs extends StatefulWidget {
-  const AppliedJobs({Key? key}) : super(key: key);
+  const AppliedJobs({super.key}) ;
 
   @override
   State<AppliedJobs> createState() => _AppliedJobsState();

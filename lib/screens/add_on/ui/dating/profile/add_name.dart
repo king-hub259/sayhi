@@ -6,7 +6,7 @@ import 'package:foap/helper/imports/common_import.dart';
 class AddName extends StatefulWidget {
   final bool isSettingProfile;
 
-  const AddName({Key? key, required this.isSettingProfile}) : super(key: key);
+  const AddName({super.key, required this.isSettingProfile}) ;
 
   @override
   State<AddName> createState() => _AddNameState();

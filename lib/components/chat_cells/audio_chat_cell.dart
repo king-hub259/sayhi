@@ -6,7 +6,7 @@ import '../audio_progress_bar.dart';
 class AudioChatTile extends StatefulWidget {
   final ChatMessageModel message;
 
-  const AudioChatTile({Key? key, required this.message}) : super(key: key);
+  const AudioChatTile({super.key, required this.message}) ;
 
   @override
   State<AudioChatTile> createState() => _AudioChatTileState();

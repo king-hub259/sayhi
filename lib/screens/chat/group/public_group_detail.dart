@@ -4,8 +4,8 @@ import 'package:foap/helper/string_extension.dart';
 
 class PublicGroupDetail extends StatefulWidget {
   const PublicGroupDetail({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  }) ;
 
   @override
   PublicGroupDetailState createState() => PublicGroupDetailState();
@@ -108,7 +108,7 @@ class PublicGroupDetailState extends State<PublicGroupDetail> {
               Container(
                       // width: 40,
                       height: 30,
-                      color: AppColorConstants.themeColor.withOpacity(0.2),
+                      color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                       child: Row(
                         children: [
                           Icon(
@@ -146,7 +146,7 @@ class PublicGroupDetailState extends State<PublicGroupDetail> {
               Container(
                       // width: 40,
                       height: 30,
-                      color: AppColorConstants.themeColor.withOpacity(0.2),
+                      color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                       child: Row(
                         children: [
                           Icon(
@@ -181,8 +181,8 @@ class PublicGroupDetailState extends State<PublicGroupDetail> {
                 end: FractionalOffset.bottomCenter,
                 colors: [
                   Colors.black,
-                  Colors.black.withOpacity(0.5),
-                  Colors.grey.withOpacity(0.0),
+                  Colors.black.withValues(alpha: 0.5),
+                  Colors.grey.withValues(alpha: 0.0),
                 ],
                 stops: const [
                   0.0,

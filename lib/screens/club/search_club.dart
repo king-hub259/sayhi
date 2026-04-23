@@ -1,10 +1,9 @@
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/club_imports.dart';
-import '../../components/search_bar.dart';
 import '../reuseable_widgets/club_listing.dart';
 
 class SearchClubsListing extends StatefulWidget {
-  const SearchClubsListing({Key? key}) : super(key: key);
+  const SearchClubsListing({super.key}) ;
 
   @override
   SearchClubsListingState createState() => SearchClubsListingState();

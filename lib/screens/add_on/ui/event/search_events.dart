@@ -1,10 +1,9 @@
-import 'package:foap/components/search_bar.dart';
 import 'package:foap/helper/imports/event_imports.dart';
 import '../../components/event/events_list.dart';
 import 'package:foap/helper/imports/common_import.dart';
 
 class SearchEventListing extends StatefulWidget {
-  const SearchEventListing({Key? key}) : super(key: key);
+  const SearchEventListing({super.key}) ;
 
   @override
   SearchEventListingState createState() => SearchEventListingState();

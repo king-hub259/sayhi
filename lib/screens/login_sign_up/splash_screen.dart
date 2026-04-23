@@ -7,7 +7,7 @@
 // import '../dashboard/loading.dart';
 //
 // class SplashScreen extends StatefulWidget {
-//   const SplashScreen({Key? key}) : super(key: key);
+//   const SplashScreen({super.key}) ;
 //
 //   @override
 //   State<SplashScreen> createState() => _SplashScreenState();
@@ -64,14 +64,14 @@
 //                     0.9,
 //                   ],
 //                   colors: [
-//                     AppColorConstants.backgroundColor.withOpacity(0.9),
+//                     AppColorConstants.backgroundColor.withValues(alpha: 0.9),
 //                     AppColorConstants.backgroundColor
 //                         .lighten()
-//                         .withOpacity(0.9),
+//                         .withValues(alpha: 0.9),
 //                     AppColorConstants.backgroundColor
 //                         .lighten()
-//                         .withOpacity(0.5),
-//                     AppColorConstants.themeColor.withOpacity(0.5),
+//                         .withValues(alpha: 0.5),
+//                     AppColorConstants.themeColor.withValues(alpha: 0.5),
 //                   ],
 //                 ),
 //               ),

@@ -10,8 +10,8 @@ import '../settings_menu/settings_controller.dart';
 class CompletedCompetitionDetail extends StatefulWidget {
   final int competitionId;
 
-  const CompletedCompetitionDetail({Key? key, required this.competitionId})
-      : super(key: key);
+  const CompletedCompetitionDetail({super.key, required this.competitionId})
+      ;
 
   @override
   CompletedCompetitionDetailState createState() =>
@@ -279,7 +279,7 @@ class CompletedCompetitionDetailState
               begin: FractionalOffset.bottomCenter,
               end: FractionalOffset.topCenter,
               colors: [
-                Colors.black.withOpacity(0.6),
+                Colors.black.withValues(alpha: 0.6),
                 Colors.transparent,
               ],
               stops: const [

@@ -5,8 +5,6 @@ import 'package:foap/model/data_wrapper.dart';
 import '../../model/category_model.dart';
 import 'package:foap/helper/list_extension.dart';
 
-import '../../model/post_model.dart';
-
 class ClubsController extends GetxController {
   RxList<ClubModel> clubs = <ClubModel>[].obs;
   RxList<ClubModel> topClubs = <ClubModel>[].obs;

@@ -7,7 +7,7 @@ import 'dart:io';
 class AddPhotos extends StatefulWidget {
   final bool isSettingProfile;
 
-  const AddPhotos({Key? key, required this.isSettingProfile}) : super(key: key);
+  const AddPhotos({super.key, required this.isSettingProfile}) ;
 
   @override
   State<AddPhotos> createState() => _AddPhotosState();

@@ -26,7 +26,7 @@ class CategoryCard extends StatelessWidget {
           Container(
             width: double.infinity,
             height: double.infinity,
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             child: Center(
               child: BodyLargeText(
                 category.name,
@@ -64,7 +64,7 @@ class CategoryCardForPost extends StatelessWidget {
           Container(
             width: double.infinity,
             height: double.infinity,
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withValues(alpha: 0.7),
             child: Center(
               child: Heading6Text(
                 category.name,

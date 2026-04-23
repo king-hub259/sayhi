@@ -6,8 +6,8 @@ import '../dating_dashboard.dart';
 class AddProfessionalDetails extends StatefulWidget {
   final bool isSettingProfile;
 
-  const AddProfessionalDetails({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const AddProfessionalDetails({super.key, required this.isSettingProfile})
+      ;
 
   @override
   State<AddProfessionalDetails> createState() => AddProfessionalDetailsState();
@@ -48,7 +48,7 @@ class AddProfessionalDetailsState extends State<AddProfessionalDetails> {
         backgroundColor: AppColorConstants.backgroundColor,
         body: Column(children: [
           backNavigationBar(
-            title: professionalString.tr,
+            title: professionalDetailString.tr,
           ),
           Expanded(
             child: SingleChildScrollView(

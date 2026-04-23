@@ -4,8 +4,8 @@ import 'choose_whom_to_date.dart';
 class WhatYouHope extends StatefulWidget {
   final bool isSettingProfile;
 
-  const WhatYouHope({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const WhatYouHope({super.key, required this.isSettingProfile})
+      ;
 
   @override
   State<WhatYouHope> createState() => _WhatYouHopeState();

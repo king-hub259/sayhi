@@ -1,5 +1,4 @@
 import 'package:foap/helper/imports/common_import.dart';
-import '../../components/search_bar.dart';
 import '../../components/sm_tab_bar.dart';
 import '../../controllers/misc/explore_controller.dart';
 import '../../controllers/post/post_controller.dart';
@@ -12,7 +11,7 @@ import '../reuseable_widgets/post_list.dart';
 import '../reuseable_widgets/users_list.dart';
 
 class Explore extends StatefulWidget {
-  const Explore({Key? key}) : super(key: key);
+  const Explore({super.key});
 
   @override
   State<Explore> createState() => _ExploreState();
@@ -92,7 +91,7 @@ class _ExploreState extends State<Explore> {
                                   Expanded(
                                     child: TabBarView(children: [
                                       PostList(
-                                        postSource: PostSource.posts,
+                                        postSource: TimelineType.posts,
                                       ),
                                       UsersList(),
                                       HashTagsList(),

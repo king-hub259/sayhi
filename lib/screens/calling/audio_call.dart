@@ -9,9 +9,9 @@ class AudioCallingScreen extends StatefulWidget {
   final Call call;
 
   const AudioCallingScreen({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  }) ;
 
   @override
   State<AudioCallingScreen> createState() => _AudioCallingScreenState();
@@ -217,7 +217,7 @@ class _AudioCallingScreenState extends State<AudioCallingScreen> {
       children: <Widget>[
         Obx(() => Container(
           color: agoraCallController.mutedAudio.value
-              ? AppColorConstants.themeColor.withOpacity(0.5)
+              ? AppColorConstants.themeColor.withValues(alpha: 0.5)
               : AppColorConstants.themeColor,
           height: 80,
           width: 80,

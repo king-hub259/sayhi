@@ -6,8 +6,7 @@ import 'add_personal_info.dart';
 class SetYourGender extends StatefulWidget {
   final bool isSettingProfile;
 
-  const SetYourGender({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const SetYourGender({super.key, required this.isSettingProfile});
 
   @override
   State<SetYourGender> createState() => _SetYourGenderState();

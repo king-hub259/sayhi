@@ -1,12 +1,11 @@
 import 'package:foap/helper/imports/common_import.dart';
-import '../../components/search_bar.dart';
 import '../../components/user_card.dart';
 import '../../controllers/clubs/invite_friends_to_club_controller.dart';
 
 class InviteUsersToClub extends StatefulWidget {
   final int clubId;
 
-  const InviteUsersToClub({Key? key, required this.clubId}) : super(key: key);
+  const InviteUsersToClub({super.key, required this.clubId}) ;
 
   @override
   InviteUsersToClubState createState() => InviteUsersToClubState();

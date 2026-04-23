@@ -36,6 +36,14 @@ extension DateOnlyCompare on DateTime {
         yesterday.year == year;
   }
 
+  bool isEarlierThan(DateTime other) {
+    return isBefore(other);
+  }
+
+  bool isLaterThan(DateTime other) {
+    return isAfter(other);
+  }
+
   String get getTimeAgo {
     final currentTime = DateTime.now();
     final difference = currentTime.difference(this);

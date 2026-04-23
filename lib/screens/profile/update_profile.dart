@@ -323,7 +323,7 @@ class UpdateProfileState extends State<UpdateProfile> {
                   divider().vP16,
                   Row(
                     children: [
-                      BodyLargeText(professionalString.tr,
+                      BodyLargeText(professionalDetailString.tr,
                           weight: TextWeight.medium),
                       const Spacer(),
                       ThemeIconWidget(

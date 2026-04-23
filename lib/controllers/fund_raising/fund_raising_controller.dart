@@ -421,7 +421,7 @@ class FundRaisingController extends GetxController {
 
   void getPosts({ int? id, required VoidCallback callback}) async {
     PostApi.getPosts(
-        postType: PostType.fundRaising,
+        postType: PostCategory.fundRaising,
         fundRaisingCampaignId: id,
         page: postDataWrapper.page,
         resultCallback: (result, metadata) {

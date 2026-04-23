@@ -1,11 +1,9 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/event_imports.dart';
 import 'package:foap/screens/add_on/ui/podcast/host_list.dart';
 import 'package:foap/screens/add_on/ui/podcast/podcast_detail.dart';
 import 'package:foap/screens/add_on/ui/podcast/podcast_host_detail.dart';
 import '../../../../components/paging_scrollview.dart';
-import '../../../../components/search_bar.dart';
 import '../../../../controllers/podcast/podcast_streaming_controller.dart';
 import '../../model/podcast_banner_model.dart';
 
@@ -13,8 +11,7 @@ class ExploreHosts extends StatefulWidget {
   final bool addBackBtn;
   final PodcastCategoryModel? category;
 
-  const ExploreHosts({Key? key, required this.addBackBtn, this.category})
-      : super(key: key);
+  const ExploreHosts({super.key, required this.addBackBtn, this.category});
 
   @override
   State<ExploreHosts> createState() => _ExploreHostsState();
@@ -22,7 +19,8 @@ class ExploreHosts extends StatefulWidget {
 
 class _ExploreHostsState extends State<ExploreHosts> {
   final PodcastStreamingController _podcastController = Get.find();
-  final CarouselController _controller = CarouselController();
+  final WKCarouselSliderController _controller =
+      WKCarouselSliderController();
   int _current = 0;
 
   @override
@@ -62,7 +60,8 @@ class _ExploreHostsState extends State<ExploreHosts> {
                                   },
                                   onSearchCompleted: (text) {})
                               .p(DesignConstants.horizontalPadding),
-                          if (_podcastController.banners.isNotEmpty) banner(),
+                          if (_podcastController.banners.isNotEmpty)
+                            banner(),
                           // if (widget.category == null)
                           //   GetBuilder<PodcastStreamingController>(
                           //       init: _podcastController,
@@ -78,25 +77,26 @@ class _ExploreHostsState extends State<ExploreHosts> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Obx(() =>
-                                  _podcastController.totalHostsFound.value > 0
-                                      ? Row(
-                                          children: [
-                                            Container(
-                                              height: 20,
-                                              width: 5,
-                                              color:
-                                                  AppColorConstants.themeColor,
-                                            ).round(5),
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            Obx(() => BodyLargeText(
-                                                '${found.tr} ${_podcastController.totalHostsFound} ${hostsString.tr.toLowerCase()}',
-                                                weight: TextWeight.semiBold)),
-                                          ],
-                                        ).hp(DesignConstants.horizontalPadding)
-                                      : Container()),
+                              Obx(() => _podcastController
+                                          .totalHostsFound.value >
+                                      0
+                                  ? Row(
+                                      children: [
+                                        Container(
+                                          height: 20,
+                                          width: 5,
+                                          color:
+                                              AppColorConstants.themeColor,
+                                        ).round(5),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Obx(() => BodyLargeText(
+                                            '${found.tr} ${_podcastController.totalHostsFound} ${hostsString.tr.toLowerCase()}',
+                                            weight: TextWeight.semiBold)),
+                                      ],
+                                    ).hp(DesignConstants.horizontalPadding)
+                                  : Container()),
                               const SizedBox(
                                 height: 20,
                               ),
@@ -131,9 +131,10 @@ class _ExploreHostsState extends State<ExploreHosts> {
             // int? showId = _podcastStreamingController.banners[0].referenceId;
           })
         : Stack(children: [
-            CarouselSlider(
+            WKCarouselSlider(
               items: [
-                for (PodcastBannerModel banner in _podcastController.banners)
+                for (PodcastBannerModel banner
+                    in _podcastController.banners)
                   CachedNetworkImage(
                     imageUrl: banner.coverImageUrl!,
                     fit: BoxFit.cover,
@@ -146,25 +147,25 @@ class _ExploreHostsState extends State<ExploreHosts> {
                     bannerClickAction(banner);
                   })
               ],
-              options: CarouselOptions(
-                autoPlayInterval: const Duration(seconds: 4),
-                autoPlay: true,
-                enlargeCenterPage: false,
-                enableInfiniteScroll: true,
-                height: 200,
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _current = index;
-                  });
-                },
-              ),
+              autoPlayInterval: const Duration(seconds: 4),
+              autoPlay: true,
+              enlargeCenterPage: false,
+              enableInfiniteScroll: true,
+              height: 200,
+              viewportFraction: 1,
+              onPageChanged: (index) {
+                setState(() {
+                  _current = index;
+                });
+              },
             ),
             Positioned.fill(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:
-                    _podcastController.banners.asMap().entries.map((entry) {
+                children: _podcastController.banners
+                    .asMap()
+                    .entries
+                    .map((entry) {
                   return GestureDetector(
                     onTap: () => _controller.animateToPage(entry.key),
                     child: Container(
@@ -178,7 +179,9 @@ class _ExploreHostsState extends State<ExploreHosts> {
                                       Brightness.dark
                                   ? AppColorConstants.themeColor
                                   : Colors.grey)
-                              .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+                              .withValues(
+                                  alpha:
+                                      _current == entry.key ? 0.9 : 0.4)),
                     ),
                   );
                 }).toList(),

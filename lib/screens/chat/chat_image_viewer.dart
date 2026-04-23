@@ -5,8 +5,8 @@ class ChatImageViewer extends StatefulWidget {
   final ChatMessageModel chatMessage;
   final VoidCallback? handler;
 
-  const ChatImageViewer({Key? key, required this.chatMessage, this.handler})
-      : super(key: key);
+  const ChatImageViewer({super.key, required this.chatMessage, this.handler})
+      ;
 
   @override
   EnlargeImageViewState createState() => EnlargeImageViewState();

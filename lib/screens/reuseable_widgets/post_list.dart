@@ -17,15 +17,15 @@ class PostList extends StatelessWidget {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
-  final PostSource postSource;
+  final TimelineType postSource;
 
   PostList({super.key, required this.postSource});
 
   @override
   Widget build(BuildContext context) {
-    return postSource == PostSource.videos
+    return postSource == TimelineType.videos
         ? videosPosts()
-        : postSource == PostSource.saved
+        : postSource == TimelineType.saved
             ? savedPosts()
             : posts();
   }

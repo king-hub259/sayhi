@@ -8,7 +8,7 @@ import '../profile/other_user_profile.dart';
 class LikedByUsers extends StatefulWidget {
   final int postId;
 
-  const LikedByUsers({Key? key, required this.postId}) : super(key: key);
+  const LikedByUsers({super.key, required this.postId}) ;
 
   @override
   LikedByUsersState createState() => LikedByUsersState();

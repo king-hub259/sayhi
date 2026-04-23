@@ -7,7 +7,7 @@ import 'job_by_category.dart';
 class JobCategories extends StatelessWidget {
   final JobController jobController = Get.find();
 
-  JobCategories({Key? key}) : super(key: key);
+  JobCategories({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

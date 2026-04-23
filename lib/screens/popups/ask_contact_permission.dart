@@ -1,10 +1,9 @@
 import 'package:flutter_contacts/flutter_contacts.dart';
 import 'package:foap/helper/imports/common_import.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'ask_image_permission.dart';
 
 class AskContactPermission extends StatelessWidget {
-  AskContactPermission({super.key});
+  const AskContactPermission({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class AskContactPermission extends StatelessWidget {
           Container(
             height: 200,
             width: 200,
-            color: AppColorConstants.themeColor.withOpacity(0.1),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.1),
             child: ThemeIconWidget(
               ThemeIcon.contacts,
               size: 100,

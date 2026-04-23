@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "/Users/kanwarpalsingh/Documents/flutter/packages/flutter_tools/gradle/src/main/groovy/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/kanwarpalsingh/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/kanwarpalsingh/Documents/Apps/sayhi_codecanyon/SayHi_mobile_before fix/android/app/.cxx/Debug/4ud2wk19/armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/kanwarpalsingh/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/kanwarpalsingh/Documents/Apps/sayhi_codecanyon/SayHi_mobile_before fix/android/app/.cxx/Debug/4ud2wk19/armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

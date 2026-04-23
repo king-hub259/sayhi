@@ -16,14 +16,14 @@ class VideoPostTile extends StatefulWidget {
   final VoidCallback onTapActionHandler;
 
   const VideoPostTile(
-      {Key? key,
+      {super.key,
       this.media,
       required this.width,
       required this.url,
       required this.isLocalFile,
       required this.play,
       required this.onTapActionHandler})
-      : super(key: key);
+      ;
 
   @override
   State<VideoPostTile> createState() => _VideoPostTileState();
@@ -80,9 +80,9 @@ class _VideoPostTileState extends State<VideoPostTile> {
         widget.onTapActionHandler();
       },
       child: SizedBox(
-        height: widget.media == null
-            ? null
-            : widget.width / (widget.media!.width / widget.media!.height),
+        // height: widget.media == null
+        //     ? null
+        //     : widget.width / (widget.media!.width / widget.media!.height),
         child: Stack(
           children: [
             FutureBuilder(
@@ -240,9 +240,9 @@ class FullScreenVideoPostTile extends StatefulWidget {
   final VideoPlayerController videoPlayerController;
 
   const FullScreenVideoPostTile({
-    Key? key,
+    super.key,
     required this.videoPlayerController,
-  }) : super(key: key);
+  }) ;
 
   @override
   State<FullScreenVideoPostTile> createState() =>

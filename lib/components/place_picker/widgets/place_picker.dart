@@ -33,11 +33,11 @@ class PlacePicker extends StatefulWidget {
   LocalizationItem? localizationItem;
 
   PlacePicker(
-      {Key? key,
+      {super.key,
       required this.apiKey,
       this.displayLocation,
       this.localizationItem})
-      : super(key: key) {
+       {
     localizationItem ??= LocalizationItem();
   }
 

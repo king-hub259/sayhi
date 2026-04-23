@@ -11,8 +11,8 @@ import 'package:record/record.dart';
 class VoiceRecord extends StatefulWidget {
   final Function(Media) recordingCallback;
 
-  const VoiceRecord({Key? key, required this.recordingCallback})
-      : super(key: key);
+  const VoiceRecord({super.key, required this.recordingCallback})
+      ;
 
   @override
   State<VoiceRecord> createState() => _VoiceRecordState();

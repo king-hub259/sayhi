@@ -13,8 +13,8 @@
 //   final int? clubId;
 //   final PostMediaType? mediaType;
 //
-//   const SelectMedia({Key? key, this.competitionId, this.mediaType, this.clubId})
-//       : super(key: key);
+//   const SelectMedia({super.key, this.competitionId, this.mediaType, this.clubId})
+//       ;
 //
 //   @override
 //   State<SelectMedia> createState() => _SelectMediaState();

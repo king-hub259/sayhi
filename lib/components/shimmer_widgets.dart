@@ -2,7 +2,7 @@ import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/screens/add_on/ui/dating/dating_card.dart';
 
 class HomeScreenShimmer extends StatelessWidget {
-  const HomeScreenShimmer({Key? key}) : super(key: key);
+  const HomeScreenShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class HomeScreenShimmer extends StatelessWidget {
 }
 
 class ClubsCategoriesScreenShimmer extends StatelessWidget {
-  const ClubsCategoriesScreenShimmer({Key? key}) : super(key: key);
+  const ClubsCategoriesScreenShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +66,7 @@ class ClubsCategoriesScreenShimmer extends StatelessWidget {
 }
 
 class ClubsScreenShimmer extends StatelessWidget {
-  const ClubsScreenShimmer({Key? key}) : super(key: key);
+  const ClubsScreenShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +128,7 @@ class ClubsScreenShimmer extends StatelessWidget {
 }
 
 class EventCategoriesScreenShimmer extends StatelessWidget {
-  const EventCategoriesScreenShimmer({Key? key}) : super(key: key);
+  const EventCategoriesScreenShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -162,7 +162,7 @@ class EventCategoriesScreenShimmer extends StatelessWidget {
 }
 
 class EventsScreenShimmer extends StatelessWidget {
-  const EventsScreenShimmer({Key? key}) : super(key: key);
+  const EventsScreenShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -234,7 +234,7 @@ class EventsScreenShimmer extends StatelessWidget {
 }
 
 class PostCardShimmer extends StatelessWidget {
-  const PostCardShimmer({Key? key}) : super(key: key);
+  const PostCardShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -259,14 +259,10 @@ class PostCardShimmer extends StatelessWidget {
       const SizedBox(
         height: 10,
       ),
-      SizedBox(
+      const SizedBox(
         height: 280,
         width: double.infinity,
-        child: Image.asset(
-          'assets/tutorial1.jpg',
-          fit: BoxFit.cover,
-        ).addShimmer(),
-      ).round(20),
+      ).round(20).addShimmer(),
       Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           ThemeIconWidget(
@@ -307,7 +303,7 @@ class PostCardShimmer extends StatelessWidget {
 }
 
 class StoryAndHighlightsShimmer extends StatelessWidget {
-  const StoryAndHighlightsShimmer({Key? key}) : super(key: key);
+  const StoryAndHighlightsShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -340,7 +336,7 @@ class StoryAndHighlightsShimmer extends StatelessWidget {
 }
 
 class ShimmerUsers extends StatelessWidget {
-  const ShimmerUsers({Key? key}) : super(key: key);
+  const ShimmerUsers({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -397,7 +393,7 @@ class ShimmerUsers extends StatelessWidget {
 }
 
 class ShimmerHashtag extends StatelessWidget {
-  const ShimmerHashtag({Key? key}) : super(key: key);
+  const ShimmerHashtag({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -433,7 +429,7 @@ class ShimmerHashtag extends StatelessWidget {
 }
 
 class PostBoxShimmer extends StatelessWidget {
-  const PostBoxShimmer({Key? key}) : super(key: key);
+  const PostBoxShimmer({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -461,7 +457,7 @@ class PostBoxShimmer extends StatelessWidget {
 }
 
 class StoriesShimmerWidget extends StatelessWidget {
-  const StoriesShimmerWidget({Key? key}) : super(key: key);
+  const StoriesShimmerWidget({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -624,7 +620,7 @@ class _CardsStackShimmerWidgetState extends State<CardsStackShimmerWidget> {
                     ),
                     shadows: <BoxShadow>[
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 8,
                       ),
                     ],
@@ -679,7 +675,7 @@ class _CardsStackShimmerWidgetState extends State<CardsStackShimmerWidget> {
 }
 
 class ShimmerMatchedList extends StatelessWidget {
-  const ShimmerMatchedList({Key? key}) : super(key: key);
+  const ShimmerMatchedList({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -703,7 +699,7 @@ class ShimmerMatchedList extends StatelessWidget {
 }
 
 class ShimmerLikeList extends StatelessWidget {
-  const ShimmerLikeList({Key? key}) : super(key: key);
+  const ShimmerLikeList({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

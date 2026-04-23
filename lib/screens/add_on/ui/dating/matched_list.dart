@@ -6,7 +6,7 @@ import 'package:foap/screens/profile/other_user_profile.dart';
 import 'package:intl/intl.dart';
 
 class MatchedList extends StatefulWidget {
-  const MatchedList({Key? key}) : super(key: key);
+  const MatchedList({super.key}) ;
 
   @override
   State<MatchedList> createState() => MatchedListState();
@@ -127,7 +127,7 @@ class MatchedListState extends State<MatchedList> {
                 Flexible(
                     child: Container(
                   height: 40,
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withValues(alpha: 0.5),
                   child:  Center(
                       child: ThemeIconWidget(
                     ThemeIcon.close,
@@ -144,7 +144,7 @@ class MatchedListState extends State<MatchedList> {
                 Flexible(
                     child: Container(
                   height: 40,
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withValues(alpha: 0.5),
                   child:  Center(
                       child: ThemeIconWidget(
                     ThemeIcon.chatBordered,

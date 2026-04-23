@@ -1,8 +1,10 @@
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/event_imports.dart';
 
+import 'create_event/choose_category.dart';
+
 class ExploreEvents extends StatefulWidget {
-  const ExploreEvents({Key? key}) : super(key: key);
+  const ExploreEvents({super.key});
 
   @override
   ExploreEventsState createState() => ExploreEventsState();
@@ -38,6 +40,17 @@ class ExploreEventsState extends State<ExploreEvents> {
   Widget build(BuildContext context) {
     return AppScaffold(
       backgroundColor: AppColorConstants.backgroundColor,
+      floatingActionButton: Container(
+        height: 50,
+        width: 50,
+        color: AppColorConstants.themeColor,
+        child: ThemeIconWidget(
+          ThemeIcon.plusSymbol,
+          color: Colors.white,
+        ),
+      ).circular.ripple(() {
+        Get.to(() => ChooseEventCategory());
+      }),
       body: Column(
         children: [
           backNavigationBar(
@@ -61,7 +74,8 @@ class ExploreEventsState extends State<ExploreEvents> {
                                 return ListView.separated(
                                     padding: const EdgeInsets.only(
                                         top: 25, bottom: 50),
-                                    itemBuilder: (ctx, categoryGroupIndex) {
+                                    itemBuilder:
+                                        (ctx, categoryGroupIndex) {
                                       return Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -73,7 +87,8 @@ class ExploreEventsState extends State<ExploreEvents> {
                                                           .categories[
                                                               categoryGroupIndex]
                                                           .name,
-                                                      weight: TextWeight.bold)
+                                                      weight:
+                                                          TextWeight.bold)
                                                   .lP16,
                                               const Spacer(),
                                               Row(children: [
@@ -88,12 +103,14 @@ class ExploreEventsState extends State<ExploreEvents> {
                                                   size: 15,
                                                 ).rP16,
                                               ]).ripple(() {
-                                                _eventsController.setCategoryId(
-                                                    _eventsController
-                                                        .categories[
-                                                            categoryGroupIndex]
-                                                        .id);
-                                                _eventsController.getEvents();
+                                                _eventsController
+                                                    .setCategoryId(
+                                                        _eventsController
+                                                            .categories[
+                                                                categoryGroupIndex]
+                                                            .id);
+                                                _eventsController
+                                                    .getEvents();
                                                 Get.to(() => CategoryEventsListing(
                                                     category: _eventsController
                                                             .categories[
@@ -112,7 +129,8 @@ class ExploreEventsState extends State<ExploreEvents> {
                                                       .horizontalPadding,
                                                   right: DesignConstants
                                                       .horizontalPadding),
-                                              scrollDirection: Axis.horizontal,
+                                              scrollDirection:
+                                                  Axis.horizontal,
                                               itemCount: _eventsController
                                                   .categories[
                                                       categoryGroupIndex]
@@ -137,7 +155,8 @@ class ExploreEventsState extends State<ExploreEvents> {
                                                   },
                                                 ).ripple(() {});
                                               },
-                                              separatorBuilder: (ctx, index) {
+                                              separatorBuilder:
+                                                  (ctx, index) {
                                                 return const SizedBox(
                                                     width: 10);
                                               },
@@ -151,8 +170,8 @@ class ExploreEventsState extends State<ExploreEvents> {
                                         height: 40,
                                       );
                                     },
-                                    itemCount:
-                                        _eventsController.categories.length);
+                                    itemCount: _eventsController
+                                        .categories.length);
                               }),
                         ),
                       ],

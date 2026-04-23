@@ -3,7 +3,7 @@ import '../helper/imports/common_import.dart';
 class MediaCard extends StatelessWidget {
   final MediaModel model;
 
-  const MediaCard({Key? key, required this.model}) : super(key: key);
+  const MediaCard({super.key, required this.model}) ;
 
   @override
   Widget build(BuildContext context) {

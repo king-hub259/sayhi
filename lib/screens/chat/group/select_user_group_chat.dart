@@ -1,14 +1,13 @@
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/chat_imports.dart';
-import '../../../components/search_bar.dart';
 import '../../../components/user_card.dart';
 
 class SelectUserForGroupChat extends StatefulWidget {
   final ChatRoomModel? group;
   final VoidCallback? invitedUserCallback;
 
-  const SelectUserForGroupChat({Key? key, this.group, this.invitedUserCallback})
-      : super(key: key);
+  const SelectUserForGroupChat({super.key, this.group, this.invitedUserCallback})
+      ;
 
   @override
   SelectUserForGroupChatState createState() => SelectUserForGroupChatState();

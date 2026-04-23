@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/tv/live_tv_streaming_controller.dart';
 
 class SubscribedTvList extends StatefulWidget {
-  const SubscribedTvList({Key? key}) : super(key: key);
+  const SubscribedTvList({super.key}) ;
 
   @override
   State<SubscribedTvList> createState() => _SubscribedTvListState();

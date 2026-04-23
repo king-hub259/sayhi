@@ -7,7 +7,7 @@ class JobDetail extends StatelessWidget {
   final JobController jobController = Get.find();
   final JobModel job;
 
-  JobDetail({Key? key, required this.job}) : super(key: key);
+  JobDetail({super.key, required this.job}) ;
 
   final List<String> tabs = [
     aboutString.tr,

@@ -16,7 +16,7 @@
 // import 'package:pull_to_refresh/pull_to_refresh.dart';
 //
 // class PodcastListDashboard extends StatefulWidget {
-//   const PodcastListDashboard({Key? key}) : super(key: key);
+//   const PodcastListDashboard({super.key}) ;
 //
 //   @override
 //   State<PodcastListDashboard> createState() => _PodcastListDashboardState();
@@ -155,7 +155,7 @@
 //                                       Brightness.dark
 //                                   ? AppColorConstants.themeColor
 //                                   : Colors.grey)
-//                               .withOpacity(_current == entry.key ? 0.9 : 0.4)),
+//                               .withValues(alpha: _current == entry.key ? 0.9 : 0.4)),
 //                     ),
 //                   );
 //                 }).toList(),

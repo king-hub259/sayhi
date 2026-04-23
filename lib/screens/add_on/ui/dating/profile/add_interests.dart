@@ -8,8 +8,7 @@ import 'add_profesional_details.dart';
 class AddInterests extends StatefulWidget {
   final bool isSettingProfile;
 
-  const AddInterests({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const AddInterests({super.key, required this.isSettingProfile});
 
   @override
   State<AddInterests> createState() => AddInterestsState();

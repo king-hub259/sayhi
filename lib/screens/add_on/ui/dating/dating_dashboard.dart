@@ -14,7 +14,7 @@ class DatingDashboardController extends GetxController {
 }
 
 class DatingDashboard extends StatefulWidget {
-  const DatingDashboard({Key? key}) : super(key: key);
+  const DatingDashboard({super.key}) ;
 
   @override
   State<DatingDashboard> createState() => DatingDashboardState();

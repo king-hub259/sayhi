@@ -4,7 +4,7 @@ import '../../helper/imports/common_import.dart';
 class BusinessCard extends StatelessWidget {
   final BusinessModel business;
 
-  const BusinessCard({Key? key, required this.business}) : super(key: key);
+  const BusinessCard({super.key, required this.business}) ;
 
   @override
   Widget build(BuildContext context) {

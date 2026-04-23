@@ -10,7 +10,7 @@ import '../story/story_viewer.dart';
 class StarredMessages extends StatefulWidget {
   final ChatRoomModel? chatRoom;
 
-  const StarredMessages({Key? key, required this.chatRoom}) : super(key: key);
+  const StarredMessages({super.key, required this.chatRoom}) ;
 
   @override
   State<StarredMessages> createState() => _StarredMessagesState();

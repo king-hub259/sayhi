@@ -12,7 +12,7 @@ class PodcastDashboardController extends GetxController {
 }
 
 class PodcastDashboard extends StatelessWidget {
-  PodcastDashboard({Key? key}) : super(key: key);
+  PodcastDashboard({super.key});
 
   final PodcastDashboardController _dashboardController =
       PodcastDashboardController();

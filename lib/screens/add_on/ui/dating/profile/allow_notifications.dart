@@ -4,8 +4,8 @@ import 'add_name.dart';
 class AllowNotification extends StatefulWidget {
   final bool isSettingProfile;
 
-  const AllowNotification({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const AllowNotification({super.key, required this.isSettingProfile})
+      ;
 
   @override
   State<AllowNotification> createState() => _AllowNotificationState();

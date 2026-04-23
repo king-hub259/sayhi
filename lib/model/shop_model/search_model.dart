@@ -12,7 +12,7 @@ class SearchModel {
   int? categoryId;
   int? subCategoryId;
   int? cityId;
-  int status = 10;
+  int? status = 10;
 
   double? minPrice;
   double? maxPrice;
@@ -22,19 +22,19 @@ class SearchModel {
   int? bannerId;
   int? isVerified;
 
-  SearchModel({
-    this.title,
-    this.userId,
-    this.categoryId,
-    this.subCategoryId,
-    this.cityId,
-    this.minPrice,
-    this.maxPrice,
-    this.isDeal,
-    this.isFeatured,
-    this.isVerified,
-    this.bannerId,
-  });
+  SearchModel(
+      {this.title,
+      this.userId,
+      this.categoryId,
+      this.subCategoryId,
+      this.cityId,
+      this.minPrice,
+      this.maxPrice,
+      this.isDeal,
+      this.isFeatured,
+      this.isVerified,
+      this.bannerId,
+      this.status});
 
   Map<String, dynamic> toJson() => {
         "title": title ?? '',
@@ -48,5 +48,6 @@ class SearchModel {
         "featured": isFeatured ?? '',
         "isVerified": isVerified ?? '',
         "package_banner_id": bannerId ?? '',
+        "status": status ?? '',
       };
 }

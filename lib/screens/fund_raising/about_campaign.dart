@@ -1,5 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:foap/helper/date_extension.dart';
 import 'package:foap/helper/number_extension.dart';
 import '../../controllers/fund_raising/fund_raising_controller.dart';
@@ -24,18 +22,15 @@ class AboutCampaign extends StatelessWidget {
             height: Get.height * 0.3,
             child: Stack(
               children: [
-                CarouselSlider(
+                WKCarouselSlider(
                   items: mediaList(),
-                  options: CarouselOptions(
-                    aspectRatio: 1,
-                    enlargeCenterPage: false,
-                    enableInfiniteScroll: false,
-                    height: double.infinity,
-                    viewportFraction: 1,
-                    onPageChanged: (index, reason) {
-                      fundRaisingController.updateGallerySlider(index);
-                    },
-                  ),
+                  enlargeCenterPage: false,
+                  enableInfiniteScroll: false,
+                  height: double.infinity,
+                  viewportFraction: 1,
+                  onPageChanged: (index,) {
+                    fundRaisingController.updateGallerySlider(index);
+                  },
                 ),
                 if (mediaList().length > 1)
                   Positioned(
@@ -46,13 +41,12 @@ class AboutCampaign extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Obx(
                           () {
-                            return DotsIndicator(
+                            return WKIndicator1(
                               dotsCount: mediaList().length,
                               position:
                                   fundRaisingController.currentIndex.value,
-                              decorator: DotsDecorator(
-                                  activeColor:
-                                      Theme.of(Get.context!).primaryColor),
+                              activeDotColor: AppColorConstants.themeColor,
+                              dotColor: AppColorConstants.disabledColor,
                             );
                           },
                         ),

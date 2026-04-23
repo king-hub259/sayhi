@@ -105,7 +105,7 @@ class PaymentWithdrawalState extends State<Transactions> {
   withdrawBtn() {
     return InkWell(
       onTap: () {
-        if (int.parse(_userProfileManager.user.value!.balance) < 50) {
+        if (double.parse(_userProfileManager.user.value!.balance) < 50) {
           AppUtil.showToast(
               message: minWithdrawLimitString.tr.replaceAll(
                   '{{cash}}',

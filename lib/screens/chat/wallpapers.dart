@@ -5,8 +5,8 @@ import '../../util/shared_prefs.dart';
 class WallpaperForChatBackground extends StatefulWidget {
   final int roomId;
 
-  const WallpaperForChatBackground({Key? key, required this.roomId})
-      : super(key: key);
+  const WallpaperForChatBackground({super.key, required this.roomId})
+      ;
 
   @override
   State<WallpaperForChatBackground> createState() =>

@@ -6,7 +6,7 @@ import '../../helper/imports/common_import.dart';
 class FundraisingCard extends StatelessWidget {
   final FundRaisingCampaign campaign;
 
-  const FundraisingCard({Key? key, required this.campaign}) : super(key: key);
+  const FundraisingCard({super.key, required this.campaign}) ;
 
   @override
   Widget build(BuildContext context) {

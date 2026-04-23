@@ -8,7 +8,7 @@ class AboutJob extends StatelessWidget {
   final JobModel job;
   final JobController jobController = Get.find();
 
-  AboutJob({Key? key, required this.job}) : super(key: key);
+  AboutJob({super.key, required this.job}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class AboutJob extends StatelessWidget {
                 height: 20,
               ),
               Container(
-                      color: AppColorConstants.themeColor.withOpacity(0.5),
+                      color: AppColorConstants.themeColor.withValues(alpha: 0.5),
                       child: BodySmallText(job.category!.name)
                           .setPadding(left: 20, right: 20, top: 8, bottom: 8))
                   .round(5),

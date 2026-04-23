@@ -1,12 +1,11 @@
 import 'package:foap/helper/imports/common_import.dart';
 import '../../components/category_slider.dart';
 import '../../components/paging_scrollview.dart';
-import '../../components/search_bar.dart';
 import '../../controllers/coupons/near_by_offers.dart';
 import 'offers_list.dart';
 
 class ExploreFavOffers extends StatefulWidget {
-  const ExploreFavOffers({Key? key}) : super(key: key);
+  const ExploreFavOffers({super.key}) ;
 
   @override
   State<ExploreFavOffers> createState() => _ExploreFavOffersState();

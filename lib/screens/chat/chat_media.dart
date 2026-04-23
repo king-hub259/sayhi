@@ -5,7 +5,7 @@ import 'package:foap/helper/imports/chat_imports.dart';
 class ChatMediaList extends StatefulWidget {
   final ChatRoomModel chatRoom;
 
-  const ChatMediaList({Key? key, required this.chatRoom}) : super(key: key);
+  const ChatMediaList({super.key, required this.chatRoom}) ;
 
   @override
   State<ChatMediaList> createState() => _ChatMediaListState();

@@ -4,7 +4,7 @@
 //
 //
 // class TutorialScreen extends StatefulWidget {
-//   const TutorialScreen({Key? key}) : super(key: key);
+//   const TutorialScreen({super.key}) ;
 //
 //   @override
 //   TutorialScreenState createState() => TutorialScreenState();

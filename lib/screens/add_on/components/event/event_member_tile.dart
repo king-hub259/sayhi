@@ -6,10 +6,10 @@ class EventMemberTile extends StatelessWidget {
   final VoidCallback? viewCallback;
 
   const EventMemberTile({
-    Key? key,
+    super.key,
     required this.member,
     this.viewCallback,
-  }) : super(key: key);
+  }) ;
 
   @override
   Widget build(BuildContext context) {

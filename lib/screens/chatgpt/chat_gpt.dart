@@ -2,12 +2,12 @@ import 'package:flutter/services.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:focused_menu/focused_menu.dart';
 import 'package:focused_menu/modals.dart';
-import 'package:lottie/lottie.dart';
+// import 'package:lottie/lottie.dart';
 
 import '../../controllers/chat_and_call/chat_gpt_controller.dart';
 
 class ChatGPT extends StatefulWidget {
-  const ChatGPT({Key? key}) : super(key: key);
+  const ChatGPT({super.key}) ;
 
   @override
   State<ChatGPT> createState() => _ChatGPTState();
@@ -102,7 +102,7 @@ class _ChatGPTState extends State<ChatGPT> {
               ))),
           Obx(() => _chatGPTController.messages.isNotEmpty
               ? _chatGPTController.messages.last.isSent
-              ? Lottie.asset('assets/lottie/typing.json')
+              ? ThemeIconWidget(ThemeIcon.more)
               .hp(DesignConstants.horizontalPadding)
               : Container()
               : Container()),

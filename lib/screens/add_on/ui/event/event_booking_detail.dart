@@ -1,9 +1,7 @@
 import 'dart:math';
-import 'package:foap/components/static_map_widget.dart';
 import 'package:foap/helper/imports/event_imports.dart';
 import 'package:foap/helper/number_extension.dart';
 import 'package:foap/screens/profile/other_user_profile.dart';
-import 'package:lottie/lottie.dart';
 import 'package:map_launcher/map_launcher.dart';
 import 'package:foap/helper/imports/common_import.dart';
 
@@ -44,7 +42,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
       body: GetBuilder<EventBookingDetailController>(
           init: _eventBookingDetailController,
           builder: (ctx) {
-            return _eventBookingDetailController.processingBooking.value != null
+            return _eventBookingDetailController.processingBooking.value !=
+                    null
                 ? statusView()
                 : Stack(
                     children: [
@@ -53,7 +52,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
                           SliverList(
                               delegate: SliverChildListDelegate([
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.stretch,
                               children: [
                                 SizedBox(
                                     height: 300,
@@ -65,7 +65,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
                                   height: 30,
                                 ),
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
                                   children: [
                                     Heading3Text(
                                       widget.booking.event.name,
@@ -81,11 +82,13 @@ class EventBookingDetailState extends State<EventBookingDetail> {
                                     divider().vP25,
                                     bookingInfoWidget(),
                                     divider().vP25,
-                                    if (widget.booking.giftedToUser != null)
+                                    if (widget.booking.giftedToUser !=
+                                        null)
                                       giftTo().bP25,
                                     eventLocationInfoWidget(),
                                     divider().vP25,
-                                    if (widget.booking.event.gallery.isNotEmpty)
+                                    if (widget
+                                        .booking.event.gallery.isNotEmpty)
                                       eventGallery(),
                                     const SizedBox(
                                       height: 150,
@@ -111,7 +114,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
 
   Widget giftTo() {
     return Container(
-      color: AppColorConstants.cardColor.withOpacity(0.4),
+      color: AppColorConstants.cardColor.withValues(alpha: 0.4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -157,7 +160,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
 
   Widget giftBy() {
     return Container(
-      color: AppColorConstants.cardColor.withOpacity(0.4),
+      color: AppColorConstants.cardColor.withValues(alpha: 0.4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -285,7 +288,9 @@ class EventBookingDetailState extends State<EventBookingDetail> {
         //   ),
         // ),
         // const SizedBox(width: 10,),
-        BodySmallText('${widget.booking.event.totalMembers.formatNumber}+ going', weight: TextWeight.regular),
+        BodySmallText(
+            '${widget.booking.event.totalMembers.formatNumber}+ going',
+            weight: TextWeight.regular),
         const Spacer()
       ],
     );
@@ -298,7 +303,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                    color: AppColorConstants.themeColor.withOpacity(0.2),
+                    color: AppColorConstants.themeColor
+                        .withValues(alpha: 0.2),
                     child: ThemeIconWidget(ThemeIcon.calendar,
                             color: AppColorConstants.themeColor)
                         .p8)
@@ -327,7 +333,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                    color: AppColorConstants.themeColor.withOpacity(0.2),
+                    color: AppColorConstants.themeColor
+                        .withValues(alpha: 0.2),
                     child: ThemeIconWidget(ThemeIcon.location,
                             color: AppColorConstants.themeColor)
                         .p8)
@@ -338,7 +345,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BodyLargeText(locationString.tr, weight: TextWeight.medium),
+                BodyLargeText(locationString.tr,
+                    weight: TextWeight.medium),
                 const SizedBox(
                   height: 5,
                 ),
@@ -373,7 +381,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BodyLargeText(sponsor.name, weight: TextWeight.regular),
+                      BodyLargeText(sponsor.name,
+                          weight: TextWeight.regular),
                       BodySmallText(organizerString.tr,
                           weight: TextWeight.regular),
                     ],
@@ -401,9 +410,10 @@ class EventBookingDetailState extends State<EventBookingDetail> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          color: AppColorConstants.themeColor.withOpacity(0.4),
-          child: Heading6Text(bookingInfoString.tr, weight: TextWeight.medium)
-              .setPadding(top: 5, bottom: 5, left: 10, right: 10),
+          color: AppColorConstants.themeColor.withValues(alpha: 0.4),
+          child:
+              Heading6Text(bookingInfoString.tr, weight: TextWeight.medium)
+                  .setPadding(top: 5, bottom: 5, left: 10, right: 10),
         ).round(5),
         const SizedBox(
           height: 20,
@@ -442,8 +452,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
             ).circular.rP16,
             Container(
               color: widget.booking.statusType == BookingStatus.cancelled
-                  ? AppColorConstants.red.withOpacity(0.7)
-                  : AppColorConstants.themeColor.withOpacity(0.7),
+                  ? AppColorConstants.red.withValues(alpha: 0.7)
+                  : AppColorConstants.themeColor.withValues(alpha: 0.7),
               child: BodySmallText(
                 widget.booking.statusType == BookingStatus.cancelled
                     ? cancelledString.tr
@@ -500,8 +510,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
           children: [
             SizedBox(
                 width: 120,
-                child:
-                    BodyMediumText(priceString.tr, weight: TextWeight.medium)),
+                child: BodyMediumText(priceString.tr,
+                    weight: TextWeight.medium)),
             Container(
               height: 5,
               width: 5,
@@ -521,7 +531,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          color: AppColorConstants.themeColor.withOpacity(0.4),
+          color: AppColorConstants.themeColor.withValues(alpha: 0.4),
           child: Heading6Text(locationString.tr, weight: TextWeight.medium)
               .setPadding(top: 5, bottom: 5, left: 10, right: 10),
         ).round(5),
@@ -533,6 +543,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
           longitude: double.parse(widget.booking.event.longitude),
           height: 250,
           width: Get.width.toInt(),
+          apiKey: AppConfigConstants.googleMapApiKey,
         ).ripple(() {
           openDirections();
         }),
@@ -546,11 +557,12 @@ class EventBookingDetailState extends State<EventBookingDetail> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            color: AppColorConstants.themeColor.withOpacity(0.4),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.4),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Heading6Text(eventGalleryString.tr, weight: TextWeight.medium),
+                Heading6Text(eventGalleryString.tr,
+                    weight: TextWeight.medium),
               ],
             ).setPadding(top: 5, bottom: 5, left: 10, right: 10),
           ).round(5),
@@ -558,7 +570,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
             seeAllString.tr,
             color: AppColorConstants.themeColor,
           ).ripple(() {
-            Get.to(() => EventGallery(event: widget.booking.event));
+            Get.to(() => EventGallery(eventGallery: widget.booking.event.gallery));
           })
         ],
       ),
@@ -600,8 +612,8 @@ class EventBookingDetailState extends State<EventBookingDetail> {
                 end: FractionalOffset.bottomCenter,
                 colors: [
                   Colors.black,
-                  Colors.black.withOpacity(0.5),
-                  Colors.grey.withOpacity(0.0),
+                  Colors.black.withValues(alpha: 0.5),
+                  Colors.grey.withValues(alpha: 0.0),
                 ],
                 stops: const [
                   0.0,
@@ -621,7 +633,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
             if (widget.booking.statusType != BookingStatus.cancelled &&
                 widget.booking.giftedToUser == null)
               Container(
-                color: AppColorConstants.themeColor.withOpacity(0.7),
+                color: AppColorConstants.themeColor.withValues(alpha: 0.7),
                 child: Heading6Text(viewETicketString.tr,
                         weight: TextWeight.medium)
                     .setPadding(top: 5, bottom: 5, left: 10, right: 10),
@@ -695,7 +707,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset('assets/lottie/loading.json'),
+          // Lottie.asset('assets/lottie/loading.json'),
           const SizedBox(
             height: 40,
           ),
@@ -725,7 +737,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset('assets/lottie/error.json'),
+          // Lottie.asset('assets/lottie/error.json'),
           const SizedBox(
             height: 40,
           ),
@@ -766,7 +778,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset('assets/lottie/success.json'),
+          // Lottie.asset('assets/lottie/success.json'),
           const SizedBox(
             height: 40,
           ),
@@ -799,7 +811,7 @@ class EventBookingDetailState extends State<EventBookingDetail> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Lottie.asset('assets/lottie/success.json'),
+          // Lottie.asset('assets/lottie/success.json'),
           const SizedBox(
             height: 40,
           ),

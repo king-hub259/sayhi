@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:foap/screens/club/search_club.dart';
 import '../../components/actionSheets/action_sheet1.dart';
 import '../../components/group_avatars/group_avatar1.dart';
@@ -243,7 +242,7 @@ class ExploreClubsState extends State<ExploreClubs> {
                 height: 150,
                 child: Stack(
                   children: [
-                    CarouselSlider(
+                    WKCarouselSlider(
                       items: [
                         for (ClubModel club in _clubsController.topClubs)
                           TopClubCard(
@@ -270,16 +269,13 @@ class ExploreClubsState extends State<ExploreClubs> {
                             },
                           ).rP16
                       ],
-                      options: CarouselOptions(
-                        aspectRatio: 1,
-                        enlargeCenterPage: false,
-                        enableInfiniteScroll: false,
-                        height: double.infinity,
-                        viewportFraction: 0.9,
-                        onPageChanged: (index, reason) {
-                          _clubsController.updateSlider(index);
-                        },
-                      ),
+                      enlargeCenterPage: false,
+                      enableInfiniteScroll: false,
+                      height: double.infinity,
+                      viewportFraction: 0.9,
+                      onPageChanged: (index) {
+                        _clubsController.updateSlider(index);
+                      },
                     ),
                   ],
                 ),

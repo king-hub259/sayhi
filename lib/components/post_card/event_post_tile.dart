@@ -6,8 +6,8 @@ class EventPostTile extends StatefulWidget {
   final bool isResharedPost;
 
   const EventPostTile(
-      {Key? key, required this.post, required this.isResharedPost})
-      : super(key: key);
+      {super.key, required this.post, required this.isResharedPost})
+      ;
 
   @override
   State<EventPostTile> createState() => _EventPostTileState();

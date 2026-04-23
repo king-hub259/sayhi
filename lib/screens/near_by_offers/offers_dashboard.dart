@@ -19,7 +19,7 @@ class OffersDashboardController extends GetxController {
 }
 
 class OffersDashboard extends StatelessWidget {
-  OffersDashboard({Key? key}) : super(key: key);
+  OffersDashboard({super.key}) ;
 
   final OffersDashboardController _dashboardController =
       OffersDashboardController();

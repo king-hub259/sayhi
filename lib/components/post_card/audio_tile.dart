@@ -8,8 +8,8 @@ class AudioPostTile extends StatefulWidget {
   final bool isResharedPost;
 
   const AudioPostTile(
-      {Key? key, required this.post, required this.isResharedPost})
-      : super(key: key);
+      {super.key, required this.post, required this.isResharedPost})
+      ;
 
   @override
   State<AudioPostTile> createState() => _AudioPostTileState();

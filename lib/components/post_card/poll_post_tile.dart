@@ -41,8 +41,8 @@ class _PollPostTileState extends State<PollPostTile> {
         },
         pollEnded: false,
         pollOptionsSplashColor: Colors.white,
-        votedProgressColor: Colors.grey.withOpacity(0.3),
-        votedBackgroundColor: Colors.grey.withOpacity(0.2),
+        votedProgressColor: Colors.grey.withValues(alpha: 0.3),
+        votedBackgroundColor: Colors.grey.withValues(alpha: 0.2),
         votesTextStyle: TextStyle(
             fontSize: FontSizes.b2, color: AppColorConstants.mainTextColor),
         votedPercentageTextStyle: TextStyle(fontSize: FontSizes.b2).copyWith(

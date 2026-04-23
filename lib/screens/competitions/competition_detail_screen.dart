@@ -205,7 +205,7 @@ class CompetitionDetailState extends State<CompetitionDetailScreen> {
               begin: FractionalOffset.bottomCenter,
               end: FractionalOffset.topCenter,
               colors: [
-                Colors.black.withOpacity(0.6),
+                Colors.black.withValues(alpha: 0.6),
                 Colors.transparent,
               ],
               stops: const [

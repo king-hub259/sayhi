@@ -14,8 +14,6 @@ class EventDetailController extends GetxController {
   RxList<PostModel> posts = <PostModel>[].obs;
 
   RxList<EventCoupon> coupons = <EventCoupon>[].obs;
-  double? minTicketPrice;
-  double? maxTicketPrice;
 
   RxBool isLoading = false.obs;
   DataWrapper postDataWrapper = DataWrapper();
@@ -42,13 +40,8 @@ class EventDetailController extends GetxController {
           event.value = result;
           isLoading.value = false;
 
-          List<EventTicketType> ticketTypes = event.value!.ticketType;
+          List<EventTicketType> ticketTypes = event.value!.tickets;
           ticketTypes.sort((a, b) => a.price.compareTo(b.price));
-
-          if (!event.value!.isFree) {
-            minTicketPrice = ticketTypes.first.price;
-            maxTicketPrice = ticketTypes.last.price;
-          }
 
           update();
         });
@@ -64,15 +57,17 @@ class EventDetailController extends GetxController {
   }
 
   joinEvent() {
-    event.value!.isJoined = true;
+    event.value!.reaction = ReactionOnEvent.interested;
     event.refresh();
-    EventApi.joinEvent(eventId: event.value!.id);
+    EventApi.reactOnEvent(
+        reaction: ReactionOnEvent.interested, eventId: event.value!.id);
   }
 
   leaveEvent() {
-    event.value!.isJoined = false;
+    event.value!.reaction = ReactionOnEvent.notInterested;
     event.refresh();
-    EventApi.leaveEvent(eventId: event.value!.id);
+    EventApi.reactOnEvent(
+        reaction: ReactionOnEvent.notInterested, eventId: event.value!.id);
   }
 
   buyEventTicket(EventTicketOrderRequest ticketOrder) {
@@ -122,7 +117,7 @@ class EventDetailController extends GetxController {
 
   void getPosts({required int id, required VoidCallback callback}) async {
     PostApi.getPosts(
-        postType: PostType.event,
+        postType: PostCategory.event,
         eventId: id,
         page: postDataWrapper.page,
         resultCallback: (result, metadata) {

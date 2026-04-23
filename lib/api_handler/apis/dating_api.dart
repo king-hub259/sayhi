@@ -52,6 +52,19 @@ class DatingApi {
     if (selectedPreferences.heightTo != null) {
       param['height_to'] = selectedPreferences.heightTo.toString();
     }
+
+    if (selectedPreferences.holisticFrom != null) {
+      param['holistic_path_from'] =
+          selectedPreferences.holisticFrom.toString();
+    }
+    if (selectedPreferences.holisticTo != null) {
+      param['holistic_path_to'] =
+          selectedPreferences.holisticTo.toString();
+    }
+    if (selectedPreferences.passionateAbout != null) {
+      param['passionate'] = selectedPreferences.passionateAbout.toString();
+    }
+
     await ApiWrapper().postApi(url: url, param: param).then((result) {
       if (result?.success == true) {}
     });
@@ -127,6 +140,13 @@ class DatingApi {
     }
     if (dataModel.experienceMonth != null) {
       param['work_experience_month'] = dataModel.experienceMonth;
+    }
+
+    if (dataModel.holisticPath != null) {
+      param['holistic_path'] = dataModel.holisticPath.toString();
+    }
+    if (dataModel.passionateAbout != null) {
+      param['passionate'] = dataModel.passionateAbout.toString();
     }
 
     await ApiWrapper().postApi(url: url, param: param).then((result) {

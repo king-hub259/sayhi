@@ -120,12 +120,12 @@ class PublicChatGroupCard extends StatelessWidget {
   final VoidCallback leaveBtnClicked;
 
   const PublicChatGroupCard(
-      {Key? key,
+      {super.key,
       required this.room,
       required this.joinBtnClicked,
       required this.leaveBtnClicked,
       required this.previewBtnClicked})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {

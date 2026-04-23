@@ -46,7 +46,7 @@ class SocketManager {
 
   StreamSubscription<FGBGType>? subscription;
 
-  disconnect() {
+  logout() {
     _socketInstance?.disconnect();
     _socketInstance = null;
   }
@@ -70,7 +70,7 @@ class SocketManager {
     // }
     socketGlobalListeners();
 
-    subscription = FGBGEvents.stream.listen((event) {
+    subscription = FGBGEvents.instance.stream.listen((event) {
       if (event == FGBGType.foreground) {
         _socketInstance?.connect();
       } else {

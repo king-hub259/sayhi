@@ -99,7 +99,7 @@ class _BuyTicketState extends State<BuyTicket> {
   Widget eventDetail() {
     return Container(
       height: 120,
-      color: AppColorConstants.cardColor.withOpacity(0.4),
+      color: AppColorConstants.cardColor.withValues(alpha: 0.4),
       child: Row(
         children: [
           CachedNetworkImage(
@@ -168,7 +168,7 @@ class _BuyTicketState extends State<BuyTicket> {
 
   Widget giftTo() {
     return Container(
-      color: AppColorConstants.cardColor.withOpacity(0.4),
+      color: AppColorConstants.cardColor.withValues(alpha: 0.4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -219,17 +219,17 @@ class _BuyTicketState extends State<BuyTicket> {
                 left: DesignConstants.horizontalPadding,
                 right: DesignConstants.horizontalPadding),
             scrollDirection: Axis.horizontal,
-            itemCount: widget.event.ticketType.length,
+            itemCount: widget.event.tickets.length,
             itemBuilder: (context, index) {
               return Obx(() => ticketTypeWidget(
-                          ticket: widget.event.ticketType[index],
+                          ticket: widget.event.tickets[index],
                           isSelected: _buyTicketController
                                   .selectedTicketType.value?.id ==
-                              widget.event.ticketType[index].id)
+                              widget.event.tickets[index].id)
                       .ripple(() {
-                    if (widget.event.ticketType[index].availableTicket > 0) {
+                    if (widget.event.tickets[index].availableTicket > 0) {
                       _buyTicketController
-                          .selectTicketType(widget.event.ticketType[index]);
+                          .selectTicketType(widget.event.tickets[index]);
                     }
                   }));
             },
@@ -258,7 +258,7 @@ class _BuyTicketState extends State<BuyTicket> {
                       color: Theme.of(context)
                           .primaryColor
                           .darken()
-                          .withOpacity(0.2),
+                          .withValues(alpha: 0.2),
                       child:
                           Heading4Text(ticket.name, weight: TextWeight.medium)
                               .setPadding(

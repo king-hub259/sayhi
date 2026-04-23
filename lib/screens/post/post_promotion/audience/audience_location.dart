@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_map;
-import '../../../../components/search_bar.dart';
 import '../../../../components/sm_tab_bar.dart';
 import '../../../../controllers/post/promotion_controller.dart';
 
 class AudienceLocationScreen extends StatelessWidget {
-  AudienceLocationScreen({Key? key}) : super(key: key);
+  AudienceLocationScreen({super.key}) ;
 
   final PromotionController _promotionController = Get.find();
 

@@ -11,7 +11,7 @@ class OpenGroupListing extends StatelessWidget {
 
   final ScrollController _controller = ScrollController();
 
-  OpenGroupListing({Key? key}) : super(key: key);
+  OpenGroupListing({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

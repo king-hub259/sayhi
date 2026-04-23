@@ -9,7 +9,7 @@ import 'package:foap/helper/imports/common_import.dart';
 class PodcastHostDetail extends StatefulWidget {
   final HostModel? host;
 
-  const PodcastHostDetail({Key? key, this.host}) : super(key: key);
+  const PodcastHostDetail({super.key, this.host}) ;
 
   @override
   State<PodcastHostDetail> createState() => _PodcastHostDetailState();

@@ -1,6 +1,7 @@
 import 'package:foap/model/post_promotion_model.dart';
 import 'package:foap/model/user_model.dart';
 
+import '../util/app_util.dart';
 import 'category_model.dart';
 
 class FundRaisingCampaign {
@@ -49,11 +50,9 @@ class FundRaisingCampaign {
         title: json['title'],
         description: json['description'],
         coverImage: json['coverImageUrl'],
-        startDate:
-            DateTime.fromMillisecondsSinceEpoch(json['start_date'] * 1000),
-        endDate: DateTime.fromMillisecondsSinceEpoch(json['end_date'] * 1000),
-        createdDate:
-            DateTime.fromMillisecondsSinceEpoch(json['created_at'] * 1000),
+        startDate: AppUtil.convertToDateTime(json['start_date']),
+        endDate: AppUtil.convertToDateTime(json['end_date']),
+        createdDate: AppUtil.convertToDateTime(json['created_at']),
         targetValue: double.parse(json['target_value'].toString()),
         raisedValue: json['raised_value'] == null
             ? 0.0

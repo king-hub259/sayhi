@@ -7,8 +7,8 @@ class FindRandomUser extends StatefulWidget {
   final int? profileCategoryType;
 
   const FindRandomUser(
-      {Key? key, required this.isCalling, this.profileCategoryType})
-      : super(key: key);
+      {super.key, required this.isCalling, this.profileCategoryType})
+      ;
 
   @override
   State<FindRandomUser> createState() => _FindRandomUserState();

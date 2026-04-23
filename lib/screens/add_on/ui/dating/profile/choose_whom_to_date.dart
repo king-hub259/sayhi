@@ -3,7 +3,7 @@ import 'add_personal_info.dart';
 
 class ChooseWhomToDate extends StatefulWidget {
   final bool isSettingProfile;
-  const ChooseWhomToDate({Key? key, required this.isSettingProfile}) : super(key: key);
+  const ChooseWhomToDate({super.key, required this.isSettingProfile});
 
 
   @override

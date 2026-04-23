@@ -9,8 +9,8 @@ class ETicket extends StatefulWidget {
   final EventBookingModel booking;
   final bool autoSendTicket;
 
-  const ETicket({Key? key, required this.booking, required this.autoSendTicket})
-      : super(key: key);
+  const ETicket({super.key, required this.booking, required this.autoSendTicket})
+      ;
 
   @override
   State<ETicket> createState() => _ETicketState();
@@ -216,8 +216,8 @@ class _ETicketState extends State<ETicket> {
               ).circular.rP16,
               Container(
                 color: widget.booking.statusType == BookingStatus.cancelled
-                    ? AppColorConstants.red.withOpacity(0.7)
-                    : AppColorConstants.themeColor.withOpacity(0.7),
+                    ? AppColorConstants.red.withValues(alpha: 0.7)
+                    : AppColorConstants.themeColor.withValues(alpha: 0.7),
                 child: BodySmallText(
                   widget.booking.statusType == BookingStatus.cancelled
                       ? cancelledString.tr

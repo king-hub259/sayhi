@@ -9,8 +9,8 @@ class PagingScrollView extends StatelessWidget {
       RefreshController(initialRefresh: false);
 
   PagingScrollView(
-      {Key? key, required this.child, required this.loadMoreCallback})
-      : super(key: key);
+      {super.key, required this.child, required this.loadMoreCallback})
+      ;
 
   @override
   Widget build(BuildContext context) {

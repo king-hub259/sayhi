@@ -19,7 +19,7 @@ class ShopDashboardController extends GetxController {
 }
 
 class ShopDashboard extends StatelessWidget {
-  ShopDashboard({Key? key}) : super(key: key);
+  ShopDashboard({super.key}) ;
 
   final ShopDashboardController _dashboardController =
       ShopDashboardController();

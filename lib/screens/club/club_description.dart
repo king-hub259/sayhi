@@ -1,7 +1,7 @@
 import 'package:foap/helper/imports/common_import.dart';
 
 class ClubDescription extends StatefulWidget {
-  const ClubDescription({Key? key}) : super(key: key);
+  const ClubDescription({super.key}) ;
 
   @override
   ClubDescriptionState createState() => ClubDescriptionState();

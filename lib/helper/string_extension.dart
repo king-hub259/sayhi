@@ -85,8 +85,13 @@ extension StringExtension on String {
     }
 
     // Use the generated hash value to generate a color
-    return Color(hash).darken(0.3).withOpacity(1.0);
+    return Color(hash).darken(0.3).withValues(alpha: 1.0);
   }
+
+  bool get isNetworkPath {
+    return startsWith('http://') || startsWith('https://');
+  }
+
 }
 
 extension AgeCalculator on String {

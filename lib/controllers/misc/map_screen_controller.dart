@@ -4,41 +4,91 @@ import 'package:flutter/services.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/screens/profile/other_user_profile.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_map;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import '../../api_handler/apis/users_api.dart';
 import '../../manager/location_manager.dart';
 import '../../model/location.dart';
 
+class CustomMarker {
+  String id;
+  String name;
+  String? address;
+  double latitude;
+  double longitude;
+  BitmapDescriptor? icon;
+
+  CustomMarker({
+    required this.id,
+    required this.name,
+    this.address,
+    required this.latitude,
+    required this.longitude,
+    this.icon,
+  });
+
+  factory CustomMarker.fromJson(Map<String, dynamic> json) {
+    return CustomMarker(
+      id: json['place_id'],
+      name: json['name'],
+      address: json['vicinity'],
+      latitude: json['geometry']['location']['lat'],
+      longitude: json['geometry']['location']['lng'],
+    );
+  }
+}
+
 class MapScreenController extends GetxController {
-  RxList<UserModel> users = <UserModel>[].obs;
-  RxSet<google_map.Marker> markers = <google_map.Marker>{}.obs;
+  RxList<google_map.Marker> markers = <google_map.Marker>[].obs;
+
+  // RxList<CustomMarker> userLocations = <CustomMarker>[].obs;
+
   Rx<LocationModel?> currentLocation = Rx<LocationModel?>(null);
   final LocationManager _locationManager = Get.find();
+  BitmapDescriptor? userMarkerIcon;
+
+  RxInt selectedSegment = 0.obs;
+  final UserProfileManager _userProfileManager = Get.find();
 
   clear() {
-    users.clear();
     markers.clear();
+  }
+
+  changeSegment(int segment) {
+    selectedSegment.value = segment;
+    if (segment == 0) {
+      queryFollowers();
+    } else if (segment == 1) {
+      queryFollowingUsers();
+    }
   }
 
   getLocation(Function(LocationModel) locationHandler) {
     _locationManager.getLocation(locationCallback: (locationData) {
+      currentLocation.value = locationData;
       locationHandler(locationData);
       // update();
-      // queryFollowers();
+      queryFollowers();
     });
-    // Location().getLocation().then((locationData) {
-    //
-    // }).catchError((error) {});
   }
 
-  // Future<List<UserModel>> queryFollowers() async {
-  //   await UsersApi.getFollowingUsers(resultCallback: (result, metadata) {
-  //     users.value = result;
-  //     createMarkers();
-  //   });
-  //
-  //   return users;
-  // }
+  queryFollowers() async {
+    markers.clear();
+    await UsersApi.getFollowerUsers(
+        resultCallback: (result, metadata) {
+          createMarkersWithUsers(result);
+        },
+        userId: _userProfileManager.user.value!.id);
+  }
 
-  createMarkers() async {
+  queryFollowingUsers() async {
+    markers.clear();
+
+    await UsersApi.getFollowingUsers(resultCallback: (result, metadata) {
+      createMarkersWithUsers(result);
+    });
+  }
+
+  createMarkersWithUsers(List<UserModel> users) async {
     for (UserModel userModel in users) {
       if (userModel.latitude != null) {
         String? imgUrl = userModel.picture;
@@ -54,27 +104,33 @@ class MapScreenController extends GetxController {
               borderSize: 20,
               addBorder: true,
               borderColor: Colors.white)
-              .then((value) {
-            getMarkers(userModel, value);
+              .then((result) {
+            getMarkers(userModel, result);
           });
         } else {
-          final ByteData bytesData =
-          (await rootBundle.load('assets/account_selected.png'));
-          bytes = bytesData.buffer.asUint8List();
+          if (userMarkerIcon == null) {
+            final ByteData bytesData =
+            (await rootBundle.load('assets/account_selected.png'));
+            bytes = bytesData.buffer.asUint8List();
 
-          // bytes = await Image.asset(name)
-          google_map.BitmapDescriptor.fromAssetImage(
-              const ImageConfiguration(size: Size(12, 12)),
-              'assets/account_selected.png')
-              .then((icon) {
-            getMarkers(userModel, icon);
-          });
+            google_map.BitmapDescriptor.fromAssetImage(
+                const ImageConfiguration(size: Size(12, 12)),
+                'assets/account_selected.png')
+                .then((icon) {
+              userMarkerIcon = icon;
+              getMarkers(userModel, icon);
+            });
+          } else {
+            getMarkers(userModel, userMarkerIcon!);
+          }
         }
       }
     }
   }
 
-  getMarkers(UserModel userModel, google_map.BitmapDescriptor icon) async {
+  getMarkers(UserModel userModel, google_map.BitmapDescriptor icon) {
+    print('getMarkers  add markers');
+
     markers.add(google_map.Marker(
       //add first marker
       markerId: google_map.MarkerId(userModel.id.toString()),
@@ -82,10 +138,13 @@ class MapScreenController extends GetxController {
           double.parse(userModel.longitude!)),
       icon: icon,
       onTap: () {
-        Get.to(() => OtherUserProfile(userId: userModel.id,user: userModel,));
-        // QuickActions.showUserProfile(context, userModel)
+        Get.to(() => OtherUserProfile(
+          userId: userModel.id,
+          user: userModel,
+        ));
       },
     ));
+
     markers.refresh();
     update();
   }

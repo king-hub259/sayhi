@@ -1,15 +1,15 @@
 import 'package:foap/helper/date_extension.dart';
 import 'package:foap/helper/string_extension.dart';
 import 'package:foap/screens/add_on/controller/dating/dating_controller.dart';
-import 'package:foap/screens/add_on/ui/dating/profile/set_your_gender.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import '../../../model/preference_model.dart';
+import 'add_personal_info.dart';
 
 class SetDateOfBirth extends StatefulWidget {
   final bool isSettingProfile;
 
-  const SetDateOfBirth({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const SetDateOfBirth({super.key, required this.isSettingProfile})
+      ;
 
   @override
   State<SetDateOfBirth> createState() => _SetDateOfBirthState();
@@ -75,7 +75,7 @@ class _SetDateOfBirthState extends State<SetDateOfBirth> {
                             _userProfileManager.user.value!.dob = dataModel.dob;
                             datingController.updateDatingProfile(dataModel, () {
                               if (widget.isSettingProfile) {
-                                Get.to(() => SetYourGender(
+                                Get.to(() => AddPersonalInfo(
                                     isSettingProfile: widget.isSettingProfile));
                               } else {
                                 Get.back();

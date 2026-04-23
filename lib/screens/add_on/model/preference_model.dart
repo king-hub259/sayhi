@@ -6,6 +6,10 @@ class AddPreferenceModel {
   int? ageTo;
   int? heightFrom;
   int? heightTo;
+  int? holisticFrom;
+  int? holisticTo;
+  int? passionateAbout;
+
   String? selectedColor;
   String? religion;
   int? status;
@@ -33,6 +37,10 @@ class AddPreferenceModel {
         : json["height_to"] is String
             ? int.parse(json["height_to"])
             : json["height_to"];
+
+    model.passionateAbout = json["passionate"];
+    model.holisticFrom = json["holistic_path_from"];
+    model.holisticTo = json["holistic_path_to"];
     model.selectedColor = json["color"];
     model.religion = json["religion"];
     model.status = json["marital_status"];
@@ -64,6 +72,9 @@ class AddDatingDataModel {
   String? name;
   String? dob;
   int? gender;
+  int? passionateAbout;
+  int? holisticPath;
+
   String? selectedColor;
   int? height;
   String? religion;

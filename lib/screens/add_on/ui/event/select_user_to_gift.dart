@@ -9,11 +9,11 @@ class SelectUserToGiftEventTicket extends StatefulWidget {
   final Function(UserModel)? selectUserCallback;
 
   const SelectUserToGiftEventTicket(
-      {Key? key,
+      {super.key,
       required this.event,
       required this.isAlreadyBooked,
       this.selectUserCallback})
-      : super(key: key);
+      ;
 
   @override
   SelectUserToGiftEventTicketState createState() =>

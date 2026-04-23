@@ -5,8 +5,7 @@ import '../../components/event/events_list.dart';
 class CategoryEventsListing extends StatefulWidget {
   final EventCategoryModel category;
 
-  const CategoryEventsListing({Key? key, required this.category})
-      : super(key: key);
+  const CategoryEventsListing({super.key, required this.category});
 
   @override
   CategoryEventsListingState createState() => CategoryEventsListingState();

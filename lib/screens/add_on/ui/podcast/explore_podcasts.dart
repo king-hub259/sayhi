@@ -3,15 +3,13 @@ import 'package:foap/helper/imports/event_imports.dart';
 import 'package:foap/screens/add_on/ui/podcast/podcast_list.dart';
 import '../../../../components/category_slider.dart';
 import '../../../../components/paging_scrollview.dart';
-import '../../../../components/search_bar.dart';
 import '../../../../controllers/podcast/podcast_streaming_controller.dart';
 
 class ExplorePodcasts extends StatefulWidget {
   final bool addBackBtn;
   final PodcastCategoryModel? category;
 
-  const ExplorePodcasts({Key? key, required this.addBackBtn, this.category})
-      : super(key: key);
+  const ExplorePodcasts({super.key, required this.addBackBtn, this.category});
 
   @override
   State<ExplorePodcasts> createState() => _ExplorePodcastsState();

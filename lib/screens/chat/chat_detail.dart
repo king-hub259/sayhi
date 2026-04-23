@@ -730,7 +730,7 @@ class _ChatDetailState extends State<ChatDetail> {
 
   Widget dateSeparatorWidget(ChatMessageModel chatMessage) {
     return Container(
-      color: AppColorConstants.themeColor.lighten(0.2).withOpacity(0.5),
+      color: AppColorConstants.themeColor.lighten(0.2).withValues(alpha: 0.5),
       width: 120,
       child: Center(
         child: BodySmallText(chatMessage.dateString)
@@ -775,6 +775,7 @@ class _ChatDetailState extends State<ChatDetail> {
       Get.to(() => StoryViewer(
             story: model.repliedOnStory,
             storyDeleted: () {},
+
           ));
     } else if (model.messageContentType == MessageContentType.contact) {
       openActionPopupForContact(model.mediaContent.contact!);

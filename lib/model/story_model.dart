@@ -1,23 +1,26 @@
 import 'package:foap/model/user_model.dart';
 import 'package:foap/util/time_convertor.dart';
 
+import '../util/app_util.dart';
+
 class StoryModel {
   int id;
 
   String name;
   String userName;
-
   String? userImage;
   List<StoryMediaModel> media;
   bool isViewed = false;
+  bool isLive = false;
+  UserModel? user;
 
-  StoryModel({
-    required this.id,
-    required this.name,
-    required this.userName,
-    this.userImage,
-    required this.media,
-  });
+  StoryModel(
+      {required this.id,
+      required this.name,
+      required this.userName,
+      this.userImage,
+      required this.media,
+      this.user});
 
   factory StoryModel.fromJson(dynamic json) {
     StoryModel model = StoryModel(
@@ -86,11 +89,12 @@ class StoryMediaModel {
         image: json['imageUrl'],
         createdAtDate: json['created_at'] * 1000,
         createdAt: TimeAgo.timeAgoSinceDate(
-            DateTime.fromMillisecondsSinceEpoch(json['created_at'] * 1000)
-                .toUtc()),
+            AppUtil.convertToDateTime(json['created_at'])),
         type: json['type'],
         totalView: json['totalView'],
-        user: json['user'] == null ? null : UserModel.fromJson(json['user']));
+        user: json['user'] == null
+            ? null
+            : UserModel.fromJson(json['user']));
 
     return model;
   }
@@ -125,7 +129,7 @@ class StoryViewerModel {
     StoryViewerModel model = StoryViewerModel();
     model.user = UserModel.fromJson(json['user']);
     model.viewedAt = TimeAgo.timeAgoSinceDate(
-        DateTime.fromMillisecondsSinceEpoch(json['created_at'] * 1000).toUtc());
+        AppUtil.convertToDateTime(json['created_at']));
 
     return model;
   }

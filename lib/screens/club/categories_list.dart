@@ -6,8 +6,7 @@ import '../../model/category_model.dart';
 class CategoriesList extends StatefulWidget {
   final ClubsController clubsController;
 
-  const CategoriesList({Key? key, required this.clubsController})
-      : super(key: key);
+  const CategoriesList({super.key, required this.clubsController});
 
   @override
   State<CategoriesList> createState() => _CategoriesListState();

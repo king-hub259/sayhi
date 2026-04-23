@@ -3,11 +3,9 @@ import 'package:foap/helper/imports/common_import.dart';
 import '../login_sign_up/login_screen.dart';
 
 class PasswordChangedPopup extends StatelessWidget {
-  final UserProfileManager _userProfileManager = Get.find();
-
   final VoidCallback dismissHandler;
 
-  PasswordChangedPopup({super.key, required this.dismissHandler});
+  const PasswordChangedPopup({super.key, required this.dismissHandler});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class PasswordChangedPopup extends StatelessWidget {
                     height: 92,
                     width: 92,
                     child: Container(
-                      color: AppColorConstants.themeColor.withOpacity(0.5),
+                      color: AppColorConstants.themeColor.withValues(alpha: 0.5),
                       height: 92,
                       width: 92,
                       child: ThemeIconWidget(ThemeIcon.checkMark,
@@ -47,7 +45,7 @@ class PasswordChangedPopup extends StatelessWidget {
                           value: 1,
                           radius: 46,
                           color:
-                              AppColorConstants.disabledColor.withOpacity(0.1))
+                              AppColorConstants.disabledColor.withValues(alpha: 0.1))
                       .vP25,
                   Heading5Text(
                     passwordChangedString.tr,

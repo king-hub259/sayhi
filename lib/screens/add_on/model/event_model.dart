@@ -1,6 +1,8 @@
 import 'package:foap/helper/enum.dart';
+import 'package:foap/helper/enum_linking.dart';
 import 'package:foap/model/post_promotion_model.dart';
 import 'package:foap/model/user_model.dart';
+import 'package:foap/util/app_util.dart';
 import 'package:intl/intl.dart';
 
 class EventModel {
@@ -27,44 +29,48 @@ class EventModel {
   bool isFree;
   List<String> gallery;
 
-  bool isJoined;
+  ReactionOnEvent reaction;
   int totalMembers;
   bool isFavourite;
   bool isTicketBooked;
 
   List<EventOrganizer> organizers;
-  List<EventTicketType> ticketType;
+  List<EventTicketType> tickets;
   bool isCompleted;
 
-  EventModel({
-    required this.id,
-    required this.name,
-    required this.categoryId,
-    required this.image,
-    required this.startDate,
-    required this.endDate,
-    required this.placeName,
-    required this.completeAddress,
-    required this.latitude,
-    required this.longitude,
-    required this.disclaimer,
-    required this.description,
-    required this.createdAt,
-    required this.status,
-    required this.createdBy,
-    required this.updatedAt,
-    required this.updatedBy,
-    required this.gallery,
-    required this.isFree,
-    required this.isJoined,
-    required this.totalMembers,
-    required this.isFavourite,
-    required this.ticketType,
-    required this.organizers,
-    required this.eventCurrentStatus,
-    required this.isTicketBooked,
-    required this.isCompleted,
-  });
+  String? shareLink;
+  UserModel createdByUser;
+
+  EventModel(
+      {required this.id,
+      required this.name,
+      required this.categoryId,
+      required this.image,
+      required this.startDate,
+      required this.endDate,
+      required this.placeName,
+      required this.completeAddress,
+      required this.latitude,
+      required this.longitude,
+      required this.disclaimer,
+      required this.description,
+      required this.createdAt,
+      required this.status,
+      required this.createdBy,
+      required this.updatedAt,
+      required this.updatedBy,
+      required this.gallery,
+      required this.isFree,
+      required this.reaction,
+      required this.totalMembers,
+      required this.isFavourite,
+      required this.tickets,
+      required this.organizers,
+      required this.eventCurrentStatus,
+      required this.isTicketBooked,
+      required this.isCompleted,
+      required this.createdByUser,
+      this.shareLink});
 
   factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
         id: json["id"],
@@ -83,8 +89,8 @@ class EventModel {
         eventCurrentStatus: json["eventCurrentStatus"],
         isFree: json["is_paid"] == 0,
         isTicketBooked: json["is_ticket_booked"] == 1,
-        isCompleted:
-            json["eventCurrentStatus"] == 3 || json["eventCurrentStatus"] == 4,
+        isCompleted: json["eventCurrentStatus"] == 3 ||
+            json["eventCurrentStatus"] == 4,
         createdAt: json["created_at"],
         createdBy: json["created_by"],
         updatedAt: json["updated_at"],
@@ -97,15 +103,17 @@ class EventModel {
         organizers: json["eventOrganisor"] != null
             ? [EventOrganizer.fromJson(json["eventOrganisor"])]
             : [],
-        ticketType: json["eventTicket"] == null
+        createdByUser: UserModel.fromJson(json["createdByUser"]),
+        tickets: json["eventTicket"] == null
             ? []
             : (json["eventTicket"] as List<dynamic>)
                 .map((e) => EventTicketType.fromJson(e))
                 .where((e) => e.availableTicket > 0)
                 .toList(),
         isFavourite: json["isFavourite"] == 1,
-        totalMembers: json["totalMembers"] ?? 0,
-        isJoined: json["isJoined"] == 1,
+        totalMembers: json["totalReaction"] ?? 0,
+        reaction: reactionOnEventType(json["isReact"] ?? 0),
+        shareLink: json["share_link"],
       );
 
   EventStatus get statusType {
@@ -123,21 +131,22 @@ class EventModel {
   }
 
   bool get ticketsAdded {
-    List<EventTicketType> ticketTypes = ticketType
-        .where((element) => element.availableTicket > 0 && element.status == 10)
+    List<EventTicketType> ticketTypes = tickets
+        .where((element) =>
+            element.availableTicket > 0 && element.status == 10)
         .toList();
     return ticketTypes.isNotEmpty;
   }
 
   bool get isSoldOut {
-    List<EventTicketType> ticketTypes =
-        ticketType.where((element) => element.availableTicket > 0).toList();
+    List<EventTicketType> ticketTypes = tickets
+        .where((element) => element.availableTicket > 0)
+        .toList();
     return ticketTypes.isEmpty;
   }
 
   String get startAtDate {
-    DateTime callStartTime =
-        DateTime.fromMillisecondsSinceEpoch(startDate * 1000);
+    DateTime callStartTime = AppUtil.convertToDateTime(startDate);
 
     return DateFormat('dd-MMM-yyyy').format(callStartTime);
   }
@@ -190,6 +199,26 @@ class EventModel {
 
     return DateFormat('hh:mm a').format(callStartTime);
   }
+
+  double? get minTicketPrice {
+    tickets.sort((a, b) => a.price.compareTo(b.price));
+
+    if (tickets.isNotEmpty) {
+      return tickets.first.price;
+    } else {
+      return null;
+    }
+  }
+
+  double? get maxTicketPrice {
+    tickets.sort((a, b) => a.price.compareTo(b.price));
+
+    if (tickets.isNotEmpty) {
+      return tickets.last.price;
+    } else {
+      return null;
+    }
+  }
 }
 
 class EventTicketType {
@@ -234,7 +263,8 @@ class EventOrganizer {
     required this.image,
   });
 
-  factory EventOrganizer.fromJson(Map<String, dynamic> json) => EventOrganizer(
+  factory EventOrganizer.fromJson(Map<String, dynamic> json) =>
+      EventOrganizer(
         id: json["id"],
         name: json["name"],
         image: json["campaginImage"],
@@ -266,7 +296,8 @@ class EventCoupon {
         title: json["title"],
         subTitle: json["subtitle"],
         code: json["code"],
-        minimumOrderPrice: double.parse(json["minimum_order_price"].toString()),
+        minimumOrderPrice:
+            double.parse(json["minimum_order_price"].toString()),
         image: json["imageUrl"],
         discount: double.parse(json["coupon_value"].toString()),
       );

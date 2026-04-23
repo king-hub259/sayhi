@@ -7,11 +7,11 @@ class ReplyTextChatTile extends StatelessWidget {
   final Function(ChatMessageModel) messageTapHandler;
 
   const ReplyTextChatTile(
-      {Key? key,
+      {super.key,
         required this.message,
         required this.replyMessageTapHandler,
         required this.messageTapHandler})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import '../../model/category_model.dart';
 class FundRaisingCategories extends StatelessWidget {
   final FundRaisingController _fundRaisingController = Get.find();
 
-  FundRaisingCategories({Key? key}) : super(key: key);
+  FundRaisingCategories({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

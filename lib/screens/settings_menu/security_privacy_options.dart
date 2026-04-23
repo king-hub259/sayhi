@@ -1,4 +1,3 @@
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/setting_imports.dart';
 
@@ -65,18 +64,18 @@ class _PrivacyOptionsState extends State<PrivacyOptions> {
                   weight: TextWeight.medium),
             ),
             // const Spacer(),
-            Obx(() => FlutterSwitch(
+            Obx(() => WKToggleSwitch1(
                   inactiveColor: AppColorConstants.disabledColor,
                   activeColor: AppColorConstants.themeColor,
                   width: 50.0,
                   height: 30.0,
-                  valueFontSize: 15.0,
-                  toggleSize: 20.0,
-                  value: settingsController.shareLocation.value,
-                  borderRadius: 30.0,
-                  padding: 8.0,
+                  // valueFontSize: 15.0,
+                  // toggleSize: 20.0,
+                  initialValue: settingsController.shareLocation.value,
+                  // borderRadius: 30.0,
+                  // padding: 8.0,
                   // showOnOff: true,
-                  onToggle: (val) {
+                  onChanged: (val) {
                     settingsController.shareLocationToggle(val);
                   },
                 )),
@@ -108,18 +107,18 @@ class _PrivacyOptionsState extends State<PrivacyOptions> {
                 ),
               ),
               // const Spacer(),
-              FlutterSwitch(
+              WKToggleSwitch1(
                 inactiveColor: AppColorConstants.disabledColor,
                 activeColor: AppColorConstants.themeColor,
                 width: 50.0,
                 height: 30.0,
-                valueFontSize: 15.0,
-                toggleSize: 20.0,
-                value: settingsController.bioMetricAuthStatus.value,
-                borderRadius: 30.0,
-                padding: 8.0,
+                // valueFontSize: 15.0,
+                // toggleSize: 20.0,
+                initialValue: settingsController.bioMetricAuthStatus.value,
+                // borderRadius: 30.0,
+                // padding: 8.0,
                 // showOnOff: true,
-                onToggle: (value) {
+                onChanged: (value) {
                   settingsController.biometricLogin(value);
                 },
               ),
@@ -130,7 +129,8 @@ class _PrivacyOptionsState extends State<PrivacyOptions> {
   accountPrivacyTile() {
     return Obx(() => SizedBox(
           height: 65,
-          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             ThemeIconWidget(
               ThemeIcon.account,
               size: 20,
@@ -152,17 +152,17 @@ class _PrivacyOptionsState extends State<PrivacyOptions> {
               ),
             ),
             // const Spacer(),
-            FlutterSwitch(
+            WKToggleSwitch1(
               inactiveColor: AppColorConstants.disabledColor,
               activeColor: AppColorConstants.themeColor,
               width: 50.0,
               height: 30.0,
-              valueFontSize: 15.0,
-              toggleSize: 20.0,
-              value: settingsController.isPrivateAccount.value,
-              borderRadius: 30.0,
-              padding: 8.0,
-              onToggle: (isPrivate) {
+              // valueFontSize: 15.0,
+              // toggleSize: 20.0,
+              initialValue: settingsController.isPrivateAccount.value,
+              // borderRadius: 30.0,
+              // padding: 8.0,
+              onChanged: (isPrivate) {
                 settingsController.toggleAccountPrivacy(isPrivate);
               },
             ),
@@ -173,7 +173,8 @@ class _PrivacyOptionsState extends State<PrivacyOptions> {
   onlineStatusTile() {
     return Obx(() => SizedBox(
           height: 80,
-          child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          child:
+              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
             ThemeIconWidget(
               ThemeIcon.chat,
               size: 20,
@@ -195,17 +196,17 @@ class _PrivacyOptionsState extends State<PrivacyOptions> {
               ),
             ),
             // const Spacer(),
-            FlutterSwitch(
+            WKToggleSwitch1(
               inactiveColor: AppColorConstants.disabledColor,
               activeColor: AppColorConstants.themeColor,
               width: 50.0,
               height: 30.0,
-              valueFontSize: 15.0,
-              toggleSize: 20.0,
-              value: settingsController.isShareOnlineStatus.value,
-              borderRadius: 30.0,
-              padding: 8.0,
-              onToggle: (status) {
+              // valueFontSize: 15.0,
+              // toggleSize: 20.0,
+              initialValue: settingsController.isShareOnlineStatus.value,
+              // borderRadius: 30.0,
+              // padding: 8.0,
+              onChanged: (status) {
                 settingsController.toggleShowOnlineStatusSetting(status);
               },
             ),

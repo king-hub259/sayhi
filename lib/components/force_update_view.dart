@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../screens/settings_menu/settings_controller.dart';
 
 class ForceUpdateView extends StatelessWidget {
-  ForceUpdateView({Key? key}) : super(key: key);
+  ForceUpdateView({super.key}) ;
   final SettingsController settingsController = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class ForceUpdateView extends StatelessWidget {
 }
 
 class InvalidPurchaseView extends StatelessWidget {
-  const InvalidPurchaseView({Key? key}) : super(key: key);
+  const InvalidPurchaseView({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

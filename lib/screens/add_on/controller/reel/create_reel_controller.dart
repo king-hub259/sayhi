@@ -12,6 +12,7 @@ import 'package:foap/screens/add_on/ui/reel/preview_reel_screen.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:video_compress/video_compress.dart';
 
 class CreateReelController extends GetxController {
   final PlayerManager _playerManager = Get.find();
@@ -22,6 +23,8 @@ class CreateReelController extends GetxController {
   Rx<ReelMusicModel?> selectedAudio = Rx<ReelMusicModel?>(null);
   double? audioStartTime;
   double? audioEndTime;
+  double? selectedAudioStartTime;
+  double? selectedAudioEndTime;
   File? croppedAudioFile;
 
   RxString searchText = ''.obs;
@@ -41,6 +44,7 @@ class CreateReelController extends GetxController {
   RxInt recordingLength = 15.obs;
 
   RxDouble currentProgressValue = (0.0).obs;
+
   // late SimpleDownloader _downloader;
 
   void turnOnFlash() {
@@ -64,13 +68,16 @@ class CreateReelController extends GetxController {
   }
 
   clear() {
-    audios.clear();
-    isLoadingAudios.value = false;
-    isRecording.value = false;
-    audiosCurrentPage = 1;
-    canLoadMoreAudios = true;
-    selectedAudio.value = null;
-    stopPlayingAudio();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      audios.clear();
+      isLoadingAudios.value = false;
+      isRecording.value = false;
+      audiosCurrentPage = 1;
+      canLoadMoreAudios = true;
+      selectedAudio.value = null;
+      debugPrint('selectedAudio.value = null');
+      stopPlayingAudio();
+    });
   }
 
   closeSearch() {
@@ -123,10 +130,17 @@ class CreateReelController extends GetxController {
 
   selectReelAudio(ReelMusicModel audio) {
     selectedAudio.value = audio;
+    debugPrint('selectReelAudio $selectedAudio');
   }
 
   setCroppedAudio(File audioFile) {
     croppedAudioFile = audioFile;
+    debugPrint('croppedAudioFile $audioFile');
+  }
+
+  clearAudioCropperTime() {
+    selectedAudioStartTime = null;
+    selectedAudioEndTime = null;
   }
 
   setAudioCropperTime(double startTime, double endTime) {
@@ -169,6 +183,10 @@ class CreateReelController extends GetxController {
   void startRecording() {
     isRecording.value = true;
     startDateTime = DateTime.now();
+    if (croppedAudioFile != null) {
+      playAudioFile(croppedAudioFile!);
+    }
+
     update();
   }
 
@@ -188,53 +206,55 @@ class CreateReelController extends GetxController {
         '${directory.path}/REEL_${DateTime.now().millisecondsSinceEpoch}.mp4');
 
     if (selectedAudioFile != null) {
-      FFmpegKitConfig.enableLogCallback((log) {
-      });
-      var command =
-          "-i ${videoFile.path} -i ${selectedAudioFile.path} -map 0:v -map 1:a -c:v copy "
-          "-shortest ${finalFile.path}";
-      FFmpegKit.executeAsync(
-        command,
-        (session) async {
+      try {
+        // Get video duration in SECONDS
+        final mediaInfo = await VideoCompress.getMediaInfo(videoFile.path);
+        final videoDurationSeconds = mediaInfo.duration! / 1000; // Convert ms to seconds
+
+        Loader.show(status: preparingString.tr);
+
+        final command = [
+          '-y', // Overwrite output
+          '-i', videoFile.path,
+          '-i', selectedAudioFile.path,
+          '-filter_complex',
+          '[1:a]atrim=0:$videoDurationSeconds,asetpts=PTS-STARTPTS,apad=whole_dur=$videoDurationSeconds[aout]',
+          '-map', '0:v',
+          '-map', '[aout]',
+          '-c:v', 'copy',
+          '-c:a', 'aac', // Required for MP4 container
+          '-movflags', '+faststart',
+          finalFile.path
+        ];
+
+        FFmpegKitConfig.enableLogCallback((log) {
+          debugPrint('FFmpeg log: ${log.getMessage()}');
+        });
+
+        FFmpegKit.executeWithArguments(command).then((session) async {
           final returnCode = await session.getReturnCode();
+          Loader.dismiss();
 
           if (ReturnCode.isSuccess(returnCode)) {
-            debugPrint('Reel Created at: ${finalFile.path}');
-            // SUCCESS
-            // AppUtil.showToast(
-            //     context: Get.context!,
-            //     message: 'Reel Created successfully',
-            //     isSuccess: true);
+            debugPrint('Success! Video duration: $videoDurationSeconds seconds');
             Get.to(() => PreviewReelsScreen(
-                  reel: finalFile,
-                  audioId: selectedAudio.value?.id,
-                  audioStartTime: audioStartTime,
-                  audioEndTime: audioEndTime,
-                ));
-            /* final route = MaterialPageRoute(
-              fullscreenDialog: true,
-              builder: (_) => VideoPage(filePath: file.path),
-            );
-            Navigator.push(context, route);*/
-          } else if (ReturnCode.isCancel(returnCode)) {
-            debugPrint('Reel failed :: Cancelled');
-            // CANCEL
+              reel: finalFile,
+              audioId: selectedAudio.value?.id,
+              audioStartTime: audioStartTime,
+              audioEndTime: audioEndTime,
+            ));
           } else {
-            debugPrint('Reel failed :: $returnCode');
-            // ERROR
+            debugPrint('Failed with code: $returnCode');
+            AppUtil.showToast(message: 'Error creating reel', isSuccess: false);
           }
-        },
-      );
+        });
+      } catch (e) {
+        Loader.dismiss();
+        debugPrint('Error: $e');
+        AppUtil.showToast(message: 'Processing failed', isSuccess: false);
+      }
     } else {
-      debugPrint('Reel Created without audio:: ${videoFile.path}');
-      var finalFile = File(videoFile.path);
-      // AppUtil.showToast(
-      //     context: Get.context!,
-      //     message: 'Reel Created without Audio',
-      //     isSuccess: true);
-      Get.to(() => PreviewReelsScreen(
-            reel: finalFile,
-          ));
+      Get.to(() => PreviewReelsScreen(reel: File(videoFile.path)));
     }
   }
 
@@ -288,6 +308,8 @@ class CreateReelController extends GetxController {
           isSuccess: false);
       return;
     }
+    selectedAudioStartTime = audioStartTime;
+    selectedAudioEndTime = audioEndTime;
 
     Loader.show(status:loadingString.tr);
     downloadAudio((status) async {
@@ -304,7 +326,7 @@ class CreateReelController extends GetxController {
               '-ss ${audioStartTime!} -i ${croppedAudioFile!.path} -t $duration -c copy ${finalAudioFile.path}';
           FFmpegKit.executeAsync(
             audioTrimCommand,
-            (session) async {
+                (session) async {
               final returnCode = await session.getReturnCode();
 
               Loader.dismiss();

@@ -1,0 +1,2 @@
+/Users/kanwarpalsingh/Downloads/sayhi_complete_v1_5/sayhi/SayHi_mobile/android/app/.cxx/Debug/1s6g532n/x86/CMakeFiles/edit_cache.dir
+/Users/kanwarpalsingh/Downloads/sayhi_complete_v1_5/sayhi/SayHi_mobile/android/app/.cxx/Debug/1s6g532n/x86/CMakeFiles/rebuild_cache.dir

@@ -3,7 +3,7 @@ import 'package:foap/helper/string_extension.dart';
 import 'package:foap/screens/add_on/controller/dating/dating_controller.dart';
 
 class DatingCard extends StatefulWidget {
-  const DatingCard({Key? key}) : super(key: key);
+  const DatingCard({super.key}) ;
 
   @override
   State<DatingCard> createState() => DatingCardState();
@@ -27,7 +27,7 @@ class DatingCardState extends State<DatingCard> {
 }
 
 class CardsStackWidget extends StatefulWidget {
-  const CardsStackWidget({Key? key}) : super(key: key);
+  const CardsStackWidget({super.key}) ;
 
   @override
   State<CardsStackWidget> createState() => _CardsStackWidgetState();
@@ -248,12 +248,12 @@ class _CardsStackWidgetState extends State<CardsStackWidget>
 
 class DragWidget extends StatefulWidget {
   const DragWidget(
-      {Key? key,
+      {super.key,
       required this.profile,
       required this.index,
       required this.swipeNotifier,
       this.isLastCard = false})
-      : super(key: key);
+      ;
   final UserModel profile;
   final int index;
   final ValueNotifier<Swipe> swipeNotifier;
@@ -379,10 +379,10 @@ class _DragWidgetState extends State<DragWidget> {
 
 class TagWidget extends StatelessWidget {
   const TagWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.color,
-  }) : super(key: key);
+  }) ;
   final String text;
   final Color color;
 
@@ -411,7 +411,7 @@ class TagWidget extends StatelessWidget {
 }
 
 class ProfileCard extends StatelessWidget {
-  const ProfileCard({Key? key, required this.profile}) : super(key: key);
+  const ProfileCard({super.key, required this.profile}) ;
   final UserModel profile;
 
   @override
@@ -453,7 +453,7 @@ class ProfileCard extends StatelessWidget {
                     ),
                 shadows: <BoxShadow>[
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 8,
                   ),
                 ],
@@ -507,8 +507,8 @@ class ProfileCard extends StatelessWidget {
 
 class ActionButtonWidget extends StatelessWidget {
   const ActionButtonWidget(
-      {Key? key, required this.onPressed, required this.icon})
-      : super(key: key);
+      {super.key, required this.onPressed, required this.icon})
+      ;
   final VoidCallback onPressed;
   final Icon icon;
 

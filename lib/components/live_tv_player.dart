@@ -13,13 +13,13 @@ class SocialifiedVideoPlayer extends StatefulWidget {
   final bool? isPlayingTv;
 
   const SocialifiedVideoPlayer({
-    Key? key,
+    super.key,
     required this.url,
     required this.play,
     required this.orientation,
     this.isPlayingTv,
     this.tvModel,
-  }) : super(key: key);
+  }) ;
 
   @override
   State<SocialifiedVideoPlayer> createState() => _SocialifiedVideoPlayerState();
@@ -181,7 +181,7 @@ class _SocialifiedVideoPlayerState extends State<SocialifiedVideoPlayer> {
                     top: 0,
                     child: Container(
                       height: 80,
-                      color: AppColorConstants.themeColor.withOpacity(0.1),
+                      color: AppColorConstants.themeColor.withValues(alpha: 0.1),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

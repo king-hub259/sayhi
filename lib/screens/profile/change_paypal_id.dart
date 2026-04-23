@@ -2,7 +2,7 @@ import 'package:foap/helper/imports/common_import.dart';
 import '../../controllers/profile/profile_controller.dart';
 
 class ChangePaypalId extends StatefulWidget {
-  const ChangePaypalId({Key? key}) : super(key: key);
+  const ChangePaypalId({super.key}) ;
 
   @override
   State<ChangePaypalId> createState() => _ChangePaypalIdState();

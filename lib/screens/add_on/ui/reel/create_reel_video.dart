@@ -132,7 +132,7 @@ class _CreateReelScreenState extends State<CreateReelScreen>
                 left: 15,
                 top: 150,
                 child: Container(
-                  color: AppColorConstants.cardColor.withOpacity(0.4),
+                  color: AppColorConstants.cardColor.withValues(alpha: 0.4),
                   child: Column(
                     children: [
                       GestureDetector(

@@ -6,7 +6,7 @@ import '../../../../helper/imports/common_import.dart';
 class HostList extends StatelessWidget {
   final PodcastStreamingController _podcastStreamingController = Get.find();
 
-  HostList({Key? key}) : super(key: key);
+  HostList({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

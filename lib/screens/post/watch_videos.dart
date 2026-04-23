@@ -25,7 +25,7 @@ class _WatchVideosState extends State<WatchVideos> {
           titleNavigationBar(title: videosString),
           Expanded(
             child: PostList(
-              postSource: PostSource.videos,
+              postSource: TimelineType.videos,
             ),
           ),
         ],

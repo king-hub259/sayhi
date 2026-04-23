@@ -7,7 +7,7 @@ import 'package:foap/screens/chat/chat_detail.dart';
 import 'package:foap/screens/chat/select_users.dart';
 
 class CallHistory extends StatefulWidget {
-  const CallHistory({Key? key}) : super(key: key);
+  const CallHistory({super.key}) ;
 
   @override
   State<CallHistory> createState() => _CallHistoryState();

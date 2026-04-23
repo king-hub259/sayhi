@@ -2,7 +2,7 @@ import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/competition_imports.dart';
 
 class CompetitionsScreen extends StatefulWidget {
-  const CompetitionsScreen({Key? key}) : super(key: key);
+  const CompetitionsScreen({super.key}) ;
 
   @override
   CompetitionsState createState() => CompetitionsState();

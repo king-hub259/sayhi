@@ -1,3 +1,4 @@
+import 'package:foap/helper/enum.dart';
 import 'package:foap/helper/extension.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'event_card.dart';
 class EventsList extends StatelessWidget {
   final EventsController _eventsController = Get.find();
 
-  EventsList({Key? key}) : super(key: key);
+  EventsList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +33,23 @@ class EventsList extends StatelessWidget {
               height: events.length * 200,
               child: ListView.separated(
                   padding: EdgeInsets.only(
-                      left: DesignConstants.horizontalPadding, right: DesignConstants.horizontalPadding, top: 20, bottom: 50),
+                      left: DesignConstants.horizontalPadding,
+                      right: DesignConstants.horizontalPadding,
+                      top: 20,
+                      bottom: 50),
                   itemCount: events.length,
                   itemBuilder: (BuildContext ctx, int index) {
                     return EventCard2(
                       event: events[index],
                       joinBtnClicked: () {
-                        _eventsController.joinEvent(events[index]);
+                        _eventsController.reactOnEvent(
+                            reaction: ReactionOnEvent.interested,
+                            eventId: events[index].id);
                       },
                       leaveBtnClicked: () {
-                        _eventsController.leaveEvent(events[index]);
+                        _eventsController.reactOnEvent(
+                            reaction: ReactionOnEvent.notInterested,
+                            eventId: events[index].id);
                       },
                       previewBtnClicked: () {},
                     ).ripple(() {

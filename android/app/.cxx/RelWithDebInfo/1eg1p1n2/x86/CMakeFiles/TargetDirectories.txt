@@ -1,0 +1,2 @@
+/Users/kanwarpalsingh/Documents/Apps/sayhi_codecanyon/SayHi_mobile_before fix/android/app/.cxx/RelWithDebInfo/1eg1p1n2/x86/CMakeFiles/edit_cache.dir
+/Users/kanwarpalsingh/Documents/Apps/sayhi_codecanyon/SayHi_mobile_before fix/android/app/.cxx/RelWithDebInfo/1eg1p1n2/x86/CMakeFiles/rebuild_cache.dir

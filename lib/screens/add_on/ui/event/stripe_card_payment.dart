@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 
 class StripeCardPayment extends StatefulWidget {
-  const StripeCardPayment({Key? key}) : super(key: key);
+  const StripeCardPayment({super.key}) ;
 
   @override
   StripeCardPaymentState createState() => StripeCardPaymentState();

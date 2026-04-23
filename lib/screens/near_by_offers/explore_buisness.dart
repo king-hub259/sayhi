@@ -2,7 +2,6 @@ import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/event_imports.dart';
 import '../../components/category_slider.dart';
 import '../../components/paging_scrollview.dart';
-import '../../components/search_bar.dart';
 import '../../controllers/coupons/near_by_offers.dart';
 import 'business_list.dart';
 
@@ -10,8 +9,8 @@ class ExploreBusiness extends StatefulWidget {
   final bool addBackBtn;
   final OffersCategoryModel? category;
 
-  const ExploreBusiness({Key? key, required this.addBackBtn, this.category})
-      : super(key: key);
+  const ExploreBusiness({super.key, required this.addBackBtn, this.category})
+      ;
 
   @override
   State<ExploreBusiness> createState() => _ExploreBusinessState();

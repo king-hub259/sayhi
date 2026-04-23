@@ -122,33 +122,22 @@ class EventsController extends GetxController {
     EventApi.getEventCategories(resultCallback: (result) {
       categories.value =
           result.where((element) => element.events.isNotEmpty).toList();
+
       isLoadingCategories.value = false;
     });
   }
 
-  joinEvent(EventModel event) {
+  reactOnEvent({required ReactionOnEvent reaction, required int eventId}) {
     events.value = events.map((element) {
-      if (element.id == event.id) {
-        element.isJoined = true;
+      if (element.id == eventId) {
+        element.reaction = reaction;
       }
       return element;
     }).toList();
 
     events.refresh();
 
-    EventApi.joinEvent(eventId: event.id);
-  }
-
-  leaveEvent(EventModel event) {
-    events.value = events.map((element) {
-      if (element.id == event.id) {
-        element.isJoined = false;
-      }
-      return element;
-    }).toList();
-
-    events.refresh();
-    EventApi.leaveEvent(eventId: event.id);
+    EventApi.reactOnEvent(reaction: reaction, eventId: eventId);
   }
 
   refreshPosts({required VoidCallback callback}) {
@@ -169,7 +158,7 @@ class EventsController extends GetxController {
 
   void getPosts({required VoidCallback callback}) async {
     PostApi.getPosts(
-        postType: PostType.event,
+        postType: PostCategory.event,
         page: postDataWrapper.page,
         resultCallback: (result, metadata) {
           posts.addAll(result);
@@ -192,5 +181,4 @@ class EventsController extends GetxController {
     posts.removeWhere((element) => element.user.id == post.user.id);
     posts.refresh();
   }
-
 }

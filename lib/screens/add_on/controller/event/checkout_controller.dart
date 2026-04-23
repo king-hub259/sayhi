@@ -1,8 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter_braintree/flutter_braintree.dart';
 import 'package:foap/api_handler/apis/payment_gateway_api.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/setting_imports.dart';
@@ -11,8 +8,6 @@ import 'package:foap/util/constant_util.dart';
 import 'package:flutter_stripe/flutter_stripe.dart' as stripe;
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:foap/helper/imports/event_imports.dart';
-
-enum ProcessingPaymentStatus { inProcess, completed, failed }
 
 class CheckoutController extends GetxController {
   final UserProfileManager _userProfileManager = Get.find();
@@ -24,7 +19,7 @@ class CheckoutController extends GetxController {
   String itemName = '';
 
   Rx<PaymentGateway> selectedPaymentGateway =
-      Rx<PaymentGateway>(PaymentGateway.paypal);
+      Rx<PaymentGateway>(PaymentGateway.stripe);
 
   RxBool googlePaySupported = false.obs;
   Rx<ProcessingPaymentStatus?> processingPayment =
@@ -39,7 +34,7 @@ class CheckoutController extends GetxController {
     totalAmountToPay = 0;
     itemName = '';
 
-    selectedPaymentGateway.value = PaymentGateway.paypal;
+    selectedPaymentGateway.value = PaymentGateway.stripe;
 
     googlePaySupported.value = false;
     processingPayment.value = null;
@@ -99,9 +94,9 @@ class CheckoutController extends GetxController {
       // case PaymentGateway.applePay:
       //   applePay();
       //   break;
-      case PaymentGateway.paypal:
-        payWithPaypal();
-        break;
+      // case PaymentGateway.paypal:
+      //   payWithPaypal();
+      //   break;
       case PaymentGateway.razorpay:
         launchRazorpayPayment();
         break;
@@ -208,62 +203,62 @@ class CheckoutController extends GetxController {
   //   }
   // }
 
-  payWithPaypal() async {
-    Loader.show(status: loadingString.tr);
-
-    PaymentGatewayApi.fetchPaypalClientToken(
-        resultCallback: (paypalClientToken) async {
-      if (paypalClientToken != null) {
-        final request =
-            BraintreePayPalRequest(amount: totalAmountToPay.toString());
-        BraintreePaymentMethodNonce? result =
-            await Braintree.requestPaypalNonce(
-          paypalClientToken,
-          request,
-        );
-        if (result != null) {
-          processingPayment.value = ProcessingPaymentStatus.inProcess;
-
-          String deviceData = '';
-          if (Platform.isAndroid) {
-            DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-            AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-            deviceData = 'android, ${androidInfo.model}';
-          } else {
-            DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-            IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-            deviceData = 'iOS, ${iosInfo.utsname.machine}';
-          }
-          Loader.dismiss();
-
-          PaymentGatewayApi.sendPaypalPayment(
-              amount: balanceToPay.value,
-              nonce: result.nonce,
-              deviceData: deviceData,
-              resultCallback: (paymentId) {
-                if (paymentId != null) {
-                  Payment payment = Payment();
-                  payment.paymentMode = '2';
-                  payment.amount = balanceToPay.value.toString();
-                  payment.transactionId = paymentId;
-
-                  transactions
-                      .removeWhere((element) => element.paymentMode == '2');
-                  transactions.add(payment);
-                  placeOrder();
-                } else {
-                  processingPayment.value = ProcessingPaymentStatus.failed;
-                }
-              });
-        } else {
-          Loader.dismiss();
-        }
-      } else {
-        Loader.dismiss();
-        processingPayment.value = ProcessingPaymentStatus.failed;
-      }
-    });
-  }
+  // payWithPaypal() async {
+  //   Loader.show(status: loadingString.tr);
+  //
+  //   PaymentGatewayApi.fetchPaypalClientToken(
+  //       resultCallback: (paypalClientToken) async {
+  //     if (paypalClientToken != null) {
+  //       final request =
+  //           BraintreePayPalRequest(amount: totalAmountToPay.toString());
+  //       BraintreePaymentMethodNonce? result =
+  //           await Braintree.requestPaypalNonce(
+  //         paypalClientToken,
+  //         request,
+  //       );
+  //       if (result != null) {
+  //         processingPayment.value = ProcessingPaymentStatus.inProcess;
+  //
+  //         String deviceData = '';
+  //         if (Platform.isAndroid) {
+  //           DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  //           AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+  //           deviceData = 'android, ${androidInfo.model}';
+  //         } else {
+  //           DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  //           IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+  //           deviceData = 'iOS, ${iosInfo.utsname.machine}';
+  //         }
+  //         Loader.dismiss();
+  //
+  //         PaymentGatewayApi.sendPaypalPayment(
+  //             amount: balanceToPay.value,
+  //             nonce: result.nonce,
+  //             deviceData: deviceData,
+  //             resultCallback: (paymentId) {
+  //               if (paymentId != null) {
+  //                 Payment payment = Payment();
+  //                 payment.paymentMode = '2';
+  //                 payment.amount = balanceToPay.value.toString();
+  //                 payment.transactionId = paymentId;
+  //
+  //                 transactions
+  //                     .removeWhere((element) => element.paymentMode == '2');
+  //                 transactions.add(payment);
+  //                 placeOrder();
+  //               } else {
+  //                 processingPayment.value = ProcessingPaymentStatus.failed;
+  //               }
+  //             });
+  //       } else {
+  //         Loader.dismiss();
+  //       }
+  //     } else {
+  //       Loader.dismiss();
+  //       processingPayment.value = ProcessingPaymentStatus.failed;
+  //     }
+  //   });
+  // }
 
   payWithStripe() async {
     PaymentGatewayApi.fetchPaymentIntentClientSecret(

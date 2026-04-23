@@ -122,19 +122,14 @@ class _QuickLinkWidgetState extends State<QuickLinkWidget> {
                     Get.to(() => const ExploreClubs());
                   } else if (link.linkType == QuickLinkType.pages) {
                   } else if (link.linkType == QuickLinkType.goLive) {
-                    PermissionUtils.requestPermission(
-                        [Permission.camera, Permission.microphone],
-                        isOpenSettings: true, permissionGrant: () async {
-                      Get.to(() => const ContentCreatorView());
-                    }, permissionDenied: () {
-                      // AppUtil.showToast(
-                      //     message: pleaseAllowAccessToCameraForLiveString.tr,
-                      //     isSuccess: false);
-                    }, permissionNotAskAgain: () {
-                      // AppUtil.showToast(
-                      //     message: pleaseAllowAccessToCameraForLiveString.tr,
-                      //     isSuccess: false);
-                    });
+                    Future.delayed(
+                      Duration.zero,
+                      () => showGeneralDialog(
+                          context: Get.context!,
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const ContentCreatorView(animateToIndex: 2,)),
+                    );
                   } else if (link.linkType == QuickLinkType.story) {
                     openStoryUploader();
                     //Get.to(() => const ChooseMediaForStory());
@@ -227,7 +222,7 @@ class _QuickLinkWidgetState extends State<QuickLinkWidget> {
           Container(
             height: 50,
             width: 50,
-            color: AppColorConstants.themeColor.withOpacity(0.2),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.2),
             child: Center(
               child: Image.asset(
                 link.icon,

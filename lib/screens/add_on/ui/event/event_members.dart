@@ -5,7 +5,7 @@ import 'package:foap/helper/imports/event_imports.dart';
 class EventMembers extends StatefulWidget {
   final EventModel event;
 
-  const EventMembers({Key? key, required this.event}) : super(key: key);
+  const EventMembers({super.key, required this.event}) ;
 
   @override
   EventMembersState createState() => EventMembersState();

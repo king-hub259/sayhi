@@ -9,7 +9,7 @@ import '../../util/constant_util.dart';
 class DrawingScreen extends StatefulWidget {
   final Function(Media)? drawingCompleted;
 
-  const DrawingScreen({Key? key, this.drawingCompleted}) : super(key: key);
+  const DrawingScreen({super.key, this.drawingCompleted}) ;
 
   @override
   State<DrawingScreen> createState() => _DrawingScreenState();
@@ -235,11 +235,8 @@ class _DrawingScreenState extends State<DrawingScreen> {
               if (_drawingBoardController.isErasing.value == true) {
                 _drawingController.addContent(SimpleLine());
               } else {
-                _drawingController.addContent(Eraser(
-                    color:
-                        _drawingBoardController.selectedBackgroundColor.value));
+                _drawingController.addContent(Eraser());
               }
-
               // _drawingBoardController.eraseToggle();
             },
             child: const Icon(Icons.cleaning_services, color: Colors.blueGrey),

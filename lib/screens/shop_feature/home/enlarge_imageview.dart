@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foap/components/photos_view/photo_view.dart';
 import 'package:get/get.dart';
-import 'package:photo_view/photo_view.dart';
 import '../../../components/app_scaffold.dart';
 
 class EnlargeImageViewScreen extends StatefulWidget {
@@ -24,6 +24,9 @@ class EnlargeImageViewState extends State<EnlargeImageViewScreen> {
             leading: InkWell(
                 onTap: () => Get.back(),
                 child: const Icon(Icons.clear, color: Colors.white))),
-        body: PhotoView(imageProvider: Image.network(widget.filePath).image));
+        body: PhotoView(
+          startPosition: 0,
+          photos: [widget.filePath],
+        ));
   }
 }

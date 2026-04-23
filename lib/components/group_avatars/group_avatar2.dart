@@ -11,12 +11,12 @@ class ClubCard extends StatelessWidget {
   final VoidCallback leaveBtnClicked;
 
   const ClubCard(
-      {Key? key,
+      {super.key,
       required this.club,
       required this.joinBtnClicked,
       required this.leaveBtnClicked,
       required this.previewBtnClicked})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -114,12 +114,12 @@ class ClubInvitationCard extends StatelessWidget {
   final VoidCallback declineBtnClicked;
 
   const ClubInvitationCard(
-      {Key? key,
+      {super.key,
       required this.invitation,
       required this.acceptBtnClicked,
       required this.declineBtnClicked,
       required this.previewBtnClicked})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -181,12 +181,12 @@ class TopClubCard extends StatelessWidget {
   final VoidCallback leaveBtnClicked;
 
   const TopClubCard(
-      {Key? key,
+      {super.key,
       required this.club,
       required this.joinBtnClicked,
       required this.leaveBtnClicked,
       required this.previewBtnClicked})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {

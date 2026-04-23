@@ -7,8 +7,8 @@ class CategorySlider extends StatefulWidget {
   final Function(CategoryModel?) onSelection;
 
   const CategorySlider(
-      {Key? key, required this.categories, required this.onSelection})
-      : super(key: key);
+      {super.key, required this.categories, required this.onSelection})
+      ;
 
   @override
   State<CategorySlider> createState() => _CategorySliderState();

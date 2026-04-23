@@ -6,8 +6,8 @@ import 'add_name.dart';
 class UploadProfilePicture extends StatefulWidget {
   final bool isSettingProfile;
 
-  const UploadProfilePicture({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const UploadProfilePicture({super.key, required this.isSettingProfile})
+      ;
 
   @override
   State<UploadProfilePicture> createState() => _UploadProfilePictureState();

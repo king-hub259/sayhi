@@ -1,5 +1,6 @@
 import 'package:foap/screens/add_on/ui/event/event_feed.dart';
 import 'package:foap/screens/add_on/ui/event/search_events.dart';
+import 'create_event/my_events.dart';
 import 'event_bookings.dart';
 import 'explore_events.dart';
 import 'package:foap/helper/imports/common_import.dart';
@@ -38,7 +39,8 @@ class EventsDashboardScreenState extends State<EventsDashboardScreen> {
       const ExploreEvents(),
       const EventFeedScreen(),
       const SearchEventListing(),
-      const EventBookingScreen()
+      const EventBookingScreen(),
+      const MyEventListing()
     ];
 
     super.initState();
@@ -50,7 +52,8 @@ class EventsDashboardScreenState extends State<EventsDashboardScreen> {
         backgroundColor: AppColorConstants.backgroundColor,
         body: items[_dashboardController.currentIndex.value],
         bottomNavigationBar: SizedBox(
-          height: MediaQuery.of(context).viewPadding.bottom > 0 ? 90 : 70.0,
+          height:
+              MediaQuery.of(context).viewPadding.bottom > 0 ? 90 : 70.0,
           width: Get.width,
           child: BottomNavigationBar(
             backgroundColor: AppColorConstants.backgroundColor,
@@ -83,6 +86,13 @@ class EventsDashboardScreenState extends State<EventsDashboardScreen> {
               BottomNavigationBarItem(
                 icon: ThemeIconWidget(ThemeIcon.bookings,
                     color: _dashboardController.currentIndex.value == 3
+                        ? AppColorConstants.themeColor
+                        : AppColorConstants.iconColor),
+                label: '',
+              ),
+              BottomNavigationBarItem(
+                icon: ThemeIconWidget(ThemeIcon.account,
+                    color: _dashboardController.currentIndex.value == 4
                         ? AppColorConstants.themeColor
                         : AppColorConstants.iconColor),
                 label: '',

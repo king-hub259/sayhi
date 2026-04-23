@@ -208,7 +208,7 @@ extension ShadowView on Widget {
         //   //     offset: const Offset(1, 1),
         //   //     blurRadius: radius,
         //   //     color: AppColorConstants.shadowColor
-        //   //         .withOpacity(shadowOpacity ?? 0.15),
+        //   //         .withValues(alpha: shadowOpacity ?? 0.15),
         //   //   ),
         //   // ],
         // ),
@@ -238,17 +238,17 @@ extension ShadowView on Widget {
                 offset: const Offset(1, 1),
                 blurRadius: radius,
                 color: fillColor != null
-                    ? fillColor.withOpacity(.2)
+                    ? fillColor.withValues(alpha: .2)
                     : AppColorConstants.disabledColor
-                        .withOpacity(shadowOpacity ?? 0.25),
+                        .withValues(alpha: shadowOpacity ?? 0.25),
               ),
               BoxShadow(
                 offset: const Offset(-1, 0),
                 blurRadius: radius,
                 color: fillColor != null
-                    ? fillColor.withOpacity(.2)
+                    ? fillColor.withValues(alpha: .2)
                     : AppColorConstants.disabledColor
-                        .withOpacity(shadowOpacity ?? 0.25),
+                        .withValues(alpha: shadowOpacity ?? 0.25),
               )
             ],
           ),
@@ -296,8 +296,8 @@ extension BorderView on Widget {
 extension ShimmerView on Widget {
   Shimmer addShimmer() => Shimmer.fromColors(
         enabled: true,
-        baseColor: Theme.of(Get.context!).highlightColor.withOpacity(0.1),
-        highlightColor: Theme.of(Get.context!).highlightColor.withOpacity(0.2),
+        baseColor: Theme.of(Get.context!).highlightColor.withValues(alpha: 0.1),
+        highlightColor: Theme.of(Get.context!).highlightColor.withValues(alpha: 0.2),
         child: this,
       );
 }
@@ -425,7 +425,7 @@ extension PinchZoomImage on Widget {
 
 extension AppChip on Widget {
   Widget makeChip({Color? backGroundColor}) => Container(
-        color: backGroundColor ?? AppColorConstants.themeColor.withOpacity(0.2),
+        color: backGroundColor ?? AppColorConstants.themeColor.withValues(alpha: 0.2),
         child: setPadding(
             left: DesignConstants.horizontalPadding,
             right: DesignConstants.horizontalPadding,

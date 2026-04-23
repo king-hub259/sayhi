@@ -1,7 +1,10 @@
 import 'package:foap/helper/imports/common_import.dart';
+import 'package:foap/model/account.dart';
+import 'package:foap/screens/login_sign_up/verif_otp_for_forgot_password.dart';
+import 'package:foap/screens/login_sign_up/verify_otp_for_phone_login.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../api_handler/apis/auth_api.dart';
-import '../../screens/login_sign_up/verify_otp.dart';
+import '../../screens/login_sign_up/verify_otp_for_signup.dart';
 import '../../util/shared_prefs.dart';
 import 'dart:async';
 import 'package:foap/manager/socket_manager.dart';
@@ -9,10 +12,7 @@ import 'package:foap/util/form_validator.dart';
 import 'package:foap/screens/dashboard/dashboard_screen.dart';
 import 'package:foap/screens/settings_menu/settings_controller.dart';
 import 'package:foap/screens/login_sign_up/reset_password.dart';
-
 import '../profile/profile_controller.dart';
-
-bool isLoginFirstTime = false;
 
 class LoginController extends GetxController {
   final SettingsController _settingsController = Get.find();
@@ -26,7 +26,7 @@ class LoginController extends GetxController {
   RxDouble passwordStrength = 0.toDouble().obs;
   RxString phoneCountryCode = '1'.obs;
 
-  int pinLength = 4;
+  int pinLength = 6;
   RxBool hasError = false.obs;
   RxBool otpFilled = false.obs;
 
@@ -47,18 +47,11 @@ class LoginController extends GetxController {
           email: email,
           password: password,
           successCallback: (authKey) async {
-            await SharedPrefs().setAuthorizationKey(authKey);
-            await _userProfileManager.refreshProfile();
-            await _settingsController.getSettings();
-            getIt<SocketManager>().connect();
-
-            Get.offAll(() => const DashboardScreen());
-            getIt<SocketManager>().connect();
+            loginSuccess(authKey);
           },
           verifyOtpCallback: (token) {
-            Get.to(() => VerifyOTP(
+            Get.to(() => VerifyOTPForSignup(
                   token: token,
-                  isFromForgotPassword: false,
                 ));
           });
     }
@@ -68,16 +61,46 @@ class LoginController extends GetxController {
     if (FormValidator().isTextEmpty(phone)) {
       showErrorMessage(pleaseEnterValidPhoneString.tr);
     } else {
-      AuthApi.loginWithPhone(
-          code: countryCode,
-          phone: phone,
-          successCallback: (token) {
-            Get.to(() => VerifyOTP(
-                  token: token,
-                  isFromForgotPassword: false,
-                ));
-          });
+      if (_settingsController.setting.value!.smsGateway ==
+          SMSGateway.firebase) {
+        AuthApi.loginWithPhoneUsingFirebase(
+            code: countryCode,
+            phone: phone,
+            successCallback: (token) {
+              Get.to(() => VerifyOTPForPhoneLogin(
+                    token: token,
+                    countryCode: countryCode,
+                    phone: phone,
+                  ));
+            });
+      } else {
+        AuthApi.loginWithPhoneUsingSayHiServer(
+            code: countryCode,
+            phone: phone,
+            successCallback: (token) {
+              Get.to(() => VerifyOTPForPhoneLogin(
+                    token: token,
+                    countryCode: countryCode,
+                    phone: phone,
+                  ));
+            });
+      }
     }
+  }
+
+  void socialLogin(String type, String userId, String name, String email) {
+    Loader.show(status: loadingString.tr);
+
+    AuthApi.socialLogin(
+        name: name,
+        userName: '',
+        socialType: type,
+        socialId: userId,
+        email: email,
+        successCallback: (authKey) async {
+          Loader.dismiss();
+          loginSuccess(authKey);
+        });
   }
 
   checkPassword(String password) {
@@ -140,9 +163,8 @@ class LoginController extends GetxController {
           name: userName,
           password: password,
           successCallback: (token) {
-            Get.to(() => VerifyOTP(
+            Get.to(() => VerifyOTPForSignup(
                   token: token,
-                  isFromForgotPassword: false,
                 ));
           });
     }
@@ -229,7 +251,7 @@ class LoginController extends GetxController {
     required String token,
   }) {
     Loader.show(status: loadingString.tr);
-    AuthApi.verifyForgotPasswordOTP(
+    AuthApi.verifyForgotPasswordOTPViaSayHiServer(
         otp: otp,
         token: token,
         successCallback: (token) {
@@ -241,40 +263,56 @@ class LoginController extends GetxController {
         });
   }
 
-  void callVerifyOTPForPhoneLogin({
+  void callVerifyOTPForRegistration({
     required String otp,
     required String token,
   }) {
     Loader.show(status: loadingString.tr);
 
-    AuthApi.verifyRegistrationOTP(
+    AuthApi.verifyRegistrationOTPViaSayHiServer(
         otp: otp,
         token: token,
         successCallback: (authKey) {
           Loader.dismiss();
           Future.delayed(const Duration(milliseconds: 500), () async {
-            SharedPrefs().setUserLoggedIn(true);
-            await SharedPrefs().setAuthorizationKey(authKey);
-            await _userProfileManager.refreshProfile();
-            await _settingsController.getSettings();
-
-            if (_userProfileManager.user.value != null) {
-              // if (_userProfileManager.user.value!.userName.isEmpty) {
-              //   isLoginFirstTime = true;
-              //   Get.offAll(() => const SetUserName());
-              // } else {
-              Get.to(() => const DashboardScreen());
-              // }
-            }
+            loginSuccess(authKey);
           });
         });
+  }
+
+  void callVerifyOTPForPhoneLogin({
+    required String otp,
+    required String token,
+    required String countryCode,
+    required String phone,
+  }) {
+    if (_settingsController.setting.value!.smsGateway ==
+        SMSGateway.firebase) {
+      AuthApi.verifyPhoneLoginOTPViaFirebase(
+          countryCode: countryCode,
+          phone: phone,
+          otp: otp,
+          token: token,
+          successCallback: (authKey) {
+            Loader.dismiss();
+            loginSuccess(authKey);
+          });
+    } else {
+      AuthApi.verifyRegistrationOTPViaSayHiServer(
+          otp: otp,
+          token: token,
+          successCallback: (authKey) {
+            Loader.dismiss();
+            loginSuccess(authKey);
+          });
+    }
   }
 
   void callVerifyOTPForChangePhone({
     required String otp,
     required String token,
   }) {
-    AuthApi.verifyChangePhoneOTP(
+    AuthApi.verifyChangePhoneOTPViaSayHiServer(
         otp: otp,
         token: token,
         successCallback: () {
@@ -286,7 +324,8 @@ class LoginController extends GetxController {
 
   void forgotPassword({required String email}) {
     if (FormValidator().isTextEmpty(email)) {
-      AppUtil.showToast(message: pleaseEnterEmailString.tr, isSuccess: false);
+      AppUtil.showToast(
+          message: pleaseEnterEmailString.tr, isSuccess: false);
     } else if (FormValidator().isNotValidEmail(email)) {
       AppUtil.showToast(
           message: pleaseEnterValidEmailString.tr, isSuccess: false);
@@ -294,11 +333,35 @@ class LoginController extends GetxController {
       AuthApi.forgotPassword(
           email: email,
           successCallback: (token) {
-            Get.to(() => VerifyOTP(
+            Get.to(() => VerifyOTPForForgotPassword(
                   token: token,
                   isFromForgotPassword: true,
                 ));
           });
+    }
+  }
+
+  loginSuccess(String authKey) async {
+    loginSilently(authKey, () {
+      Get.offAll(() => const DashboardScreen());
+    });
+  }
+
+  loginSilently(String authKey, VoidCallback callback) async {
+    getIt<SocketManager>().logout();
+    await SharedPrefs().setAuthorizationKey(authKey);
+    await _userProfileManager.refreshProfile();
+    if (_userProfileManager.user.value != null) {
+      SayHiAppAccount account = SayHiAppAccount(
+          username: _userProfileManager.user.value!.userName,
+          userId: _userProfileManager.user.value!.id.toString(),
+          authToken: authKey,
+          picture: _userProfileManager.user.value!.picture,
+          isLoggedIn: true);
+      _userProfileManager.loginAccount(account);
+      await _settingsController.getSettings();
+      getIt<SocketManager>().connect();
+      callback();
     }
   }
 

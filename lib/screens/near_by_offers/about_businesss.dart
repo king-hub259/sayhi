@@ -4,7 +4,7 @@ import '../../model/business_model.dart';
 class AboutBusiness extends StatelessWidget {
   final BusinessModel business;
 
-  const AboutBusiness({Key? key, required this.business}) : super(key: key);
+  const AboutBusiness({super.key, required this.business}) ;
 
   @override
   Widget build(BuildContext context) {

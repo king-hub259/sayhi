@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:foap/controllers/shop/shop_controller.dart';
 import 'package:foap/helper/imports/chat_imports.dart';
 import 'package:foap/helper/imports/common_import.dart';
@@ -43,7 +42,7 @@ class AdDetailState extends State<AdDetailScreen> {
                         onTap: () => Scaffold.of(context).openDrawer(),
                         child: Container(
                           height: 50,
-                          color: Colors.grey.withOpacity(0.1),
+                          color: Colors.grey.withValues(alpha: 0.1),
                           child: IconButton(
                               onPressed: () {
                                 favBtnClicked();
@@ -51,7 +50,7 @@ class AdDetailState extends State<AdDetailScreen> {
                               icon: Icon(Icons.favorite,
                                   color: widget.adModel.isFavorite == 1
                                       ? AppColorConstants.themeColor
-                                      : Colors.grey.withOpacity(0.5))),
+                                      : Colors.grey.withValues(alpha: 0.5))),
                         ).round(10)),
                   ],
                 ),
@@ -149,7 +148,7 @@ class AdDetailState extends State<AdDetailScreen> {
                                       ))
                                 },
                             child: Container(
-                              color: Colors.grey.withOpacity(0.1),
+                              color: Colors.grey.withValues(alpha: 0.1),
                               height: 110,
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -220,12 +219,12 @@ class AdDetailState extends State<AdDetailScreen> {
 
   addInfoView(String header, String infoValue) {
     return Container(
-      color: Colors.grey.withOpacity(0.1),
+      color: Colors.grey.withValues(alpha: 0.1),
       height: 65,
       child: Center(
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Icon(Icons.person,
-                  color: AppColorConstants.themeColor.withOpacity(0.8))
+                  color: AppColorConstants.themeColor.withValues(alpha: 0.8))
               .rP8,
           Flexible(child: BodySmallText(infoValue, maxLines: 1)),
         ]),
@@ -235,7 +234,7 @@ class AdDetailState extends State<AdDetailScreen> {
 
   addUtilityView(String icon, String header, String infoValue) {
     return Container(
-      color: Colors.grey.withOpacity(0.1),
+      color: Colors.grey.withValues(alpha: 0.1),
       height: 65,
       child: Center(
         child: Row(
@@ -245,7 +244,7 @@ class AdDetailState extends State<AdDetailScreen> {
               Row(
                 children: [
                   Icon(Icons.person,
-                          color: AppColorConstants.themeColor.withOpacity(0.8))
+                          color: AppColorConstants.themeColor.withValues(alpha: 0.8))
                       .rP8,
                   BodySmallText(
                     header,
@@ -266,7 +265,7 @@ class AdDetailState extends State<AdDetailScreen> {
 
   Widget addCarousalView() {
     return Column(children: [
-      CarouselSlider(
+      WKCarouselSlider(
         items: (widget.adModel.images)
             .map((item) => InkWell(
                   onTap: () async {
@@ -285,16 +284,15 @@ class AdDetailState extends State<AdDetailScreen> {
                       )).round(15).hP16,
                 ))
             .toList(),
-        options: CarouselOptions(
-            enlargeCenterPage: false,
-            enableInfiniteScroll: false,
-            viewportFraction: 1,
-            height: 180,
-            onPageChanged: (index, reason) {
-              setState(() {
-                _current = index;
-              });
-            }),
+          enlargeCenterPage: false,
+          enableInfiniteScroll: false,
+          viewportFraction: 1,
+          height: 180,
+          onPageChanged: (index) {
+            setState(() {
+              _current = index;
+            });
+          }
       ),
       (widget.adModel.images).length > 1
           ? SizedBox(

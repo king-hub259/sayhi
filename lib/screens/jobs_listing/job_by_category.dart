@@ -3,12 +3,11 @@ import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/event_imports.dart';
 import 'package:foap/screens/jobs_listing/jobs_list.dart';
 import '../../components/paging_scrollview.dart';
-import '../../components/search_bar.dart';
 
 class JobsByCategory extends StatefulWidget {
   final CategoryModel category;
 
-  const JobsByCategory({Key? key, required this.category}) : super(key: key);
+  const JobsByCategory({super.key, required this.category}) ;
 
   @override
   State<JobsByCategory> createState() => _JobsByCategoryState();

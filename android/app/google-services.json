@@ -3,7 +3,7 @@
     "project_number": "787780064793",
     "firebase_url": "https://sayhi-7baeb-default-rtdb.firebaseio.com",
     "project_id": "sayhi-7baeb",
-    "storage_bucket": "sayhi-7baeb.appspot.com"
+    "storage_bucket": "sayhi-7baeb.firebasestorage.app"
   },
   "client": [
     {

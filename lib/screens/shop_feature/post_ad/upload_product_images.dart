@@ -7,7 +7,7 @@ import 'contact_detail.dart';
 class UploadProductImages extends StatefulWidget {
   final AdModel? adModel;
 
-  const UploadProductImages(this.adModel, {Key? key}) : super(key: key);
+  const UploadProductImages(this.adModel, {super.key}) ;
 
   @override
   State<UploadProductImages> createState() => _UploadProductImagesState();

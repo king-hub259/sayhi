@@ -6,7 +6,7 @@
 // class TimeTable extends StatefulWidget {
 //   final BusinessModel? business;
 //
-//   const TimeTable({Key? key, required this.business}) : super(key: key);
+//   const TimeTable({super.key, required this.business}) ;
 //
 //   @override
 //   _TimeTableState createState() => _TimeTableState();

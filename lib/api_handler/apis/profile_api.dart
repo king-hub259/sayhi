@@ -1,11 +1,12 @@
 import 'dart:typed_data';
-import 'package:latlng/latlng.dart';
 import 'package:foap/api_handler/api_wrapper.dart';
 import '../../helper/imports/common_import.dart';
 import 'package:foap/model/verification_request_model.dart';
+import '../../model/location.dart';
 
 class ProfileApi {
-  static getMyProfile({required Function(UserModel) resultCallback}) async {
+  static getMyProfile(
+      {required Function(UserModel) resultCallback}) async {
     var url = NetworkConstantsUtil.getMyProfile;
     await ApiWrapper().getApi(url: url).then((result) {
       if (result?.success == true) {
@@ -15,7 +16,8 @@ class ProfileApi {
   }
 
   static updateUserName(
-      {required String userName, required VoidCallback resultCallback}) async {
+      {required String userName,
+      required VoidCallback resultCallback}) async {
     var url = NetworkConstantsUtil.updateUserProfile;
 
     await ApiWrapper().postApi(url: url, param: {
@@ -28,7 +30,8 @@ class ProfileApi {
   }
 
   static updateProfileCategoryType(
-      {required int categoryType, required VoidCallback resultCallback}) async {
+      {required int categoryType,
+      required VoidCallback resultCallback}) async {
     var url = NetworkConstantsUtil.updateUserProfile;
 
     await ApiWrapper().postApi(url: url, param: {
@@ -59,9 +62,10 @@ class ProfileApi {
       required Function(String) resultCallback}) async {
     var url = NetworkConstantsUtil.updatePhone;
 
-    await ApiWrapper().postApi(
-        url: url,
-        param: {"country_code": countryCode, "phone": phone}).then((result) {
+    await ApiWrapper().postApi(url: url, param: {
+      "country_code": countryCode,
+      "phone": phone
+    }).then((result) {
       if (result?.success == true) {
         resultCallback(result!.data['verify_token']);
       }
@@ -69,7 +73,8 @@ class ProfileApi {
   }
 
   static updatePaymentDetails(
-      {required String paypalId, required Function() resultCallback}) async {
+      {required String paypalId,
+      required Function() resultCallback}) async {
     var url = NetworkConstantsUtil.updatePaymentDetail;
     var params = {"paypal_id": paypalId};
 
@@ -87,7 +92,8 @@ class ProfileApi {
     var url = NetworkConstantsUtil.updateUserProfile;
 
     await ApiWrapper().postApi(
-        url: url, param: {"country": country, "city": city}).then((result) {
+        url: url,
+        param: {"country": country, "city": city}).then((result) {
       if (result?.success == true) {
         resultCallback();
       }
@@ -95,7 +101,8 @@ class ProfileApi {
   }
 
   static updateUserLocation(
-      {required LatLng location, required Function() resultCallback}) async {
+      {required LocationModel location,
+      required Function() resultCallback}) async {
     var url = NetworkConstantsUtil.updateLocation;
 
     await ApiWrapper().postApi(url: url, param: {
@@ -109,8 +116,7 @@ class ProfileApi {
     });
   }
 
-  static pauseUserLocation(
-      {required LatLng location, required Function() resultCallback}) async {
+  static pauseUserLocation({required Function() resultCallback}) async {
     var url = NetworkConstantsUtil.updateLocation;
 
     await ApiWrapper().postApi(url: url, param: {
@@ -140,9 +146,9 @@ class ProfileApi {
     });
   }
 
-
   static updateAccountPrivacy(
-      {required bool isPrivate, required VoidCallback resultCallback}) async {
+      {required bool isPrivate,
+      required VoidCallback resultCallback}) async {
     var url = NetworkConstantsUtil.updateAccountPrivacy;
 
     await ApiWrapper().postApi(url: url, param: {
@@ -194,7 +200,8 @@ class ProfileApi {
   }
 
   static getVerificationRequestHistory(
-      {required Function(List<VerificationRequest>) resultCallback}) async {
+      {required Function(List<VerificationRequest>)
+          resultCallback}) async {
     var url = NetworkConstantsUtil.requestVerificationHistory;
 
     await ApiWrapper().getApi(url: url).then((result) {

@@ -3,7 +3,7 @@ import '../../model/offer_model.dart';
 
 class OfferCard extends StatelessWidget {
   final OfferModel offer;
-  const OfferCard({Key? key, required this.offer}) : super(key: key);
+  const OfferCard({super.key, required this.offer}) ;
 
   @override
   Widget build(BuildContext context) {

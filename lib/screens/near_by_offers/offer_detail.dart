@@ -9,7 +9,7 @@ class OfferDetail extends StatelessWidget {
   final NearByOffersController _offersController = Get.find();
   final OfferModel offer;
 
-  OfferDetail({Key? key, required this.offer}) : super(key: key);
+  OfferDetail({super.key, required this.offer}) ;
 
   final List<String> tabs = [
     aboutString.tr,
@@ -26,7 +26,7 @@ class OfferDetail extends StatelessWidget {
               widget: Obx(() => Container(
                     height: 40,
                     width: 40,
-                    color: AppColorConstants.themeColor.withOpacity(0.2),
+                    color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                     child: ThemeIconWidget(
                         _offersController.currentOffer.value!.isFavourite
                             ? ThemeIcon.favFilled

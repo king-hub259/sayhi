@@ -27,7 +27,7 @@ class _SavedPostsState extends State<SavedPosts> {
           backNavigationBar(title: savedPostsString),
           Expanded(
             child: PostList(
-              postSource: PostSource.saved,
+              postSource: TimelineType.saved,
             ),
           ),
         ],

@@ -35,7 +35,7 @@ class FundRaisingCampaignDetail extends StatelessWidget {
               widget: Obx(() => Container(
                     height: 40,
                     width: 40,
-                    color: AppColorConstants.themeColor.withOpacity(0.2),
+                    color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                     child: ThemeIconWidget(
                         fundRaisingController.currentCampaign.value!.isFavourite
                             ? ThemeIcon.favFilled
@@ -139,7 +139,7 @@ class FundRaisingCampaignDetail extends StatelessWidget {
                     context: Get.context!,
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         AddPostScreen(
-                            postType: PostType.fundRaising,
+                            postType: PostCategory.fundRaising,
                             postCompletionHandler: () {
                               fundRaisingController.refreshPosts(
                                   id: campaign.id, callback: () {});

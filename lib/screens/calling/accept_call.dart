@@ -9,9 +9,9 @@ class AcceptCallScreen extends StatefulWidget {
   final Call call;
 
   const AcceptCallScreen({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  }) ;
 
   @override
   State<AcceptCallScreen> createState() => _AcceptCallScreenState();

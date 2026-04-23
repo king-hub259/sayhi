@@ -14,8 +14,8 @@ import '../../model/post_gallery.dart';
 //   final PostGallery? media;
 //   final ChatMessageModel? chatMessage;
 //
-//   const VideoPlayerScreen({Key? key, this.media, this.chatMessage})
-//       : super(key: key);
+//   const VideoPlayerScreen({super.key, this.media, this.chatMessage})
+//       ;
 //
 //   @override
 //   State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
@@ -87,8 +87,8 @@ class PlayVideoController extends StatefulWidget {
   final PostGallery? media;
   final ChatMessageModel? chatMessage;
 
-  const PlayVideoController({Key? key, this.media, this.chatMessage})
-      : super(key: key);
+  const PlayVideoController({super.key, this.media, this.chatMessage})
+      ;
 
   @override
   State<PlayVideoController> createState() => _PlayVideoControllerState();
@@ -157,7 +157,6 @@ class _PlayVideoControllerState extends State<PlayVideoController> {
       backgroundColor: AppColorConstants.backgroundColor,
       body: Column(
         children: [
-
           backNavigationBar( title: ''),
           divider().tP16,
           Expanded(

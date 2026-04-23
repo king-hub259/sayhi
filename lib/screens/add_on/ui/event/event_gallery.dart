@@ -1,10 +1,11 @@
+import 'package:foap/components/photos_view/photo_view.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/event_imports.dart';
 
 class EventGallery extends StatefulWidget {
-  final EventModel event;
+  final List<String> eventGallery;
 
-  const EventGallery({Key? key, required this.event}) : super(key: key);
+  const EventGallery({super.key, required this.eventGallery});
 
   @override
   State<EventGallery> createState() => _EventGalleryState();
@@ -22,26 +23,29 @@ class _EventGalleryState extends State<EventGallery> {
       backgroundColor: AppColorConstants.backgroundColor,
       body: Column(
         children: [
-
-          backNavigationBar(
-               title: galleryString.tr),
+          backNavigationBar(title: galleryString.tr),
           const SizedBox(height: 20),
           Expanded(
             child: GridView.builder(
                 padding: EdgeInsets.zero,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 1,
-                    crossAxisCount: 3),
-                itemCount: widget.event.gallery.length,
+                gridDelegate:
+                    const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 1,
+                        crossAxisCount: 3),
+                itemCount: widget.eventGallery.length,
                 itemBuilder: (context, index) {
                   return CachedNetworkImage(
-                    imageUrl: widget.event.gallery[index],
+                    imageUrl: widget.eventGallery[index],
                     fit: BoxFit.cover,
                     height: double.infinity,
                     width: double.infinity,
-                  ).round(15).ripple(() {});
+                  ).round(15).ripple(() {
+                    Get.to(() => PhotoView(
+                        photos: widget.eventGallery,
+                        startPosition: index));
+                  });
                 }).hp(DesignConstants.horizontalPadding),
           )
         ],

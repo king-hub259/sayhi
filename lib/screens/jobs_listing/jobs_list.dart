@@ -7,7 +7,7 @@ import '../../helper/imports/common_import.dart';
 class JobsList extends StatelessWidget {
   final JobController jobController = Get.find();
 
-  JobsList({Key? key}) : super(key: key);
+  JobsList({super.key}) ;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class JobsList extends StatelessWidget {
 class AppliedJobsList extends StatelessWidget {
   final JobController jobController = Get.find();
 
-  AppliedJobsList({Key? key}) : super(key: key);
+  AppliedJobsList({super.key}) ;
 
   @override
   Widget build(BuildContext context) {

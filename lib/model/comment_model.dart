@@ -1,8 +1,5 @@
 import 'package:foap/helper/date_extension.dart';
-import 'package:get/get.dart';
-import '../helper/enum.dart';
-import '../helper/localization_strings.dart';
-import 'user_model.dart';
+import 'package:foap/helper/imports/common_import.dart';
 
 class CommentModel {
   int id = 0;
@@ -15,7 +12,8 @@ class CommentModel {
   String? userPicture;
   String commentTime = '';
   UserModel? user;
-  CommentType type = CommentType.text; // text=1, image=2, video = 3, gif =4
+  CommentType type =
+      CommentType.text; // text=1, image=2, video = 3, gif =4
   String filePath = '';
   int level = 1;
   bool isFavourite = false;
@@ -24,6 +22,8 @@ class CommentModel {
   int pendingReplies = 0;
 
   int totalReplies = 0;
+  bool isPinned = false;
+  int? pinId;
 
   CommentModel();
 
@@ -61,9 +61,12 @@ class CommentModel {
                 : CommentType.text;
     model.filePath = json['filenameUrl'] ?? '';
 
-    DateTime createDate =
-        DateTime.fromMillisecondsSinceEpoch(json['created_at'] * 1000).toUtc();
+    DateTime createDate = AppUtil.convertToDateTime(json['created_at']);
+
     model.commentTime = createDate.getTimeAgo;
+    model.isPinned = json['isPin'] != null;
+    model.pinId = json['isPin'] == null ? null : json['isPin']['id'];
+
     return model;
   }
 

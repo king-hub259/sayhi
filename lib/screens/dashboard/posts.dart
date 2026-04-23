@@ -16,7 +16,7 @@ class Posts extends StatefulWidget {
   final String title;
 
   const Posts(
-      {Key? key,
+      {super.key,
       required this.title,
       this.page,
       this.totalPages,
@@ -25,7 +25,7 @@ class Posts extends StatefulWidget {
       this.locationId,
       this.posts,
       this.index})
-      : super(key: key);
+      ;
 
   @override
   State<Posts> createState() => _PostsState();

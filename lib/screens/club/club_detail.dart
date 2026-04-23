@@ -70,10 +70,10 @@ class ClubDetailState extends State<ClubDetail> {
               Future.delayed(
                 Duration.zero,
                 () => showGeneralDialog(
-                    context: context,
+                    context: Get.context!,
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         AddPostScreen(
-                            postType: PostType.club,
+                            postType: PostCategory.club,
                             postCompletionHandler: () {
                               refreshPosts();
                             },
@@ -206,7 +206,7 @@ class ClubDetailState extends State<ClubDetail> {
         if (_clubDetailController.club.value!.createdByUser!.isMe == false)
           Container(
                   height: 30,
-                  color: AppColorConstants.themeColor.withOpacity(0.2),
+                  color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                   child: Row(
                     children: [
                       Icon(
@@ -247,7 +247,7 @@ class ClubDetailState extends State<ClubDetail> {
           Container(
                   // width: 40,
                   height: 30,
-                  color: AppColorConstants.themeColor.withOpacity(0.2),
+                  color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                   child: Row(
                     children: [
                       Icon(
@@ -274,7 +274,7 @@ class ClubDetailState extends State<ClubDetail> {
           Container(
                   // width: 40,
                   height: 30,
-                  color: AppColorConstants.themeColor.withOpacity(0.2),
+                  color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                   child: Row(
                     children: [
                       Image.asset(
@@ -312,8 +312,8 @@ class ClubDetailState extends State<ClubDetail> {
                 end: FractionalOffset.bottomCenter,
                 colors: [
                   Colors.black,
-                  Colors.black.withOpacity(0.5),
-                  Colors.grey.withOpacity(0.0),
+                  Colors.black.withValues(alpha: 0.5),
+                  Colors.grey.withValues(alpha: 0.0),
                 ],
                 stops: const [
                   0.0,
@@ -339,7 +339,7 @@ class ClubDetailState extends State<ClubDetail> {
                               children: [
                                 Container(
                                   color: AppColorConstants.themeColor
-                                      .withOpacity(0.2),
+                                      .withValues(alpha: 0.2),
                                   child: ThemeIconWidget(
                                     ThemeIcon.request,
                                     size: 20,

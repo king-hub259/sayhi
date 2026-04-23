@@ -9,7 +9,7 @@ import '../../../util/app_config_constants.dart';
 import '../components/category_card.dart';
 
 class AllCategoriesScreen extends StatefulWidget {
-  const AllCategoriesScreen({Key? key}) : super(key: key);
+  const AllCategoriesScreen({super.key}) ;
 
   @override
   State<AllCategoriesScreen> createState() => _AllCategoriesScreenState();
@@ -36,7 +36,7 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                     onTap: () => Scaffold.of(context).openDrawer(),
                     child: Container(
                       height: 50,
-                      color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withValues(alpha: 0.1),
                       child: Row(
                         children: [
                           Icon(Icons.bookmark_border,

@@ -6,8 +6,8 @@ import 'find_random_user.dart';
 class ChooseProfileCategory extends StatefulWidget {
   final bool isCalling;
 
-  const ChooseProfileCategory({Key? key, required this.isCalling})
-      : super(key: key);
+  const ChooseProfileCategory({super.key, required this.isCalling})
+      ;
 
   @override
   State<ChooseProfileCategory> createState() => _ChooseProfileCategoryState();

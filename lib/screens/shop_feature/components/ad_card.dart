@@ -24,98 +24,101 @@ class _AdCardState extends State<AdCard> {
       child: Container(
         height: 250,
         color: AppColorConstants.cardColor,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(
-              child: Stack(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: (widget.ad.images).isNotEmpty
-                          ? CachedNetworkImage(
-                              imageUrl: widget.ad.images.first,
-                              fit: BoxFit.cover,
-                              placeholder: (context, url) =>
-                                  AppUtil.addProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            ).round(15)
-                          : const Icon(Icons.error))
-                  .bP16,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Expanded(
+                  child: Stack(
                 children: [
-                  widget.ad.isDeal == 1
-                      ? Container(
-                          color: AppColorConstants.red,
-                          width: 140,
-                          height: 30,
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Icon(
-                                Icons.local_offer,
-                                color: AppColorConstants.iconColor,
-                                size: 18,
-                              ).rP4,
-                              BodySmallText(
-                                widget.ad.actualPriceString,
-                              ).rP4,
-                              BodyLargeText(
-                                widget.ad.dealPriceString,
+                  SizedBox(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: (widget.ad.images).isNotEmpty
+                              ? CachedNetworkImage(
+                                  imageUrl: widget.ad.images.first,
+                                  fit: BoxFit.cover,
+                                  placeholder: (context, url) =>
+                                      AppUtil.addProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                ).round(15)
+                              : const Icon(Icons.error))
+                      .bP16,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      widget.ad.isDeal == 1
+                          ? Container(
+                              color: AppColorConstants.red,
+                              width: 140,
+                              height: 30,
+                              child: Row(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Icon(
+                                    Icons.local_offer,
+                                    color: AppColorConstants.iconColor,
+                                    size: 18,
+                                  ).rP4,
+                                  BodySmallText(
+                                    widget.ad.actualPriceString,
+                                  ).rP4,
+                                  BodyLargeText(
+                                    widget.ad.dealPriceString,
+                                    weight: TextWeight.bold,
+                                  ).rP4
+                                ],
+                              ).hP16,
+                            ).round(25).bP8
+                          : Container(),
+                      widget.ad.featured == 1
+                          ? Container(
+                              width: 120,
+                              color: Colors.yellow,
+                              child: Center(
+                                  child: BodySmallText(
+                                'Featured',
                                 weight: TextWeight.bold,
-                              ).rP4
-                            ],
-                          ).hP16,
-                        ).round(25).bP8
-                      : Container(),
-                  widget.ad.featured == 1
-                      ? Container(
-                          width: 120,
-                          color: Colors.yellow,
-                          child: Center(
-                              child: BodySmallText(
-                            'Featured',
-                            weight: TextWeight.bold,
-                          )).p8,
-                        )
-                      : Container()
+                              )).p8,
+                            )
+                          : Container()
+                    ],
+                  )
+                ],
+              )),
+              BodyLargeText(widget.ad.title!,
+                      maxLines: 1, weight: TextWeight.bold)
+                  .bP4,
+              BodyExtraSmallText(
+                widget.ad.locations!.customLocation!,
+                weight: TextWeight.semiBold,
+                color: AppColorConstants.subHeadingTextColor,
+                maxLines: 1,
+              ).bP4,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BodyExtraSmallText(
+                    widget.ad.finalPriceString,
+                    weight: TextWeight.bold,
+                    color: AppColorConstants.red,
+                  ),
+                  Icon(Icons.favorite,
+                          color: widget.ad.isFavorite == 1
+                              ? AppColorConstants.red
+                              : AppColorConstants.mainTextColor)
+                      .ripple(() {
+                    if (widget.ad.isFavorite == 0) {
+                      widget.ad.isFavorite = 1;
+                    } else {
+                      widget.ad.isFavorite = 0;
+                    }
+                    widget.favPressed();
+                    setState(() {});
+                  })
                 ],
               )
-            ],
-          )),
-          BodyLargeText(widget.ad.title!, maxLines: 1, weight: TextWeight.bold)
-              .bP4,
-          BodyExtraSmallText(
-            widget.ad.locations!.customLocation!,
-            weight: TextWeight.semiBold,
-            color: AppColorConstants.subHeadingTextColor,
-            maxLines: 1,
-          ).bP4,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BodyExtraSmallText(
-                widget.ad.finalPriceString,
-                weight: TextWeight.bold,
-                color: AppColorConstants.red,
-              ),
-              Icon(Icons.favorite,
-                      color: widget.ad.isFavorite == 1
-                          ? AppColorConstants.red
-                          : AppColorConstants.mainTextColor)
-                  .ripple(() {
-                if (widget.ad.isFavorite == 0) {
-                  widget.ad.isFavorite = 1;
-                } else {
-                  widget.ad.isFavorite = 0;
-                }
-                widget.favPressed();
-                setState(() {});
-              })
-            ],
-          )
-        ]).p16,
+            ]).p16,
       ).round(10),
     );
   }
@@ -143,7 +146,8 @@ class _HorizontalAdCardState extends State<HorizontalAdCard> {
       onTap: () => widget.pressed(),
       child: SizedBox(
         width: Get.width * 0.8,
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child:
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           SizedBox(
               width: 100,
               child: (widget.ad.images).isNotEmpty
@@ -212,7 +216,8 @@ class MyAdCard extends StatefulWidget {
   final AdModel ad;
   final Function actionHandler;
 
-  const MyAdCard({super.key, required this.ad, required this.actionHandler});
+  const MyAdCard(
+      {super.key, required this.ad, required this.actionHandler});
 
   @override
   State<MyAdCard> createState() => _MyAdCardState();
@@ -266,7 +271,7 @@ class _MyAdCardState extends State<MyAdCard> {
                     color: AppColorConstants.themeColor,
                   ),
                   widget.ad.canEdit() == true
-                      ? const Icon(Icons.more_vert_outlined)
+                      ? ThemeIconWidget(ThemeIcon.moreVertical)
                           .ripple(widget.actionHandler)
                       : Container()
                 ],

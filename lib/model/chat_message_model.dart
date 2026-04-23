@@ -371,21 +371,21 @@ class ChatMessageModel {
   }
 
   int get chatDay {
-    DateTime createDate = DateTime.fromMillisecondsSinceEpoch(createdAt * 1000);
+    DateTime createDate = AppUtil.convertToDateTime(createdAt);
     return int.parse(DateFormat('d').format(createDate));
   }
 
   String get dateString {
-    DateTime createDate = DateTime.fromMillisecondsSinceEpoch(createdAt * 1000);
+    DateTime createDate = AppUtil.convertToDateTime(createdAt);
     return DateFormat('dd-MMM-yyyy').format(createDate);
   }
 
   DateTime get date {
-    return DateTime.fromMillisecondsSinceEpoch(createdAt * 1000);
+    return AppUtil.convertToDateTime(createdAt);
   }
 
   String get messageTime {
-    DateTime createDate = DateTime.fromMillisecondsSinceEpoch(createdAt * 1000);
+    DateTime createDate = AppUtil.convertToDateTime(createdAt);
 
     final difference = DateTime.now().difference(createDate).inDays;
 

@@ -7,11 +7,11 @@ class SegmentedControl extends StatefulWidget {
   final ValueChanged<int> onValueChanged;
 
   const SegmentedControl({
-    Key? key,
+    super.key,
     required this.onValueChanged,
     this.segments,
     this.value,
-  }) : super(key: key);
+  }) ;
 
   @override
   State<SegmentedControl> createState() => SegmentedControlState();
@@ -34,7 +34,7 @@ class SegmentedControlState extends State<SegmentedControl> {
     value = widget.value;
     return CupertinoSegmentedControl<int>(
       padding: EdgeInsets.zero,
-      selectedColor: AppColorConstants.themeColor,
+      selectedColor: AppColorConstants.themeColor.withValues(alpha: 0.5),
       unselectedColor: AppColorConstants.backgroundColor,
       borderColor: AppColorConstants.disabledColor,
       children: addSegmentedChips(segments!),

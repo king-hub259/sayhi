@@ -16,7 +16,7 @@ class AskLocationPermission extends StatelessWidget {
           Container(
             height: 200,
             width: 200,
-            color: AppColorConstants.themeColor.withOpacity(0.1),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.1),
             child: ThemeIconWidget(
               ThemeIcon.location,
               size: 100,

@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 class UpdateGroupInfo extends StatefulWidget {
   final ChatRoomModel group;
 
-  const UpdateGroupInfo({Key? key, required this.group}) : super(key: key);
+  const UpdateGroupInfo({super.key, required this.group}) ;
 
   @override
   State<UpdateGroupInfo> createState() => _UpdateGroupInfoState();

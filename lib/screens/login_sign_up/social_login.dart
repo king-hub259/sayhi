@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
-import 'package:foap/api_handler/apis/auth_api.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/screens/login_sign_up/phone_login.dart';
 import 'dart:convert';
@@ -8,12 +7,8 @@ import 'package:crypto/crypto.dart';
 import 'package:foap/helper/imports/login_signup_imports.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import '../../manager/location_manager.dart';
-import '../../manager/socket_manager.dart';
 import '../../util/constant_util.dart';
 import '../../util/shared_prefs.dart';
-import '../dashboard/dashboard_screen.dart';
-import '../settings_menu/settings_controller.dart';
 
 /// Returns the sha256 hash of [input] in hex notation.
 String sha256ofString(String input) {
@@ -32,9 +27,7 @@ class SocialLogin extends StatefulWidget {
 }
 
 class _SocialLoginState extends State<SocialLogin> {
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
-  final SettingsController _settingsController = Get.find();
-  final UserProfileManager _userProfileManager = Get.find();
+  final LoginController _loginController = Get.find();
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: <String>[
@@ -44,10 +37,11 @@ class _SocialLoginState extends State<SocialLogin> {
 
   @override
   void initState() {
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount? account) {
+    _googleSignIn.onCurrentUserChanged
+        .listen((GoogleSignInAccount? account) {
       if (account != null) {
-        socialLogin(
-            'google', account.id, account.displayName ?? '', account.email);
+        _loginController.socialLogin('google', account.id,
+            account.displayName ?? '', account.email);
         _googleSignIn.signOut();
       }
     });
@@ -63,7 +57,7 @@ class _SocialLoginState extends State<SocialLogin> {
             ? Container(
                 height: 40,
                 width: 40,
-                color: AppColorConstants.themeColor.withOpacity(0.2),
+                color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                 child: Center(
                     child: Image.asset(
                   'assets/phone.png',
@@ -78,7 +72,7 @@ class _SocialLoginState extends State<SocialLogin> {
             : Container(
                 height: 40,
                 width: 40,
-                color: AppColorConstants.themeColor.withOpacity(0.2),
+                color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                 child: Center(
                     child: Image.asset(
                   'assets/email.png',
@@ -93,7 +87,7 @@ class _SocialLoginState extends State<SocialLogin> {
         Container(
             height: 40,
             width: 40,
-            color: AppColorConstants.themeColor.withOpacity(0.2),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.2),
             child: Center(
                 child: Image.asset(
               'assets/google.png',
@@ -106,14 +100,15 @@ class _SocialLoginState extends State<SocialLogin> {
           Container(
               height: 40,
               width: 40,
-              color: AppColorConstants.themeColor.withOpacity(0.2),
+              color: AppColorConstants.themeColor.withValues(alpha: 0.2),
               child: Center(
                   child: Image.asset(
                 'assets/apple.png',
                 height: 20,
                 width: 20,
-                color:
-                    isDarkMode ? Colors.white : AppColorConstants.mainTextColor,
+                color: isDarkMode
+                    ? Colors.white
+                    : AppColorConstants.mainTextColor,
               ))).round(10).ripple(() {
             //signInWithGoogle();
             _handleAppleSignIn();
@@ -122,7 +117,7 @@ class _SocialLoginState extends State<SocialLogin> {
         Container(
             height: 40,
             width: 40,
-            color: AppColorConstants.themeColor.withOpacity(0.2),
+            color: AppColorConstants.themeColor.withValues(alpha: 0.2),
             child: Center(
                 child: Image.asset(
               'assets/facebook.png',
@@ -160,48 +155,19 @@ class _SocialLoginState extends State<SocialLogin> {
         String socialId = profile?.userId ?? '';
         final email = await facebookLogin.getUserEmail();
 
-        AppUtil.checkInternet().then((value) {
-          if (value) {
-            socialLogin('fb', socialId, name, email!);
-          } else {
-            AppUtil.showToast(message: noInternetString.tr, isSuccess: false);
-          }
-        });
+        _loginController.socialLogin('fb', socialId, name, email!);
 
         break;
       case FacebookLoginStatus.cancel:
-        AppUtil.showToast(message: cancelledByUserString.tr, isSuccess: false);
+        AppUtil.showToast(
+            message: cancelledByUserString.tr, isSuccess: false);
         break;
       case FacebookLoginStatus.error:
         AppUtil.showToast(
-            message: result.error!.localizedDescription!, isSuccess: false);
+            message: result.error!.localizedDescription!,
+            isSuccess: false);
         break;
     }
-  }
-
-  void socialLogin(String type, String userId, String name, String email) {
-    Loader.show(status: loadingString.tr);
-
-    AuthApi.socialLogin(
-        name: name,
-        userName: '',
-        socialType: type,
-        socialId: userId,
-        email: email,
-        successCallback: (authKey) async {
-          Loader.dismiss();
-          SharedPrefs().setUserLoggedIn(true);
-          await SharedPrefs().setAuthorizationKey(authKey);
-          await _userProfileManager.refreshProfile();
-          await _settingsController.getSettings();
-
-          if (_userProfileManager.user.value != null) {
-            isLoginFirstTime = false;
-            getIt<LocationManager>().postLocation();
-            Get.offAll(() => const DashboardScreen());
-            getIt<SocketManager>().connect();
-          }
-        });
   }
 
   Future<void> _handleAppleSignIn() async {
@@ -231,7 +197,8 @@ class _SocialLoginState extends State<SocialLogin> {
     }
 
     if (appleCredential.userIdentifier != null) {
-      socialLogin('apple', appleCredential.userIdentifier!, '', '');
+      _loginController.socialLogin(
+          'apple', appleCredential.userIdentifier!, '', '');
     }
   }
 }

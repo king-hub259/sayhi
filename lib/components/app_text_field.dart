@@ -47,12 +47,12 @@ class AppPasswordTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
 
   const AppPasswordTextField(
-      {Key? key,
+      {super.key,
       required this.controller,
       required this.onChanged,
       this.hintText,
       this.icon})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +95,7 @@ class AppMobileTextField extends StatelessWidget {
       controller: controller,
       hintText: hintText,
       countryCodeText: countryCodeText,
-      countrycodeValueChanged: countryCodeValueChanged,
+      countryCodeValueChanged: countryCodeValueChanged,
       label: label,
       backgroundColor: AppColorConstants.cardColor.darken(0.02),
       // textStyle: TextStyle(fontSize: FontSizes.h6),
@@ -108,35 +108,43 @@ class AppMobileTextField extends StatelessWidget {
 
 class AppDateTextField extends StatelessWidget {
   final String? hintText;
-  final String? defaultText;
 
   final ThemeIcon? icon;
   final String? label;
   final String? countryCodeText;
+  final String? format;
 
-  final ValueChanged<TimeOfDay>? onChanged;
+  final ValueChanged<DateTime>? onChanged;
+  final DateTime? selectedDate;
+  final DateTime? minDate;
+  final DateTime? maxDate;
 
   const AppDateTextField({
     super.key,
-    this.defaultText,
     this.hintText,
     this.label,
     this.icon,
+    this.format,
     this.countryCodeText,
     this.onChanged,
+    this.selectedDate,
+    this.minDate,
+    this.maxDate,
   });
 
   @override
   Widget build(BuildContext context) {
     return RoundedInputDateField(
-      defaultText: defaultText,
       hintText: hintText,
       label: label,
-      backgroundColor: AppColorConstants.cardColor.darken(0.02),
-      // textStyle: TextStyle(fontSize: FontSizes.h6),
-      cornerRadius: 5,
+      backgroundColor: AppColorConstants.cardColor.withValues(alpha: 0.7),
+      cornerRadius: 10,
       onChanged: onChanged,
+      format: format,
       iconColor: AppColorConstants.iconColor,
+      selectedDate: selectedDate,
+      minDate: minDate,
+      maxDate: maxDate,
     );
   }
 }

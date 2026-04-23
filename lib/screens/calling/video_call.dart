@@ -12,9 +12,9 @@ class VideoCallingScreen extends StatefulWidget {
   final Call call;
 
   const VideoCallingScreen({
-    Key? key,
+    super.key,
     required this.call,
-  }) : super(key: key);
+  }) ;
 
   @override
   State<VideoCallingScreen> createState() => _VideoCallingScreenState();
@@ -316,7 +316,7 @@ class _VideoCallingScreenState extends State<VideoCallingScreen> {
             ),
             // Obx(() => Container(
             //       color: agoraCallController.mutedVideo.value
-            //           ? AppColorConstants.themeColor.withOpacity(0.5)
+            //           ? AppColorConstants.themeColor.withValues(alpha: 0.5)
             //           : AppColorConstants.themeColor,
             //       height: 65,
             //       width: 65,
@@ -335,7 +335,7 @@ class _VideoCallingScreenState extends State<VideoCallingScreen> {
             // ),
             Obx(() => Container(
                   color: agoraCallController.mutedAudio.value
-                      ? AppColorConstants.themeColor.withOpacity(0.5)
+                      ? AppColorConstants.themeColor.withValues(alpha: 0.5)
                       : AppColorConstants.themeColor,
                   height: 65,
                   width: 65,

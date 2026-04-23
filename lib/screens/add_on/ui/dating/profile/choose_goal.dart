@@ -4,7 +4,7 @@ import 'package:foap/helper/imports/common_import.dart';
 class ChooseGoal extends StatefulWidget {
   final bool isSettingProfile;
 
-  const ChooseGoal({Key? key, required this.isSettingProfile}) : super(key: key);
+  const ChooseGoal({super.key, required this.isSettingProfile}) ;
 
   @override
   State<ChooseGoal> createState() => _ChooseGoalState();

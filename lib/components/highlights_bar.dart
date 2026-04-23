@@ -8,11 +8,11 @@ class HighlightsBar extends StatelessWidget {
   final Function(HighlightsModel) viewHighlightCallback;
 
   const HighlightsBar(
-      {Key? key,
+      {super.key,
       required this.highlights,
       this.addHighlightCallback,
       required this.viewHighlightCallback})
-      : super(key: key);
+      ;
 
   @override
   Widget build(BuildContext context) {

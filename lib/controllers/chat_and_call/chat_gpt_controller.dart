@@ -35,11 +35,12 @@ class ChatGPTController extends GetxController {
   final JsonDecoder _decoder = const JsonDecoder();
 
   sendMessage(String messageText) {
-    ChatGPTMessage message = ChatGPTMessage(content: messageText, isSent: true);
+    ChatGPTMessage message =
+        ChatGPTMessage(content: messageText, isSent: true);
 
     messages.add(message);
     var param = json.encode({
-      "model": "gpt-3.5-turbo",
+      "model": "gpt-4o",
       "messages": [
         {"role": "user", "content": messageText}
       ],
@@ -49,7 +50,8 @@ class ChatGPTController extends GetxController {
       'presence_penalty': 0.0,
     });
 
-    return http.post(Uri.parse('https://api.openai.com/v1/chat/completions'),
+    return http.post(
+        Uri.parse('https://api.openai.com/v1/chat/completions'),
         body: param,
         headers: {
           "Authorization":
@@ -61,7 +63,8 @@ class ChatGPTController extends GetxController {
       } else {
         ChatGPTApiResponse response = ChatGPTApiResponse.fromJson(data);
         ChatGPTMessage message = ChatGPTMessage(
-            content: response.data[0]['message']['content'], isSent: false);
+            content: response.data[0]['message']['content'],
+            isSent: false);
         messages.add(message);
 
         return;

@@ -7,8 +7,8 @@ import '../../controllers/coupons/near_by_offers.dart';
 
 class OfferCommentsScreen extends StatefulWidget {
   const OfferCommentsScreen({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  }) ;
 
   @override
   OfferCommentsScreenState createState() => OfferCommentsScreenState();

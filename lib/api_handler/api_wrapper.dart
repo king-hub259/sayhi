@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:connectivity/connectivity.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -33,6 +32,7 @@ class ApiResponse {
         Get.offAll(() => const LoginScreen());
       }
     }
+
     if (model.success != true &&
         model.data != null &&
         model.message?.isEmpty == true) {
@@ -60,62 +60,62 @@ class ApiWrapper {
   Future<ApiResponse?> getApiWithoutToken({required String url}) async {
     String urlString = '${NetworkConstantsUtil.baseUrl}$url';
 
-    final connectivityResult = await (Connectivity().checkConnectivity());
-
-    if (connectivityResult != ConnectivityResult.none) {
-      return http
-          .get(Uri.parse(urlString))
-          .then((http.Response response) async {
-        dynamic data = _decoder.convert(response.body);
-        Loader.dismiss();
-        SharedPrefs().setApiResponse(url: urlString, response: response.body);
-
-        return ApiResponse.fromJson(data);
-      });
-    } else {
+    // final connectivityResult = await (Connectivity().checkConnectivity());
+    //
+    // if (!connectivityResult.contains(ConnectivityResult.none)) {
+    return http
+        .get(Uri.parse(urlString))
+        .then((http.Response response) async {
+      dynamic data = _decoder.convert(response.body);
       Loader.dismiss();
-      String? cachedResponse =
-          await SharedPrefs().getCachedApiResponse(url: urlString);
+      SharedPrefs()
+          .setApiResponse(url: urlString, response: response.body);
 
-      if (cachedResponse != null) {
-        dynamic data = _decoder.convert(cachedResponse);
-        return ApiResponse.fromJson(data);
-      }
-    }
-    return null;
+      return ApiResponse.fromJson(data);
+    });
+    // } else {
+    //   Loader.dismiss();
+    //   String? cachedResponse =
+    //       await SharedPrefs().getCachedApiResponse(url: urlString);
+    //
+    //   if (cachedResponse != null) {
+    //     dynamic data = _decoder.convert(cachedResponse);
+    //     return ApiResponse.fromJson(data);
+    //   }
+    // }
+    //return null;
   }
 
   Future<ApiResponse?> getApi({required String url}) async {
     String? authKey = await SharedPrefs().getAuthorizationKey();
     String urlString = '${NetworkConstantsUtil.baseUrl}$url';
 
-    final connectivityResult = await (Connectivity().checkConnectivity());
-
-    print(authKey);
-    print(urlString);
-
-    if (connectivityResult != ConnectivityResult.none) {
-      return http.get(Uri.parse(urlString), headers: {
-        "Authorization": "Bearer ${authKey!}"
-      }).then((http.Response response) async {
-        // print(response.body);
-        dynamic data = _decoder.convert(response.body);
-        Loader.dismiss();
-        SharedPrefs().setApiResponse(url: urlString, response: response.body);
-
-        return ApiResponse.fromJson(data);
-      });
-    } else {
+    print('authKey $authKey');
+    print('urlString $urlString');
+    // final connectivityResult = await (Connectivity().checkConnectivity());
+    //
+    // if (!connectivityResult.contains(ConnectivityResult.none)) {
+    return http.get(Uri.parse(urlString), headers: {
+      "Authorization": "Bearer ${authKey!}"
+    }).then((http.Response response) async {
+      dynamic data = _decoder.convert(response.body);
       Loader.dismiss();
-      String? cachedResponse =
-          await SharedPrefs().getCachedApiResponse(url: urlString);
+      SharedPrefs()
+          .setApiResponse(url: urlString, response: response.body);
 
-      if (cachedResponse != null) {
-        dynamic data = _decoder.convert(cachedResponse);
-        return ApiResponse.fromJson(data);
-      }
-    }
-    return null;
+      return ApiResponse.fromJson(data);
+    });
+    // } else {
+    //   Loader.dismiss();
+    //   String? cachedResponse =
+    //       await SharedPrefs().getCachedApiResponse(url: urlString);
+    //
+    //   if (cachedResponse != null) {
+    //     dynamic data = _decoder.convert(cachedResponse);
+    //     return ApiResponse.fromJson(data);
+    //   }
+    // }
+    //return null;
   }
 
   Future<ApiResponse?> postApi(
@@ -123,16 +123,23 @@ class ApiWrapper {
     String? authKey = await SharedPrefs().getAuthorizationKey();
 
     String urlString = '${NetworkConstantsUtil.baseUrl}$url';
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.none) {
-      return null;
-    }
+    // final connectivityResult = await (Connectivity().checkConnectivity());
+    // if (connectivityResult.contains(ConnectivityResult.none)) {
+    //   return null;
+    // }
 
-    return http.post(Uri.parse(urlString), body: jsonEncode(param), headers: {
-      "Authorization": "Bearer ${authKey!}",
-      'Content-Type': 'application/json'
-    }).then((http.Response response) async {
+    print('urlString $urlString');
+    print('authKey $authKey');
+    print('param $param');
+
+    return http.post(Uri.parse(urlString),
+        body: jsonEncode(param),
+        headers: {
+          "Authorization": "Bearer ${authKey!}",
+          'Content-Type': 'application/json'
+        }).then((http.Response response) async {
       dynamic data = _decoder.convert(response.body);
+      print('data $data');
 
       return ApiResponse.fromJson(data);
     });
@@ -161,28 +168,22 @@ class ApiWrapper {
     String? authKey = await SharedPrefs().getAuthorizationKey();
     Loader.show(status: loadingString.tr);
 
-    // print('${NetworkConstantsUtil.baseUrl}$url');
     return http.delete(Uri.parse('${NetworkConstantsUtil.baseUrl}$url'),
         headers: {
           "Authorization": "Bearer $authKey",
           'Content-Type': 'application/json'
         }).then((http.Response response) async {
       dynamic data = _decoder.convert(response.body);
-      // print(data);
       Loader.dismiss();
-
       return ApiResponse.fromJson(data);
     });
   }
 
   Future<ApiResponse?> postApiWithoutToken(
       {required String url, required dynamic param}) async {
-    // Loader.show(status: loadingString.tr);
-
-    print('${NetworkConstantsUtil.baseUrl}$url');
-    print(param);
     return http
-        .post(Uri.parse('${NetworkConstantsUtil.baseUrl}$url'), body: param)
+        .post(Uri.parse('${NetworkConstantsUtil.baseUrl}$url'),
+            body: param)
         .then((http.Response response) async {
       dynamic data = _decoder.convert(response.body);
       return ApiResponse.fromJson(data);
@@ -198,7 +199,8 @@ class ApiWrapper {
     var request = http.MultipartRequest("POST", postUri);
     request.headers.addAll({"Authorization": "Bearer ${authKey!}"});
 
-    request.files.add(http.MultipartFile.fromBytes('imageFile', imageFileData,
+    request.files.add(http.MultipartFile.fromBytes(
+        'imageFile', imageFileData,
         filename: '${DateTime.now().toIso8601String()}.jpg',
         contentType: MediaType('image', 'jpg')));
 
@@ -220,31 +222,28 @@ class ApiWrapper {
     Loader.show(status: loadingString.tr);
     String? authKey = await SharedPrefs().getAuthorizationKey();
 
-    print('${NetworkConstantsUtil.baseUrl}$url');
-    print("Bearer ${authKey!}");
-    print(uploadMediaTypeId(type).toString());
-
     var request = http.MultipartRequest(
         'POST', Uri.parse('${NetworkConstantsUtil.baseUrl}$url'));
     request.headers.addAll({"Authorization": "Bearer ${authKey!}"});
     request.fields.addAll({'type': uploadMediaTypeId(type).toString()});
     if (mediaType == GalleryMediaType.video) {
-      request.files.add(await http.MultipartFile.fromPath('mediaFile', file,
+      request.files.add(await http.MultipartFile.fromPath(
+          'mediaFile', file,
           contentType: MediaType('video', 'mp4')));
     } else if (mediaType == GalleryMediaType.audio) {
-      request.files.add(await http.MultipartFile.fromPath('mediaFile', file,
+      request.files.add(await http.MultipartFile.fromPath(
+          'mediaFile', file,
           contentType: MediaType('audio', 'mp3')));
     } else {
-      request.files.add(await http.MultipartFile.fromPath('mediaFile', file));
+      request.files
+          .add(await http.MultipartFile.fromPath('mediaFile', file));
     }
     var res = await request.send();
     var responseData = await res.stream.toBytes();
     var responseString = String.fromCharCodes(responseData);
     dynamic data = _decoder.convert(responseString);
-    print('data $data');
     Loader.dismiss();
 
     return ApiResponse.fromJson(data);
   }
-
 }

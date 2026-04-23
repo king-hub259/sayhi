@@ -55,7 +55,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '787780064793',
     projectId: 'sayhi-7baeb',
     databaseURL: 'https://sayhi-7baeb-default-rtdb.firebaseio.com',
-    storageBucket: 'sayhi-7baeb.appspot.com',
+    storageBucket: 'sayhi-7baeb.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
@@ -64,9 +64,10 @@ class DefaultFirebaseOptions {
     messagingSenderId: '787780064793',
     projectId: 'sayhi-7baeb',
     databaseURL: 'https://sayhi-7baeb-default-rtdb.firebaseio.com',
-    storageBucket: 'sayhi-7baeb.appspot.com',
+    storageBucket: 'sayhi-7baeb.firebasestorage.app',
     androidClientId: '787780064793-u5uv6equan95fncr65s83afff07l5rbe.apps.googleusercontent.com',
     iosClientId: '787780064793-nqjbtv3f2no80jm578dmnaefgtf0cnbp.apps.googleusercontent.com',
     iosBundleId: 'com.jasspj.sayhi',
   );
+
 }

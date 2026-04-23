@@ -9,8 +9,8 @@ class ReplyAudioChatTile extends StatefulWidget {
   final Function(ChatMessageModel) replyMessageTapHandler;
 
   const ReplyAudioChatTile(
-      {Key? key, required this.message, required this.replyMessageTapHandler})
-      : super(key: key);
+      {super.key, required this.message, required this.replyMessageTapHandler})
+      ;
 
   @override
   State<ReplyAudioChatTile> createState() => _ReplyAudioChatTileState();
@@ -43,7 +43,7 @@ class _ReplyAudioChatTileState extends State<ReplyAudioChatTile> {
                 height: 70,
                 color: widget.message.isMineMessage
                     ? AppColorConstants.disabledColor
-                    : AppColorConstants.themeColor.withOpacity(0.2),
+                    : AppColorConstants.themeColor.withValues(alpha: 0.2),
                 child: ReplyOriginalMessageTile(
                     message: widget.message.repliedOnMessage,
                     replyMessageTapHandler: widget.replyMessageTapHandler))

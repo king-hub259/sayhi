@@ -1,15 +1,14 @@
 import 'package:foap/helper/imports/common_import.dart';
 import '../../components/category_slider.dart';
 import '../../components/paging_scrollview.dart';
-import '../../components/search_bar.dart';
 import '../../controllers/fund_raising/fund_raising_controller.dart';
 import 'fund_raising_campaigns_list.dart';
 
 class ExploreCampaigns extends StatefulWidget {
   final bool fromCategory;
 
-  const ExploreCampaigns({Key? key, required this.fromCategory})
-      : super(key: key);
+  const ExploreCampaigns({super.key, required this.fromCategory})
+      ;
 
   @override
   State<ExploreCampaigns> createState() => _ExploreCampaignsState();

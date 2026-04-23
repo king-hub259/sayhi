@@ -7,11 +7,11 @@ class ClubSettings extends StatefulWidget {
 
   // final Function(ClubModel) updateClubCallback;
   const ClubSettings({
-    Key? key,
+    super.key,
     required this.club,
     required this.deleteClubCallback,
     // required this.updateClubCallback
-  }) : super(key: key);
+  }) ;
 
   @override
   State<ClubSettings> createState() => _ClubSettingsState();

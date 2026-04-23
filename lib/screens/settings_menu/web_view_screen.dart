@@ -7,8 +7,8 @@
 //   final String header;
 //   final String url;
 //
-//   const WebViewScreen({Key? key, required this.header, required this.url})
-//       : super(key: key);
+//   const WebViewScreen({super.key, required this.header, required this.url})
+//       ;
 //
 //   @override
 //   State<WebViewScreen> createState() => _WebViewState();

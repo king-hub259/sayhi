@@ -9,8 +9,8 @@ import 'add_name.dart';
 class SetLocation extends StatefulWidget {
   final bool isSettingProfile;
 
-  const SetLocation({Key? key, required this.isSettingProfile})
-      : super(key: key);
+  const SetLocation({super.key, required this.isSettingProfile})
+      ;
 
   @override
   State<SetLocation> createState() => _SetLocationState();

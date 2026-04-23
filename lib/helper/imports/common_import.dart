@@ -20,4 +20,12 @@ export 'package:get/get.dart';
 export 'package:foap/components/app_text_field.dart';
 export 'package:foap/components/loader.dart';
 export 'package:foap/components/app_scaffold.dart';
+export 'package:foap/components/carousel_slider/carousel_slider.dart';
+export 'package:foap/components/search_bar.dart';
+export 'package:foap/components/page_indicator1.dart';
+export 'package:foap/components/static_map_widget/static_map_controller.dart';
+export 'package:foap/components/static_map_widget/static_map_widget.dart';
+export 'package:foap/components/switch1.dart';
+
+
 

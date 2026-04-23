@@ -9,8 +9,8 @@ class EnlargeImageViewScreen extends StatefulWidget {
   final PostModel model;
   final VoidCallback? handler;
 
-  const EnlargeImageViewScreen({Key? key, required this.model, this.handler})
-      : super(key: key);
+  const EnlargeImageViewScreen({super.key, required this.model, this.handler})
+      ;
 
   @override
   EnlargeImageViewState createState() => EnlargeImageViewState();

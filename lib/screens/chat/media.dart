@@ -7,6 +7,7 @@ import 'package:foap/helper/imports/common_import.dart';
 class Media {
   ///File saved on local storage
   File? file;
+
   String? filePath;
 
   ///Unique id to identify
@@ -59,25 +60,24 @@ class Media {
     return 1;
   }
 
-  Media({
-    this.id,
-    this.file,
-    this.filePath,
-    this.thumbnail,
-    this.mainFileBytes,
-    this.size,
-    this.creationTime,
-    this.title,
-    this.mediaType,
-    this.fileSize,
-    this.duration
-
-  });
+  Media(
+      {this.id,
+      this.file,
+      this.filePath,
+      this.thumbnail,
+      this.mainFileBytes,
+      this.size,
+      this.creationTime,
+      this.title,
+      this.mediaType,
+      this.fileSize,
+      this.duration});
 
   Media get copy {
     Media media = Media();
     media.id = id;
     media.file = file;
+
     media.filePath = filePath;
     media.thumbnail = thumbnail;
     media.mainFileBytes = mainFileBytes;

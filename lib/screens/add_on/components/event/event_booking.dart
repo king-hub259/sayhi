@@ -5,8 +5,8 @@ import 'package:foap/screens/profile/other_user_profile.dart';
 class EventBookingCard extends StatelessWidget {
   final EventBookingModel bookingModel;
 
-  const EventBookingCard({Key? key, required this.bookingModel})
-      : super(key: key);
+  const EventBookingCard({super.key, required this.bookingModel})
+      ;
 
   @override
   Widget build(BuildContext context) {

@@ -118,7 +118,7 @@ class EditPostScreenState extends State<EditPostScreen> {
                         child: Obx(() => Container(
                               width: double.infinity,
                               color: AppColorConstants.disabledColor
-                                  .withOpacity(0.1),
+                                  .withValues(alpha: 0.1),
                               child: _smartTextFieldController
                                       .currentHashtag.isNotEmpty
                                   ? TagHashtagView()

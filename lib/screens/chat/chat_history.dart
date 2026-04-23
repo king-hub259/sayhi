@@ -2,13 +2,12 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:foap/components/sm_tab_bar.dart';
 import 'package:foap/helper/imports/chat_imports.dart';
 import 'package:foap/helper/imports/common_import.dart';
-import '../../components/search_bar.dart';
 import '../calling/call_history.dart';
 import '../settings_menu/settings_controller.dart';
 import 'group/open_group_listing.dart';
 
 class ChatHistory extends StatefulWidget {
-  const ChatHistory({Key? key}) : super(key: key);
+  const ChatHistory({super.key}) ;
 
   @override
   State<ChatHistory> createState() => _ChatHistoryState();

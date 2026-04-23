@@ -1,9 +1,8 @@
 import 'package:chewie/chewie.dart';
-import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:foap/screens/chat/media.dart';
 import 'package:foap/screens/post/add_post_screen.dart';
 import 'package:foap/util/constant_util.dart';
-import 'package:video_compress_ds/video_compress_ds.dart';
+import 'package:video_compress/video_compress.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 import 'dart:io';
@@ -16,12 +15,12 @@ class PreviewReelsScreen extends StatefulWidget {
   final double? audioEndTime;
 
   const PreviewReelsScreen(
-      {Key? key,
+      {super.key,
       required this.reel,
       this.audioId,
       this.audioStartTime,
       this.audioEndTime})
-      : super(key: key);
+      ;
 
   @override
   State<StatefulWidget> createState() {
@@ -129,20 +128,20 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
       quality: 25,
     );
 
-    MediaInfo? mediaInfo = await VideoCompress.compressVideo(
-      widget.reel.path,
-      quality: VideoQuality.DefaultQuality,
-      deleteOrigin: false, // It's false by default
-    );
+    // MediaInfo? mediaInfo = await VideoCompress.compressVideo(
+    //   widget.reel.path,
+    //   quality: VideoQuality.DefaultQuality,
+    //   deleteOrigin: false, // It's false by default
+    // );
 
-    final videoInfo = await FlutterVideoInfo().getVideoInfo(mediaInfo!.path!);
+    final videoInfo = await VideoCompress.getMediaInfo(widget.reel.path);
     Loader.dismiss();
     Media media = Media();
     media.id = randomId();
-    media.file = File(mediaInfo!.path!);
+    media.file = File(widget.reel.path);
     media.thumbnail = thumbnail;
     media.size =
-        Size(videoInfo!.width!.toDouble(), videoInfo.height!.toDouble());
+        Size(videoInfo.width!.toDouble(), videoInfo.height!.toDouble());
     media.creationTime = DateTime.now();
     media.title = null;
     media.mediaType = GalleryMediaType.video;
@@ -157,7 +156,7 @@ class _PreviewReelsState extends State<PreviewReelsScreen> {
           audioId: widget.audioId,
           audioStartTime: widget.audioStartTime,
           audioEndTime: widget.audioEndTime,
-          postType: PostType.reel,
+          postType: PostCategory.reel,
           postCompletionHandler: () {
             Get.close(2);
           },

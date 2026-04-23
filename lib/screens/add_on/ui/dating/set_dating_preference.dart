@@ -7,7 +7,7 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 import '../../model/preference_model.dart';
 
 class SetDatingPreference extends StatefulWidget {
-  const SetDatingPreference({Key? key}) : super(key: key);
+  const SetDatingPreference({super.key});
 
   @override
   State<SetDatingPreference> createState() => SetDatingPreferenceState();
@@ -17,20 +17,17 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
   int? selectedGender;
 
   SfRangeValues _valuesForAge = const SfRangeValues(16.0, 50.0);
-  SfRangeValues _valuesForHeight = const SfRangeValues(165.0, 182.0);
+  SfRangeValues _valuesForHolisticPath = const SfRangeValues(0.0, 100.0);
 
   final DatingController datingController = DatingController();
   TextEditingController interestsController = TextEditingController();
   List<InterestModel> selectedInterests = [];
 
-  List<String> colors = DatingProfileConstants.colors;
-  int selectedColor = 1;
+  List<String> passionateAbout = DatingProfileConstants.passionateAbout;
+  int selectedPassionateAbout = 1;
 
-  List<String> religions = DatingProfileConstants.religions;
+  // List<String> religions = DatingProfileConstants.religions;
   TextEditingController religionController = TextEditingController();
-
-  List<String> maritalStatus = DatingProfileConstants.maritalStatus;
-  int? selectedMaritalStatus;
 
   TextEditingController languageController = TextEditingController();
   List<LanguageModel> selectedLanguages = [];
@@ -47,7 +44,8 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
     datingController.getLanguages();
     datingController.getUserPreference(() {
       if (datingController.preferenceModel?.gender != null) {
-        selectedGender = (datingController.preferenceModel?.gender ?? 1) - 1;
+        selectedGender =
+            (datingController.preferenceModel?.gender ?? 1) - 1;
       }
 
       double ageFrom = 16.0;
@@ -61,44 +59,48 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
       }
       _valuesForAge = SfRangeValues(ageFrom, ageTo);
 
-      double heightFrom = 165.0;
+      double holisticFrom = 0.0;
 
-      if (datingController.preferenceModel?.heightFrom != null) {
-        heightFrom = datingController.preferenceModel!.heightFrom!.toDouble();
+      if (datingController.preferenceModel?.holisticFrom != null) {
+        holisticFrom =
+            datingController.preferenceModel!.holisticFrom!.toDouble();
       }
 
-      double heightTo = 182.0;
-      if (datingController.preferenceModel?.heightTo != null) {
-        heightTo = datingController.preferenceModel!.heightTo!.toDouble();
+      double holisticTo = 100.0;
+      if (datingController.preferenceModel?.holisticTo != null) {
+        holisticTo =
+            datingController.preferenceModel!.holisticTo!.toDouble();
       }
-      _valuesForHeight = SfRangeValues(heightFrom, heightTo);
+      _valuesForHolisticPath = SfRangeValues(holisticFrom, holisticTo);
 
       if (datingController.preferenceModel?.interests != null) {
         selectedInterests = datingController.preferenceModel!.interests!;
-        String result = selectedInterests.map((val) => val.name).join(', ');
+        String result =
+            selectedInterests.map((val) => val.name).join(', ');
         interestsController.text = result;
       }
 
-      if (datingController.preferenceModel?.selectedColor != null) {
-        selectedColor = colors.map((e) => e.toLowerCase()).toList().indexOf(
-            datingController.preferenceModel!.selectedColor!.toLowerCase());
+      if (datingController.preferenceModel?.passionateAbout != null) {
+        selectedPassionateAbout =
+            datingController.preferenceModel!.passionateAbout!;
       }
 
-      if (datingController.preferenceModel?.religion != null) {
-        int index = religions
-            .map((e) => e.toLowerCase())
-            .toList()
-            .indexOf(datingController.preferenceModel!.religion!.toLowerCase());
-        religionController.text = religions[index];
-      }
+      // if (datingController.preferenceModel?.religion != null) {
+      //   int index = religions
+      //       .map((e) => e.toLowerCase())
+      //       .toList()
+      //       .indexOf(datingController.preferenceModel!.religion!.toLowerCase());
+      //   religionController.text = religions[index];
+      // }
 
-      if (datingController.preferenceModel?.status != null) {
-        selectedMaritalStatus = datingController.preferenceModel!.status! - 1;
-      }
+      // if (datingController.preferenceModel?.status != null) {
+      //   selectedMaritalStatus = datingController.preferenceModel!.status! - 1;
+      // }
 
       if (datingController.preferenceModel?.languages != null) {
         selectedLanguages = datingController.preferenceModel!.languages!;
-        String result = selectedLanguages.map((val) => val.name).join(', ');
+        String result =
+            selectedLanguages.map((val) => val.name).join(', ');
         languageController.text = result;
       }
 
@@ -134,14 +136,20 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
                           children: [
                         addHeader(genderString.tr).setPadding(bottom: 8),
                         SegmentedControl(
-                            segments: [
-                              maleString.tr,
-                              femaleString.tr,
-                              otherString.tr
-                            ],
+                            segments: DatingProfileConstants.genders,
                             value: selectedGender,
                             onValueChanged: (value) {
                               setState(() => selectedGender = value);
+                            }),
+                        addHeader(whatAreYouMostPassionateAboutString.tr)
+                            .setPadding(top:30,bottom: 8),
+                        SegmentedControl(
+                            segments:
+                                DatingProfileConstants.passionateAbout,
+                            value: selectedPassionateAbout - 1,
+                            onValueChanged: (value) {
+                              setState(() =>
+                                  selectedPassionateAbout = value + 1);
                             }),
                         addHeader(ageString.tr).setPadding(top: 30),
                         SfRangeSlider(
@@ -166,53 +174,71 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
                             return '${actualValue.round()}Y';
                           },
                         ),
-                        addHeader(heightString.tr).setPadding(top: 30),
+                        addHeader(holisticPathString.tr)
+                            .setPadding(top: 30),
                         SfRangeSlider(
-                          min: 121.0,
-                          max: 243.0,
+                          min: 0.0,
+                          max: 100.0,
                           inactiveColor: AppColorConstants.cardColor,
                           activeColor: AppColorConstants.themeColor,
-                          showLabels: true,
+                          // showLabels: true,
                           enableTooltip: true,
-                          values: _valuesForHeight,
+                          values: _valuesForHolisticPath,
                           onChanged: (dynamic values) {
                             setState(() {
-                              _valuesForHeight = values;
+                              _valuesForHolisticPath = values;
                             });
                           },
-                          tooltipTextFormatterCallback:
-                              (dynamic actualValue, String formattedText) {
-                            return '${actualValue.round()}';
-                          },
-                          labelFormatterCallback:
-                              (dynamic actualValue, String formattedText) {
-                            return '${actualValue.round()} cm';
-                          },
+                          // tooltipTextFormatterCallback:
+                          //     (dynamic actualValue, String formattedText) {
+                          //   return '${actualValue.round()}';
+                          // },
+                          // labelFormatterCallback:
+                          //     (dynamic actualValue, String formattedText) {
+                          //   return '${actualValue.round()} cm';
+                          // },
                         ),
+                        Row(
+                          mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                          children: [
+                            BodySmallText(
+                              beginnerString.tr,
+                            ),
+                            BodySmallText(
+                              professionalString.tr,
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+
                         addHeader(interestsString.tr)
                             .setPadding(top: 30, bottom: 8),
-                        addInputField(
-                            interestsController, () => openInterestsPopup()),
-                        addHeader(colorString.tr)
-                            .setPadding(top: 30, bottom: 8),
-                        SegmentedControl(
-                            segments: colors,
-                            value: selectedColor,
-                            onValueChanged: (value) {
-                              setState(() => selectedColor = value);
-                            }),
-                        addHeader(religionString.tr)
-                            .setPadding(top: 30, bottom: 8),
-                        addInputField(
-                            religionController, () => openReligionPopup()),
-                        addHeader(statusString.tr)
-                            .setPadding(top: 30, bottom: 8),
-                        SegmentedControl(
-                            segments: maritalStatus,
-                            value: selectedMaritalStatus,
-                            onValueChanged: (value) {
-                              setState(() => selectedMaritalStatus = value);
-                            }),
+                        addInputField(interestsController,
+                            () => openInterestsPopup()),
+                        // addHeader(colorString.tr)
+                        //     .setPadding(top: 30, bottom: 8),
+                        // SegmentedControl(
+                        //     segments: colors,
+                        //     value: selectedColor,
+                        //     onValueChanged: (value) {
+                        //       setState(() => selectedColor = value);
+                        //     }),
+                        // addHeader(religionString.tr)
+                        //     .setPadding(top: 30, bottom: 8),
+                        // addInputField(
+                        //     religionController, () => openReligionPopup()),
+                        // addHeader(statusString.tr)
+                        //     .setPadding(top: 30, bottom: 8),
+                        // SegmentedControl(
+                        //     segments: maritalStatus,
+                        //     value: selectedMaritalStatus,
+                        //     onValueChanged: (value) {
+                        //       setState(
+                        //           () => selectedMaritalStatus = value);
+                        //     }),
                         addHeader(languageString.tr)
                             .setPadding(top: 30, bottom: 8),
                         addInputField(
@@ -322,41 +348,41 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
         });
   }
 
-  void openReligionPopup() {
-    showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (context) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return FractionallySizedBox(
-                    heightFactor: 0.8,
-                    child: Container(
-                        color: AppColorConstants.cardColor.darken(),
-                        child: ListView.builder(
-                            itemCount: religions.length,
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (_, int index) {
-                              return ListTile(
-                                  title: BodyLargeText(religions[index]),
-                                  onTap: () {
-                                    setState(() {
-                                      religionController.text =
-                                          religions[index];
-                                    });
-                                  },
-                                  trailing: Icon(
-                                      religions[index] ==
-                                              religionController.text
-                                          ? Icons.check_box
-                                          : Icons.check_box_outline_blank,
-                                      color: AppColorConstants.iconColor));
-                            }).p16))
-                .topRounded(40);
-          });
-        });
-  }
+  // void openReligionPopup() {
+  //   showModalBottomSheet(
+  //       backgroundColor: Colors.transparent,
+  //       context: context,
+  //       builder: (context) {
+  //         return StatefulBuilder(
+  //             builder: (BuildContext context, StateSetter setState) {
+  //           return FractionallySizedBox(
+  //                   heightFactor: 0.8,
+  //                   child: Container(
+  //                       color: AppColorConstants.cardColor.darken(),
+  //                       child: ListView.builder(
+  //                           itemCount: religions.length,
+  //                           physics: const NeverScrollableScrollPhysics(),
+  //                           shrinkWrap: true,
+  //                           itemBuilder: (_, int index) {
+  //                             return ListTile(
+  //                                 title: BodyLargeText(religions[index]),
+  //                                 onTap: () {
+  //                                   setState(() {
+  //                                     religionController.text =
+  //                                         religions[index];
+  //                                   });
+  //                                 },
+  //                                 trailing: Icon(
+  //                                     religions[index] ==
+  //                                             religionController.text
+  //                                         ? Icons.check_box
+  //                                         : Icons.check_box_outline_blank,
+  //                                     color: AppColorConstants.iconColor));
+  //                           }).p16))
+  //               .topRounded(40);
+  //         });
+  //       });
+  // }
 
   void openLanguagePopup() {
     showModalBottomSheet(
@@ -376,15 +402,16 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
                             itemBuilder: (_, int index) {
                               LanguageModel model =
                                   datingController.languages[index];
-                              var anySelection = selectedLanguages
-                                  .where((element) => element.id == model.id);
+                              var anySelection = selectedLanguages.where(
+                                  (element) => element.id == model.id);
                               bool isAdded = anySelection.isNotEmpty;
 
                               return ListTile(
                                   title: BodyLargeText(model.name ?? ''),
                                   onTap: () {
-                                    int index = selectedLanguages.indexWhere(
-                                        (element) => element.id == model.id);
+                                    int index = selectedLanguages
+                                        .indexWhere((element) =>
+                                            element.id == model.id);
                                     index != -1
                                         ? selectedLanguages.removeAt(index)
                                         : selectedLanguages.add(model);
@@ -423,7 +450,8 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
                             shrinkWrap: true,
                             itemBuilder: (_, int index) {
                               return ListTile(
-                                  title: BodyLargeText(drinkHabitList[index]),
+                                  title:
+                                      BodyLargeText(drinkHabitList[index]),
                                   onTap: () {
                                     setState(() {
                                       drinkHabitController.text =
@@ -451,22 +479,23 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
     preferences.ageFrom = _valuesForAge.start.toInt();
     preferences.ageTo = _valuesForAge.end.toInt();
 
-    preferences.heightFrom = _valuesForHeight.start.toInt();
-    preferences.heightTo = _valuesForHeight.end.toInt();
+    preferences.passionateAbout = selectedPassionateAbout;
+    preferences.holisticFrom = _valuesForHolisticPath.start.toInt();
+    preferences.holisticTo = _valuesForHolisticPath.end.toInt();
 
     if (selectedInterests.isNotEmpty) {
       preferences.interests = selectedInterests;
     }
 
-    preferences.selectedColor = colors[selectedColor];
+    // preferences.selectedColor = colors[selectedColor];
 
     if (religionController.text.isNotEmpty) {
       preferences.religion = religionController.text;
     }
 
-    if (selectedMaritalStatus != null) {
-      preferences.status = selectedMaritalStatus! + 1;
-    }
+    // if (selectedMaritalStatus != null) {
+    //   preferences.status = selectedMaritalStatus! + 1;
+    // }
 
     if (selectedLanguages.isNotEmpty) {
       preferences.languages = selectedLanguages;
@@ -478,6 +507,7 @@ class SetDatingPreferenceState extends State<SetDatingPreference> {
       int drink = drinkHabitList.indexOf(drinkHabitController.text);
       preferences.drink = drink + 1;
     }
+
     datingController.setPreferencesApi(preferences);
   }
 }

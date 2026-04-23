@@ -1,9 +1,11 @@
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import 'package:foap/helper/imports/setting_imports.dart';
 import 'package:foap/screens/post/saved_posts.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../controllers/misc/gift_controller.dart';
+import 'received_gifts.dart';
+import 'creator_tools/creator_tools.dart';
 import 'help_screen.dart';
 
 class Settings extends StatefulWidget {
@@ -25,16 +27,17 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() =>
-        AppScaffold(
+    return Obx(() => AppScaffold(
           backgroundColor: AppColorConstants.backgroundColor,
           body: Column(
             children: [
-              if (_settingsController.appearanceChanged!.value) Container(),
+              if (_settingsController.appearanceChanged!.value)
+                Container(),
               backNavigationBar(title: settingsString.tr),
               Expanded(
                 child: Container(
-                  color: AppColorConstants.themeColor.withOpacity(0.05),
+                  color:
+                      AppColorConstants.themeColor.withValues(alpha: 0.05),
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
@@ -48,6 +51,14 @@ class _SettingsState extends State<Settings> {
                           }, true),
                           addTileEvent(paymentAndCoinsString.tr, () {
                             Get.to(() => const PaymentAndCoins());
+                          }, true),
+                          addTileEvent(giftsReceivedString.tr, () {
+                            final GiftController giftController = Get.find();
+                            giftController.fetchReceivedGifts();
+                            Get.to(() =>  ReceivedGiftsList());
+                          }, true),
+                          addTileEvent(creatorToolsString.tr, () {
+                            Get.to(() => const CreatorTools());
                           }, true),
                           addTileEvent(accountString.tr, () {
                             Get.to(() => const AppAccount());
@@ -70,17 +81,15 @@ class _SettingsState extends State<Settings> {
                           if (_settingsController
                               .setting.value!.enableDarkLightModeSwitch)
                             darkModeTile(),
-                          if (_settingsController.setting.value!.iosAppLink !=
-                              null ||
+                          if (_settingsController
+                                      .setting.value!.iosAppLink !=
+                                  null ||
                               _settingsController
-                                  .setting.value!.androidAppLink !=
+                                      .setting.value!.androidAppLink !=
                                   null)
                             addTileEvent(shareString.tr, () {
                               Share.share(
-                                  '${installThisCoolAppString
-                                      .tr}\n${_settingsController.setting.value!
-                                      .iosAppLink ?? ''}\n ${_settingsController
-                                      .setting.value!.androidAppLink ?? ''}');
+                                  '${installThisCoolAppString.tr}\n${_settingsController.setting.value!.iosAppLink ?? ''}\n ${_settingsController.setting.value!.androidAppLink ?? ''}');
                             }, false),
                           addTileEvent(logoutString.tr, () {
                             AppUtil.showNewConfirmationAlert(
@@ -96,7 +105,8 @@ class _SettingsState extends State<Settings> {
                           addTileEvent(deleteAccountString.tr, () {
                             AppUtil.showNewConfirmationAlert(
                                 title: deleteAccountString.tr,
-                                subTitle: areYouSureToDeleteAccountString.tr,
+                                subTitle:
+                                    areYouSureToDeleteAccountString.tr,
                                 cancelHandler: () {
                                   Get.back();
                                 },
@@ -105,9 +115,8 @@ class _SettingsState extends State<Settings> {
                                 });
                           }, false),
                           addTileEvent(createdByString.tr, () async {
-                            await launchUrl(
-                                Uri.parse(
-                                    'https://instagram.com/singhcoders/'));
+                            await launchUrl(Uri.parse(
+                                'https://instagram.com/singhcoders/'));
                           }, true),
                         ],
                       ),
@@ -168,19 +177,18 @@ class _SettingsState extends State<Settings> {
               ),
             ),
             // const Spacer(),
-            Obx(() =>
-                FlutterSwitch(
+            Obx(() => WKToggleSwitch1(
                   inactiveColor: AppColorConstants.disabledColor,
                   activeColor: AppColorConstants.themeColor,
                   width: 50.0,
                   height: 30.0,
-                  valueFontSize: 15.0,
-                  toggleSize: 20.0,
-                  value: _settingsController.darkMode.value,
-                  borderRadius: 30.0,
-                  padding: 8.0,
+                  // valueFontSize: 15.0,
+                  // toggleSize: 20.0,
+                  initialValue: _settingsController.darkMode.value,
+                  // borderRadius: 30.0,
+                  // padding: 8.0,
                   // showOnOff: true,
-                  onToggle: (val) {
+                  onChanged: (val) {
                     _settingsController.appearanceModeChanged(val);
                   },
                 )),

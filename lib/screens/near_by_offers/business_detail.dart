@@ -1,7 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:foap/screens/near_by_offers/offers_list.dart';
-
 import '../../components/paging_scrollview.dart';
 import '../../components/sm_tab_bar.dart';
 import '../../controllers/coupons/near_by_offers.dart';
@@ -13,7 +10,7 @@ class BusinessDetail extends StatelessWidget {
   final BusinessModel business;
   final NearByOffersController _nearbyOfferController = Get.find();
 
-  BusinessDetail({Key? key, required this.business}) : super(key: key);
+  BusinessDetail({super.key, required this.business}) ;
 
   final List<String> tabs = [
     aboutString.tr,
@@ -32,18 +29,15 @@ class BusinessDetail extends StatelessWidget {
                 height: Get.height * 0.4,
                 child: Stack(
                   children: [
-                    CarouselSlider(
+                    WKCarouselSlider(
                       items: mediaList(),
-                      options: CarouselOptions(
-                        aspectRatio: 1,
-                        enlargeCenterPage: false,
-                        enableInfiniteScroll: false,
-                        height: double.infinity,
-                        viewportFraction: 1,
-                        onPageChanged: (index, reason) {
-                          _nearbyOfferController.updateGallerySlider(index);
-                        },
-                      ),
+                      enlargeCenterPage: false,
+                      enableInfiniteScroll: false,
+                      height: double.infinity,
+                      viewportFraction: 1,
+                      onPageChanged: (index) {
+                        _nearbyOfferController.updateGallerySlider(index);
+                      },
                     ),
                     if (mediaList().length > 1)
                       Positioned(
@@ -54,13 +48,12 @@ class BusinessDetail extends StatelessWidget {
                             alignment: Alignment.center,
                             child: Obx(
                               () {
-                                return DotsIndicator(
+                                return WKIndicator1(
                                   dotsCount: mediaList().length,
                                   position:
                                       _nearbyOfferController.currentIndex.value,
-                                  decorator: DotsDecorator(
-                                      activeColor:
-                                          Theme.of(Get.context!).primaryColor),
+                                  activeDotColor: AppColorConstants.themeColor,
+                                  dotColor: AppColorConstants.disabledColor,
                                 );
                               },
                             ),
@@ -110,7 +103,7 @@ class BusinessDetail extends StatelessWidget {
               widget: Obx(() => Container(
                     height: 40,
                     width: 40,
-                    color: AppColorConstants.themeColor.withOpacity(0.2),
+                    color: AppColorConstants.themeColor.withValues(alpha: 0.2),
                     child: ThemeIconWidget(
                         _nearbyOfferController
                                 .currentBusiness.value!.isFavourite

@@ -4,7 +4,7 @@ import '../../../components/actionSheets/action_sheet1.dart';
 import '../../../model/generic_item.dart';
 
 class GroupSettings extends StatefulWidget {
-  const GroupSettings({Key? key}) : super(key: key);
+  const GroupSettings({super.key}) ;
 
   @override
   State<GroupSettings> createState() => _GroupSettingsState();

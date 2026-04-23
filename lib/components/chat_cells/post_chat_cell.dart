@@ -16,7 +16,7 @@ class PostChatTile extends StatelessWidget {
         child: Container(
           color: message.isMineMessage
               ? AppColorConstants.disabledColor
-              : AppColorConstants.themeColor.withOpacity(0.2),
+              : AppColorConstants.themeColor.withValues(alpha: 0.2),
           child: FutureBuilder<PostModel?>(
               future: getPostDetail(message.postContent.postId),
               builder:
@@ -122,7 +122,7 @@ class MinimalInfoPostChatTile extends StatelessWidget {
         child: Container(
           color: message.isMineMessage
               ? AppColorConstants.disabledColor
-              : AppColorConstants.themeColor.withOpacity(0.2),
+              : AppColorConstants.themeColor.withValues(alpha: 0.2),
           child: FutureBuilder<PostModel?>(
               future: getPostDetail(message.postContent.postId),
               builder:

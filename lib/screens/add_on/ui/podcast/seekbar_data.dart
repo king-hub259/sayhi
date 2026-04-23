@@ -15,12 +15,11 @@ class SeekBar extends StatefulWidget {
   final ValueChanged<Duration>? onChangedEnd;
 
   const SeekBar(
-      {Key? key,
+      {super.key,
       required this.position,
       required this.duration,
       this.onChanged,
-      this.onChangedEnd})
-      : super(key: key);
+      this.onChangedEnd});
 
   @override
   State<StatefulWidget> createState() => _SeekBarState();
@@ -55,7 +54,7 @@ class _SeekBarState extends State<SeekBar> {
               thumbShape: const RoundSliderThumbShape(
                   disabledThumbRadius: 4, enabledThumbRadius: 4),
               overlayShape: const RoundSliderOverlayShape(overlayRadius: 10),
-              activeTrackColor: Colors.white.withOpacity(0.2),
+              activeTrackColor: Colors.white.withValues(alpha: 0.2),
               inactiveTrackColor: Colors.white,
               thumbColor: Colors.white,
               overlayColor: Colors.white),

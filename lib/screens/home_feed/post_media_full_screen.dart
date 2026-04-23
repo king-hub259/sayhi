@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:foap/helper/imports/common_import.dart';
 import '../../components/live_tv_player.dart';
 import '../../model/post_gallery.dart';
@@ -7,8 +6,7 @@ class PostMediaFullScreen extends StatefulWidget {
   final List<PostGallery> gallery;
   final int? startIndex;
 
-  const PostMediaFullScreen({Key? key, required this.gallery, this.startIndex})
-      : super(key: key);
+  const PostMediaFullScreen({super.key, required this.gallery, this.startIndex});
 
   @override
   State<PostMediaFullScreen> createState() => _PostMediaFullScreenState();
@@ -21,19 +19,13 @@ class _PostMediaFullScreenState extends State<PostMediaFullScreen> {
       backgroundColor: AppColorConstants.backgroundColor,
       body: Stack(
         children: [
-          CarouselSlider(
+          WKCarouselSlider(
             items: mediaList(),
-            options: CarouselOptions(
-              aspectRatio: 1,
-              initialPage: widget.startIndex ?? 0,
-              enlargeCenterPage: false,
-              enableInfiniteScroll: false,
-              height: double.infinity,
-              viewportFraction: 1,
-              // onPageChanged: (index, reason) {
-              //   postCardController.updateGallerySlider(index, widget.model.id);
-              // },
-            ),
+            initialPage: widget.startIndex ?? 0,
+            enlargeCenterPage: false,
+            enableInfiniteScroll: false,
+            height: double.infinity,
+            viewportFraction: 1,
           ),
           appBar()
         ],
