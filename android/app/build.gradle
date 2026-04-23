@@ -46,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.jasspj.sayhi"
+        applicationId "com.edubest.app"
         minSdkVersion 24
         targetSdkVersion 34
         compileSdk 35
