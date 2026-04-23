@@ -7,17 +7,17 @@ final SettingsController settingsController = Get.find();
 
 class AppConfigConstants {
   // Name of app
-  static String appName = 'your_app_name';
+  static String appName = 'Funmic';
 
   static String currentVersion = '1.7';
   static const liveAppLink = 'https://www.google.com/';
 
   static String appTagline = 'Share your day activity with friends';
   static const googleMapApiKey = 'your_key';
-  static const restApiBaseUrl = 'https://your_domain/api/web/v1/';
+  static const restApiBaseUrl = 'https://chat.edubest.com.ng/api/web/v1/';
 
   // Socket api url
-  static const socketApiBaseUrl = "https://your_domain:4000/";
+  static const socketApiBaseUrl = "https://chat.edubest.com.ng:4000/";
 
   // Chat encryption key -- DO NOT CHANGE THIS
   static const encryptionKey = 'bbC2H19lkVbQDfakxcrtNMQdd0FloLyw';
